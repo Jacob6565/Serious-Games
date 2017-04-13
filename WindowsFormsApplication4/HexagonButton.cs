@@ -9,7 +9,6 @@ namespace WindowsFormsApplication4
 {
     class HexagonButton : Button
     {
-
         private bool _passable = true;
         public bool Passable
         {
