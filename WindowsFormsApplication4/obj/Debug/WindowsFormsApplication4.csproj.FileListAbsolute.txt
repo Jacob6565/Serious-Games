@@ -34,3 +34,6 @@ C:\Users\kristoffer\Desktop\P2 BU\Test\Test\WindowsFormsApplication4\obj\Debug\W
 C:\Users\kristoffer\Desktop\P2 BU\Test\Test\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.Handler.resources
 C:\Users\kristoffer\Desktop\P2 BU\Test\Test\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.Properties.Resources.resources
 C:\Users\kristoffer\Desktop\P2 BU\Test\Test\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.csproj.GenerateResource.Cache
+C:\Users\Jacob\Desktop\GitHub\WindowsFormsApplication4\bin\Debug\WindowsFormsApplication4.exe.config
+C:\Users\Jacob\Desktop\GitHub\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.exe
+C:\Users\Jacob\Desktop\GitHub\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.pdb
