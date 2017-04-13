@@ -12,6 +12,7 @@ namespace WindowsFormsApplication4
 {
     public class Math
     {
+        /**/
         public static PointF[] GetPoints(int height, int width)
         {
             float x, y, r, h;
