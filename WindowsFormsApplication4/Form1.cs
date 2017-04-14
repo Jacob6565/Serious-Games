@@ -51,7 +51,7 @@ namespace WindowsFormsApplication4
             {
                 HexagonButton newButton = new HexagonButton();
 
-                newButton.Size = new Size((int)(Formatting * _buttonHeight), (int)(formatting * _buttonWidth));
+                newButton.Size = new Size((int)(Formatting * _buttonHeight), (int)(Formatting * _buttonWidth));
                 buttons.Add(newButton);
                 this.Controls.Add(newButton);
                 newButton.TabStop = false;
