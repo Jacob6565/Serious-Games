@@ -44,15 +44,22 @@ namespace WindowsFormsApplication4
             get { return _numberOfHexagonsInRow; }
         }
 
-        public void MakeButtons()
+		public void MakeGrid()
+		{
+			List<HexagonButton> buttons = new List<HexagonButton>();
+			MakeButtons(buttons);
+			PlaceHexagonButton(buttons);
+		}
+
+        public void MakeButtons(List<HexagonButton> Buttons)
         {
-            List<HexagonButton> buttons = new List<HexagonButton>();
+            
             for (int i = 0; i < _totalHexagons; i++)
             {
                 HexagonButton newButton = new HexagonButton();
 
-                newButton.Size = new Size((int)(Formatting * _buttonHeight), (int)(formatting * _buttonWidth));
-                buttons.Add(newButton);
+                newButton.Size = new Size((int)(Formatting * _buttonHeight), (int)(Formatting * _buttonWidth));
+                Buttons.Add(newButton);
                 this.Controls.Add(newButton);
                 newButton.TabStop = false;
                 newButton.FlatStyle = FlatStyle.Flat;
@@ -60,8 +67,6 @@ namespace WindowsFormsApplication4
                 newButton.BackColor = Color.LightGray;
                 newButton.Paint += ButtonPainter;
             }
-            PlaceHexagonButton(buttons);
-
         }
 
         private void PlaceHexagonButton(List<HexagonButton> Buttons)
@@ -109,8 +114,8 @@ namespace WindowsFormsApplication4
         {
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
-            //this.ClientSize = new System.Drawing.Size(1000, 1000);
-            MakeButtons();
+			//this.ClientSize = new System.Drawing.Size(1000, 1000);
+			MakeGrid();
         }
     }
 }
