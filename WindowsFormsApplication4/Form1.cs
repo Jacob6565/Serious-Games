@@ -52,8 +52,7 @@ namespace WindowsFormsApplication4
 		}
 
         public void MakeButtons(List<HexagonButton> Buttons)
-        {
-            
+        {            
             for (int i = 0; i < _totalHexagons; i++)
             {
                 HexagonButton newButton = new HexagonButton();
