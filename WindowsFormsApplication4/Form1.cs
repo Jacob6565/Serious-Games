@@ -13,6 +13,7 @@ namespace WindowsFormsApplication4
 
     public partial class Handler : Form
     {
+        
         public Handler()
         {
             InitializeComponent();
@@ -44,12 +45,13 @@ namespace WindowsFormsApplication4
 
         public void MakeButtons()
         {
+            double formatting = 1.42;
             List<HexagonButton> buttons = new List<HexagonButton>();
             for (int i = 0; i < _totalHexagons; i++)
             {
                 HexagonButton newButton = new HexagonButton();
 
-                newButton.Size = new Size((int)(1.42 * _buttonHeight), (int)(1.42 * _buttonWidth));
+                newButton.Size = new Size((int)(formatting * _buttonHeight), (int)(formatting * _buttonWidth));
                 buttons.Add(newButton);
                 this.Controls.Add(newButton);
                 newButton.TabStop = false;
@@ -88,19 +90,17 @@ namespace WindowsFormsApplication4
             System.Drawing.Drawing2D.GraphicsPath buttonPath =
             new System.Drawing.Drawing2D.GraphicsPath();
 
-            Button sender_b = sender as Button;
+            Button hexagonButton = sender as Button;
 
-            System.Drawing.Rectangle newRectangle = sender_b.ClientRectangle;
+            System.Drawing.Rectangle newRectangle = hexagonButton.ClientRectangle;
 
             e.Graphics.DrawPolygon(Pens.Black, Math.GetPoints(ButtonHeigt, ButtonWidth));
 
             // Create a hexagon within the new rectangle.
             buttonPath.AddPolygon(Math.GetPoints(ButtonHeigt, ButtonWidth));
 
-            // Set the button's Region property to the newly create
-
             // Hexagon region.
-            sender_b.Region = new System.Drawing.Region(buttonPath);
+            hexagonButton.Region = new System.Drawing.Region(buttonPath);
         }
 
         /////
