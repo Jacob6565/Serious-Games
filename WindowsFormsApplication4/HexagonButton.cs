@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication4
 {
-    class HexagonButton : Button
+    public class HexagonButton : Button
     {
         private bool _passable = true;
         public bool Passable
