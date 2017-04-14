@@ -111,7 +111,6 @@ namespace WindowsFormsApplication4
             WindowState = FormWindowState.Maximized;
             //this.ClientSize = new System.Drawing.Size(1000, 1000);
             MakeButtons();
-
         }
     }
 }
