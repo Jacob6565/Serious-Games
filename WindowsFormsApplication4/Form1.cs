@@ -13,6 +13,7 @@ namespace WindowsFormsApplication4
 
     public partial class Handler : Form
     {
+		const double Formatting = 1.42;
         
         public Handler()
         {
@@ -45,13 +46,12 @@ namespace WindowsFormsApplication4
 
         public void MakeButtons()
         {
-            double formatting = 1.42;
             List<HexagonButton> buttons = new List<HexagonButton>();
             for (int i = 0; i < _totalHexagons; i++)
             {
                 HexagonButton newButton = new HexagonButton();
 
-                newButton.Size = new Size((int)(formatting * _buttonHeight), (int)(formatting * _buttonWidth));
+                newButton.Size = new Size((int)(Formatting * _buttonHeight), (int)(formatting * _buttonWidth));
                 buttons.Add(newButton);
                 this.Controls.Add(newButton);
                 newButton.TabStop = false;
