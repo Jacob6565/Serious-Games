@@ -8,24 +8,19 @@ namespace WindowsFormsApplication4
 {
 	class Map
 	{
-		private const int _totalHexagons = 80;
-		//private int hexagonsInLastRow;
-		//private int hexagonRows;
-		private int totalHexagonRows = _totalHexagons / 2;
-		private int totalHexagonColoumns = _totalHexagons / 2;
+		private int totalHexagonRows = 8;
+		private int totalHexagonColoumns = 12;
 
-		
-		
 		public void CreateMap(Handler map)
 		{
 			List<HexagonButton> HexagonButtonList = new List<HexagonButton>();
-			for (int i = 0; i < totalHexagonRows; i++)
+			for (int i = 0; i < totalHexagonColoumns; i++)
 			{
-				for (int j = 0; j < totalHexagonColoumns; j++)
+				for (int j = 0; j < totalHexagonRows; j++)
 				{
 					HexagonButton Button = new HexagonButton(i, j);
 					HexagonButtonList.Add(Button);
-
+					
 					map.DrawButton(Button);
 					map.PlaceHexagonButton(Button);
 				}

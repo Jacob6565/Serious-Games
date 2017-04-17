@@ -16,62 +16,28 @@ namespace WindowsFormsApplication4
 		private const double Formatting = 1.42;
         private const int _buttonWidth = 100;
 		private const int _buttonHeight = (int)(_buttonWidth * 1.15);
-		private const int _numberOfHexagonsInRow = 10;
+		private const int _buttonHeightOffset = (3 * (_buttonHeight / 4));
 
 		public Handler()
         {
             InitializeComponent();
         }
 
-        public int ButtonWidth
-        {
-            get { return _buttonWidth; }
-        }
-
-        public int ButtonHeigt
-        {
-            get { return _buttonHeight; }
-        }
-
-        public int NumerOfHexagonsInRow
-        {
-            get { return _numberOfHexagonsInRow; }
-        }
-
         public void DrawButton(HexagonButton button)
         {
             button.Size = new Size((int)(Formatting * _buttonHeight), (int)(Formatting * _buttonWidth));
-            this.Controls.Add(button);
             button.TabStop = false;
             button.FlatStyle = FlatStyle.Flat;
             button.FlatAppearance.BorderSize = 0;
 			button.BackColor = Color.LightGray;
             button.Paint += ButtonPainter;
+			this.Controls.Add(button);
         }
 
         public void PlaceHexagonButton(HexagonButton button)
         {
-			button.Left = calculateButtonWidthOffset(button.XCoordinate);
+			button.Left = calculateButtonWidthOffset(button.XCoordinate, button.YCoordinate);
 			button.Top = calculateButtonHeightOffset(button.YCoordinate);
-
-			/*
-            for (int i = 0; i < _totalHexagons / _numberOfHexagonsInRow; i++)
-            {
-                int left = Buttons[count].Left;
-                int top = Buttons[count].Top;
-                if (i > 0)
-                    top += i * (3 * (_buttonHeight / 4));
-                if (i % 2 != 0)
-                    left += (int)(_buttonWidth) / 2;
-                for (int k = 0; k < _numberOfHexagonsInRow; k++)
-                {
-                    Buttons[count].Top = top;
-                    Buttons[count].Left = left;
-                    left += (int)(_buttonWidth);
-                    ++count;
-                }
-            }
-			*/
         }
 
         public void ButtonPainter(object sender, PaintEventArgs e)
@@ -83,10 +49,10 @@ namespace WindowsFormsApplication4
 
             System.Drawing.Rectangle newRectangle = hexagonButton.ClientRectangle;
 
-            e.Graphics.DrawPolygon(Pens.Black, Math.GetPoints(ButtonHeigt, ButtonWidth));
+            e.Graphics.DrawPolygon(Pens.Black, Math.GetPoints(_buttonHeight, _buttonWidth));
 
             // Create a hexagon within the new rectangle.
-            buttonPath.AddPolygon(Math.GetPoints(ButtonHeigt, ButtonWidth));
+            buttonPath.AddPolygon(Math.GetPoints(_buttonHeight, _buttonWidth));
 
             // Hexagon region.
             hexagonButton.Region = new System.Drawing.Region(buttonPath);
@@ -99,35 +65,19 @@ namespace WindowsFormsApplication4
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
 			//this.ClientSize = new System.Drawing.Size(1000, 1000);
-			//CreateMap();
+			
 		}
 
-		public void CreateMap()
-		{
-			List<HexagonButton> HexagonButtonList = new List<HexagonButton>();
-			for (int i = 0; i < 40; i++)
-			{
-				for (int j = 0; j < 40; j++)
-				{
-					HexagonButton Button = new HexagonButton(i, j);
-					HexagonButtonList.Add(Button);
-
-					DrawButton(Button);
-					PlaceHexagonButton(Button);
-				}
-			}
-		}
-
-		private int calculateButtonWidthOffset(int xCoordinate)
+		private int calculateButtonWidthOffset(int xCoordinate, int yCoordinate)
 		{
 			int width = 0;
 
-			width += (xCoordinate * ButtonWidth);
+			width += (xCoordinate * _buttonWidth);
 			
 			//Gives every second button an offset to make the grid
-			if(xCoordinate % 2 == 1)
+			if(yCoordinate % 2 == 1)
 			{
-				width += ButtonWidth / 2;
+				width += _buttonWidth / 2;
 			}
 
 			return width;
@@ -137,7 +87,7 @@ namespace WindowsFormsApplication4
 		{
 			int height = 0;
 
-			height += (yCoordinate * ButtonHeigt);
+			height += (yCoordinate * _buttonHeightOffset);
 
 			return height;
 		}
