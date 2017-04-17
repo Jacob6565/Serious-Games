@@ -16,7 +16,11 @@ namespace WindowsFormsApplication4
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Handler());
-        }
+			Handler FirstLevelHandler = new Handler();
+            Application.Run(FirstLevelHandler);
+
+			Map FirstLevel = new Map();
+			FirstLevel.CreateMap(FirstLevelHandler);
+		}
     }
 }

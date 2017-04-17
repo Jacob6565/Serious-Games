@@ -99,7 +99,24 @@ namespace WindowsFormsApplication4
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
 			//this.ClientSize = new System.Drawing.Size(1000, 1000);
-        }
+			//CreateMap();
+		}
+
+		public void CreateMap()
+		{
+			List<HexagonButton> HexagonButtonList = new List<HexagonButton>();
+			for (int i = 0; i < 40; i++)
+			{
+				for (int j = 0; j < 40; j++)
+				{
+					HexagonButton Button = new HexagonButton(i, j);
+					HexagonButtonList.Add(Button);
+
+					DrawButton(Button);
+					PlaceHexagonButton(Button);
+				}
+			}
+		}
 
 		private int calculateButtonWidthOffset(int xCoordinate)
 		{

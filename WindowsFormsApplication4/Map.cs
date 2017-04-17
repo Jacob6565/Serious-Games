@@ -14,13 +14,12 @@ namespace WindowsFormsApplication4
 		private int totalHexagonRows = _totalHexagons / 2;
 		private int totalHexagonColoumns = _totalHexagons / 2;
 
-		List<HexagonButton> HexagonButtonList = new List<HexagonButton>();
 		
-		public void CreateMap()
+		
+		public void CreateMap(Handler map)
 		{
-			Handler map = new Handler();
-
-			for(int i = 0; i < totalHexagonRows; i++)
+			List<HexagonButton> HexagonButtonList = new List<HexagonButton>();
+			for (int i = 0; i < totalHexagonRows; i++)
 			{
 				for (int j = 0; j < totalHexagonColoumns; j++)
 				{
@@ -32,7 +31,5 @@ namespace WindowsFormsApplication4
 				}
 			}
 		}
-
-		
 	}
 }
