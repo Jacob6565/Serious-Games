@@ -48,7 +48,7 @@ namespace WindowsFormsApplication4
             this.Margin = new System.Windows.Forms.Padding(2); 
             this.Name = "Hexagon";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Hexagon_Load);
+            this.Load += new System.EventHandler(this.DrawWindow);
             this.ResumeLayout(false);
 
         }

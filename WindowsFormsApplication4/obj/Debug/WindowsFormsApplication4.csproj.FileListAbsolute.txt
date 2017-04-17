@@ -1,1 +1,9 @@
 C:\Users\Tobias\Source\Repos\Serious-Games\WindowsFormsApplication4\bin\Debug\WindowsFormsApplication4.exe.config
+C:\Users\Tobias\Source\Repos\Serious-Games\WindowsFormsApplication4\bin\Debug\WindowsFormsApplication4.exe
+C:\Users\Tobias\Source\Repos\Serious-Games\WindowsFormsApplication4\bin\Debug\WindowsFormsApplication4.pdb
+C:\Users\Tobias\Source\Repos\Serious-Games\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.Handler.resources
+C:\Users\Tobias\Source\Repos\Serious-Games\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.Properties.Resources.resources
+C:\Users\Tobias\Source\Repos\Serious-Games\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.csproj.GenerateResource.Cache
+C:\Users\Tobias\Source\Repos\Serious-Games\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.exe
+C:\Users\Tobias\Source\Repos\Serious-Games\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.pdb
+C:\Users\Tobias\Source\Repos\Serious-Games\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.csprojResolveAssemblyReference.cache

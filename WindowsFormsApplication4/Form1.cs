@@ -13,81 +13,31 @@ namespace WindowsFormsApplication4
 
     public partial class Handler : Form
     {
-		const double Formatting = 1.42;
-        
-        public Handler()
+		private const double Formatting = 1.42;
+        private const int _buttonWidth = 100;
+		private const int _buttonHeight = (int)(_buttonWidth * 1.15);
+		private const int _buttonHeightOffset = (3 * (_buttonHeight / 4));
+
+		public Handler()
         {
             InitializeComponent();
         }
 
-        private const int _buttonWidth = 100;
-        public int ButtonWidth
+        public void DrawButton(HexagonButton button)
         {
-            get { return _buttonWidth; }
+            button.Size = new Size((int)(Formatting * _buttonHeight), (int)(Formatting * _buttonWidth));
+            button.TabStop = false;
+            button.FlatStyle = FlatStyle.Flat;
+            button.FlatAppearance.BorderSize = 0;
+			button.BackColor = Color.LightGray;
+            button.Paint += ButtonPainter;
+			this.Controls.Add(button);
         }
 
-        private const int _buttonHeight = (int)(_buttonWidth * 1.15);
-        public int ButtonHeigt
+        public void PlaceHexagonButton(HexagonButton button)
         {
-            get { return _buttonHeight; }
-        }
-
-        private static int _totalHexagons = 80;
-        public int TotalHexagons
-        {
-            get { return _totalHexagons; }
-        }
-
-        private const int _numberOfHexagonsInRow = 10;
-        public int NumerOfHexagonsInRow
-        {
-            get { return _numberOfHexagonsInRow; }
-        }
-
-		public void MakeGrid()
-		{
-			List<HexagonButton> buttons = new List<HexagonButton>();
-			MakeButtons(buttons);
-			PlaceHexagonButton(buttons);
-		}
-
-        public void MakeButtons(List<HexagonButton> Buttons)
-        {            
-            for (int i = 0; i < _totalHexagons; i++)
-            {
-                HexagonButton newButton = new HexagonButton();
-
-                newButton.Size = new Size((int)(Formatting * _buttonHeight), (int)(Formatting * _buttonWidth));
-                Buttons.Add(newButton);
-                this.Controls.Add(newButton);
-                newButton.TabStop = false;
-                newButton.FlatStyle = FlatStyle.Flat;
-                newButton.FlatAppearance.BorderSize = 0;
-                newButton.BackColor = Color.LightGray;
-                newButton.Paint += ButtonPainter;
-                newButton.MouseClick += newButton.NotPassable;
-            }
-        }
-
-        private void PlaceHexagonButton(List<HexagonButton> Buttons)
-        {
-            int count = 0;
-            for (int i = 0; i < _totalHexagons / _numberOfHexagonsInRow; i++)
-            {
-                int left = Buttons[count].Left;
-                int top = Buttons[count].Top;
-                if (i > 0)
-                    top += i * (3 * (_buttonHeight / 4));
-                if (i % 2 != 0)
-                    left += (int)(_buttonWidth) / 2;
-                for (int k = 0; k < _numberOfHexagonsInRow; k++)
-                {
-                    Buttons[count].Top = top;
-                    Buttons[count].Left = left;
-                    left += (int)(_buttonWidth);
-                    ++count;
-                }
-            }
+			button.Left = calculateButtonWidthOffset(button.XCoordinate, button.YCoordinate);
+			button.Top = calculateButtonHeightOffset(button.YCoordinate);
         }
 
         public void ButtonPainter(object sender, PaintEventArgs e)
@@ -99,10 +49,10 @@ namespace WindowsFormsApplication4
 
             System.Drawing.Rectangle newRectangle = hexagonButton.ClientRectangle;
 
-            e.Graphics.DrawPolygon(Pens.Black, Math.GetPoints(ButtonHeigt, ButtonWidth));
+            e.Graphics.DrawPolygon(Pens.Black, Math.GetPoints(_buttonHeight, _buttonWidth));
 
             // Create a hexagon within the new rectangle.
-            buttonPath.AddPolygon(Math.GetPoints(ButtonHeigt, ButtonWidth));
+            buttonPath.AddPolygon(Math.GetPoints(_buttonHeight, _buttonWidth));
 
             // Hexagon region.
             hexagonButton.Region = new System.Drawing.Region(buttonPath);
@@ -110,12 +60,36 @@ namespace WindowsFormsApplication4
 
         /////
 
-        private void Hexagon_Load(object sender, EventArgs e)
+        public void DrawWindow(object sender, EventArgs e)
         {
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
 			//this.ClientSize = new System.Drawing.Size(1000, 1000);
-			MakeGrid();
-        }
+			
+		}
+
+		private int calculateButtonWidthOffset(int xCoordinate, int yCoordinate)
+		{
+			int width = 0;
+
+			width += (xCoordinate * _buttonWidth);
+			
+			//Gives every second button an offset to make the grid
+			if(yCoordinate % 2 == 1)
+			{
+				width += _buttonWidth / 2;
+			}
+
+			return width;
+		}
+
+		private int calculateButtonHeightOffset(int yCoordinate)
+		{
+			int height = 0;
+
+			height += (yCoordinate * _buttonHeightOffset);
+
+			return height;
+		}
     }
 }

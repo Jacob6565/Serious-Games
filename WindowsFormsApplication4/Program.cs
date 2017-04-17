@@ -8,15 +8,18 @@ namespace WindowsFormsApplication4
 {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
+		/// <summary>
+		/// The main entry point for the application.
+		/// </summary>
+		[STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Handler());
-        }
-    }
+			Application.EnableVisualStyles();
+			Application.SetCompatibleTextRenderingDefault(false);
+			Handler FirstLevelHandler = new Handler();
+			Map FirstLevel = new Map();
+			FirstLevel.CreateMap(FirstLevelHandler);
+			Application.Run(FirstLevelHandler);
+		}
+	}
 }
