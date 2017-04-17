@@ -13,32 +13,32 @@ namespace WindowsFormsApplication4
 
     public partial class Handler : Form
     {
-		const double Formatting = 1.42;
-        
-        public Handler()
+		private const double Formatting = 1.42;
+        private const int _buttonWidth = 100;
+		private const int _buttonHeight = (int)(_buttonWidth * 1.15);
+		private const int _numberOfHexagonsInRow = 10;
+		private const int _totalHexagons = 80;
+
+		public Handler()
         {
             InitializeComponent();
         }
 
-        private const int _buttonWidth = 100;
         public int ButtonWidth
         {
             get { return _buttonWidth; }
         }
 
-        private const int _buttonHeight = (int)(_buttonWidth * 1.15);
         public int ButtonHeigt
         {
             get { return _buttonHeight; }
         }
 
-        private static int _totalHexagons = 80;
         public int TotalHexagons
         {
             get { return _totalHexagons; }
         }
 
-        private const int _numberOfHexagonsInRow = 10;
         public int NumerOfHexagonsInRow
         {
             get { return _numberOfHexagonsInRow; }
