@@ -31,7 +31,8 @@ namespace WindowsFormsApplication4
             button.FlatAppearance.BorderSize = 0;
 			button.BackColor = Color.LightGray;
             button.Paint += ButtonPainter;
-			this.Controls.Add(button);
+            button.MouseClick += button.NotPassable;
+            this.Controls.Add(button);
         }
 
         public void PlaceHexagonButton(HexagonButton button)

@@ -7,3 +7,6 @@ C:\Users\Tobias\Source\Repos\Serious-Games\WindowsFormsApplication4\obj\Debug\Wi
 C:\Users\Tobias\Source\Repos\Serious-Games\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.exe
 C:\Users\Tobias\Source\Repos\Serious-Games\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.pdb
 C:\Users\Tobias\Source\Repos\Serious-Games\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.csprojResolveAssemblyReference.cache
+C:\Users\Jacob\Desktop\Clone\WindowsFormsApplication4\bin\Debug\WindowsFormsApplication4.exe.config
+C:\Users\Jacob\Desktop\Clone\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.exe
+C:\Users\Jacob\Desktop\Clone\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.pdb
