@@ -58,6 +58,7 @@
     <Compile Include="HexagonButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Map.cs" />
     <Compile Include="Math.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
