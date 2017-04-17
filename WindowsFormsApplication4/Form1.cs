@@ -59,14 +59,27 @@ namespace WindowsFormsApplication4
             hexagonButton.Region = new System.Drawing.Region(buttonPath);
         }
 
-        /////
+        private void addExitButton()
+		{
+			Button ExitButton = new Button();
+			ExitButton.Size = new Size(100, 25);
+			ExitButton.TabStop = false;
+			ExitButton.FlatStyle = FlatStyle.Flat;
+			ExitButton.FlatAppearance.BorderSize = 0;
+			ExitButton.BackColor = Color.LightGray;
+			ExitButton.Location = new Point(this.Bounds.Right - ExitButton.Width - 20, this.Bounds.Top + 20);
+			ExitButton.MouseClick += ExitButtonClick;
+			ExitButton.Text = "Close application";
+			ExitButton.TextAlign = ContentAlignment.MiddleCenter;
+			this.Controls.Add(ExitButton);
+		}
 
         public void DrawWindow(object sender, EventArgs e)
         {
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
 			//this.ClientSize = new System.Drawing.Size(1000, 1000);
-			
+			addExitButton();
 		}
 
 		private int calculateButtonWidthOffset(int xCoordinate, int yCoordinate)
@@ -92,5 +105,10 @@ namespace WindowsFormsApplication4
 
 			return height;
 		}
-    }
+
+		public void ExitButtonClick(object sender, MouseEventArgs e)
+		{
+			Close();
+		}
+	}
 }
