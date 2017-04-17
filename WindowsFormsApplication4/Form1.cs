@@ -52,8 +52,7 @@ namespace WindowsFormsApplication4
 		}
 
         public void MakeButtons(List<HexagonButton> Buttons)
-        {
-            
+        {            
             for (int i = 0; i < _totalHexagons; i++)
             {
                 HexagonButton newButton = new HexagonButton();
@@ -66,6 +65,7 @@ namespace WindowsFormsApplication4
                 newButton.FlatAppearance.BorderSize = 0;
                 newButton.BackColor = Color.LightGray;
                 newButton.Paint += ButtonPainter;
+                newButton.MouseClick += newButton.NotPassable;
             }
         }
 
