@@ -47,6 +47,7 @@ namespace WindowsFormsApplication4
                 _showImage = value;
             }
         }
+       // aasdsad
 
 
         public void NotPassable(object sender, MouseEventArgs e)
