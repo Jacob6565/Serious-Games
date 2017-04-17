@@ -13,16 +13,16 @@ namespace WindowsFormsApplication4
 
 		public void CreateMap(Handler map)
 		{
+            HexagonButton[,] hexMap = new HexagonButton[totalHexagonColoumns, totalHexagonRows];
 			List<HexagonButton> HexagonButtonList = new List<HexagonButton>();
 			for (int i = 0; i < totalHexagonColoumns; i++)
 			{
 				for (int j = 0; j < totalHexagonRows; j++)
 				{
-					HexagonButton Button = new HexagonButton(i, j);
-					HexagonButtonList.Add(Button);
+					hexMap[i,j] = new HexagonButton(i, j);
 					
-					map.DrawButton(Button);
-					map.PlaceHexagonButton(Button);
+					map.DrawButton(hexMap[i,j]);
+					map.PlaceHexagonButton(hexMap[i, j]);
 				}
 			}
 		}
