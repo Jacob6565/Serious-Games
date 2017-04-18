@@ -68,7 +68,7 @@ namespace WindowsFormsApplication4
 
         public void NotPassable(object sender, MouseEventArgs e)
         {
-			Console.WriteLine($"You pressed on tile: ({XCoordinate}, {YCoordinate})");
+			Console.WriteLine($"You pressed on tile: ({XCoordinate}, {YCoordinate} {IsEdgeTile})");
             HexagonButton sender_Button = sender as HexagonButton;
             sender_Button.BackColor = Color.FromArgb(255, 105, 180);
             sender_Button.Enabled = false;
