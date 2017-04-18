@@ -13,6 +13,7 @@ namespace WindowsFormsApplication4
 
 		public void CreateMap(Handler map)
 		{
+            //Declare 2 dimensional array of HexagonButton
             HexagonButton[,] hexMap = new HexagonButton[totalHexagonColoumns, totalHexagonRows];
 			List<HexagonButton> HexagonButtonList = new List<HexagonButton>();
 			for (int i = 0; i < totalHexagonColoumns; i++)
