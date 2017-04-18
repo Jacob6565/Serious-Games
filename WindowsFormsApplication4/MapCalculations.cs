@@ -10,19 +10,28 @@ namespace WindowsFormsApplication4
 	{
 		private List<HexagonButton> _queue;
 
-		public void shortestRoute(List<HexagonButton> buttonList, HexagonButton startingButton)
+		public void shortestRoute(List<HexagonButton> buttonList, HexagonButton startingButton, Map map)
 		{
 			resetAllButtons(buttonList);
-			startingButton.Visited = true;
 			_queue.Add(startingButton);
 
 			while(!_queue.Any())
 			{
-				HexagonButton currentButton = _queue.First();
+				HexagonButton currentHex = _queue.First();
 				_queue.Remove(_queue.First());
-
-
+				currentHex.Visited = true;
+				if (currentHex.IsEdgeTile == false)
+				{
+					
+				}
 			}
+		}
+
+		private HexagonButton checkNeighbour(HexagonButton currentHex, HexagonButton neighbourHex)
+		{
+			
+
+			return neighbourHex;
 		}
 
 		public void shortestRouteRec(List<HexagonButton> buttonList, HexagonButton button)
