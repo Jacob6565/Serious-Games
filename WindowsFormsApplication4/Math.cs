@@ -30,8 +30,6 @@ namespace WindowsFormsApplication4
             points[4] = new PointF(x - r, y + side + h);
             points[5] = new PointF(x - r, y + h);
             return points;
-
-          
         }
 
     }
