@@ -8,8 +8,9 @@ namespace WindowsFormsApplication4
 {
 	class Map
 	{
-		private int totalHexagonRows = 8;
 		private int totalHexagonColoumns = 12;
+		private int totalHexagonRows = 8;
+		
 
 		public void CreateMap(Handler map)
 		{
@@ -18,7 +19,7 @@ namespace WindowsFormsApplication4
 			{
 				for (int j = 0; j < totalHexagonRows; j++)
 				{
-					HexagonButton Button = new HexagonButton(i, j);
+					HexagonButton Button = new HexagonButton(i, j, false);
 					HexagonButtonList.Add(Button);
 					
 					map.DrawButton(Button);

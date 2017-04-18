@@ -10,32 +10,50 @@ namespace WindowsFormsApplication4
 {
     public class HexagonButton : Button
     {
-        public HexagonButton(int xCoordinate, int yCoordinate)
+        public HexagonButton(int xCoordinate, int yCoordinate, bool isEdgeTile)
         {
-            this.xCoordinate = xCoordinate;
-            this.yCoordinate = yCoordinate;
+            _xCoordinate = xCoordinate;
+            _yCoordinate = yCoordinate;
+			_isEdgeTile = isEdgeTile;
         }
 
-        private bool _passable = true;
+		private bool _visited = false;
+
+		public bool Visited
+		{
+			get { return _visited; }
+			set { _visited = value; }
+		}
+
+
+		private bool _passable = true;
         public bool Passable
         {
             get { return _passable; }
             set { _passable = value; }
         }
 
-        private int xCoordinate;
+        private int _xCoordinate;
         public int XCoordinate
         {
-            get { return xCoordinate; }
+            get { return _xCoordinate; }
         }
 
-        private int yCoordinate;
+        private int _yCoordinate;
         public int YCoordinate
         {
-            get { return yCoordinate; }
+            get { return _yCoordinate; }
         }
 
-        private bool _showImage = false;
+		private bool _isEdgeTile;
+
+		public bool IsEdgeTile
+		{
+			get { return _isEdgeTile; }
+		}
+
+
+		private bool _showImage = false;
         public bool ShowImage
         {
             get
@@ -50,10 +68,14 @@ namespace WindowsFormsApplication4
 
         public void NotPassable(object sender, MouseEventArgs e)
         {
+			Console.WriteLine($"You pressed on tile: ({XCoordinate}, {YCoordinate})");
             HexagonButton sender_Button = sender as HexagonButton;
             sender_Button.BackColor = Color.FromArgb(255, 105, 180);
             sender_Button.Enabled = false;
             sender_Button.Passable = false;
         }
+
+		public List<HexagonButton> parentButtonList;
+		public List<HexagonButton> neighbourList;
     }
 }
