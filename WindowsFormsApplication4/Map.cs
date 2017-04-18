@@ -10,7 +10,7 @@ namespace WindowsFormsApplication4
 	{
 		private int totalHexagonRows = 8;
 		private int totalHexagonColoumns = 12;
-        HexagonButton[,] hexMap;
+        public HexagonButton[,] hexMap;
 
         public Map(Handler map)
         {

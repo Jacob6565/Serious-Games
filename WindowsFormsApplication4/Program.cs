@@ -18,7 +18,7 @@ namespace WindowsFormsApplication4
 			Application.SetCompatibleTextRenderingDefault(false);
 			Handler FirstLevelHandler = new Handler();
 			Map FirstLevel = new Map(FirstLevelHandler);		
-			Application.Run(FirstLevelHandler);
+			Application.Run(FirstLevelHandler);            
 		}
 	}
 }
