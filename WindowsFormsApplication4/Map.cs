@@ -10,16 +10,24 @@ namespace WindowsFormsApplication4
 	{
 		private int totalHexagonRows = 8;
 		private int totalHexagonColoumns = 12;
+        HexagonButton[,] hexMap;
 
-		public void CreateMap(Handler map)
+        public Map(Handler map)
+        {
+            hexMap = new HexagonButton[totalHexagonColoumns, totalHexagonRows];
+            CreateMap(map);
+        }
+
+        public void CreateMap(Handler map)
 		{
-            HexagonButton[,] hexMap = new HexagonButton[totalHexagonColoumns, totalHexagonRows];
+            
 			List<HexagonButton> HexagonButtonList = new List<HexagonButton>();
 			for (int i = 0; i < totalHexagonColoumns; i++)
 			{
 				for (int j = 0; j < totalHexagonRows; j++)
 				{
-					hexMap[i,j] = new HexagonButton(i, j);
+                    //if (i > 0 && i < totalHexagonRows)
+					hexMap[i,j] = new HexagonButton(i, j, false);
 					
 					map.DrawButton(hexMap[i,j]);
 					map.PlaceHexagonButton(hexMap[i, j]);
