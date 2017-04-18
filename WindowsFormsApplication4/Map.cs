@@ -8,7 +8,8 @@ namespace WindowsFormsApplication4
 {
 	class Map
 	{
-		private int totalHexagonRows = 8;
+        // I selve spillet bruger de 11 x 11 platform
+        private int totalHexagonRows = 8;
 		private int totalHexagonColoumns = 12;
 
 		public void CreateMap(Handler map)
