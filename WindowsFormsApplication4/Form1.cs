@@ -74,13 +74,32 @@ namespace WindowsFormsApplication4
 			this.Controls.Add(ExitButton);
 		}
 
+        private void addResetButton()
+        {
+            Button ResetButton = new Button();
+            ResetButton.Size = new Size(100, 25);
+            ResetButton.TabStop = false;
+            ResetButton.FlatStyle = FlatStyle.Flat;
+            ResetButton.FlatAppearance.BorderSize = 0;
+            ResetButton.BackColor = Color.Red;
+            ResetButton.Location = new Point(this.Bounds.Right - ResetButton.Width - 20, this.Bounds.Top + 60);
+            ResetButton.MouseClick += ResetButtonClick;
+            ResetButton.Text = "Reset Game";
+            ResetButton.TextAlign = ContentAlignment.MiddleCenter;
+            this.Controls.Add(ResetButton);
+        }
+
+        
+
         public void DrawWindow(object sender, EventArgs e)
         {
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
 			//this.ClientSize = new System.Drawing.Size(1000, 1000);
 			addExitButton();
-		}
+            addResetButton();
+
+        }
 
 		private int calculateButtonWidthOffset(int xCoordinate, int yCoordinate)
 		{
@@ -110,5 +129,10 @@ namespace WindowsFormsApplication4
 		{
 			Close();
 		}
-	}
+
+        private void ResetButtonClick(object sender, MouseEventArgs e)
+        {
+            Application.Restart();
+        }
+    }
 }
