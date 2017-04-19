@@ -75,7 +75,9 @@ namespace WindowsFormsApplication4
             sender_Button.Passable = false;
         }
 
-		public List<HexagonButton> parentButtonList;
+		public HexagonButton parent;
 		public List<HexagonButton> neighbourList;
+
+		public int CostToStart;
     }
 }

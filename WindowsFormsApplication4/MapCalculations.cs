@@ -9,11 +9,13 @@ namespace WindowsFormsApplication4
 	class MapCalculations
 	{
 		private List<HexagonButton> _queue;
+		private List<HexagonButton> _pathsToEdge;
+		private Random rnd = new Random();
 
-		public void shortestRoute(List<HexagonButton> buttonList, HexagonButton startingButton, Map map)
+		public void calculateRoutes(List<HexagonButton> buttonList, HexagonButton startingHex, Map map)
 		{
 			resetAllButtons(buttonList);
-			_queue.Add(startingButton);
+			_queue.Add(startingHex);
 
 			while(!_queue.Any())
 			{
@@ -22,9 +24,76 @@ namespace WindowsFormsApplication4
 				currentHex.Visited = true;
 				if (currentHex.IsEdgeTile == false)
 				{
-					
+					foreach (HexagonButton hex in currentHex.neighbourList)
+					{
+						if (hex.Visited == false)
+						{
+							hex.parent = currentHex;
+							_queue.Add(hex);
+						}
+					}
+				} else
+				{
+					_pathsToEdge.Add(currentHex);
 				}
 			}
+			List<HexagonButton> shortestRoutes = findShortestRoutes(_pathsToEdge);
+			List<HexagonButton> shortestRouteByRand = chooseRouteByRand(shortestRoutes);
+
+			Console.WriteLine($"The route starts with: ({startingHex.XCoordinate}, {startingHex.YCoordinate})");
+			foreach (HexagonButton hex in shortestRouteByRand)
+			{
+				Console.WriteLine($"The route goes by: ({hex.XCoordinate}, {hex.YCoordinate})");
+			}
+		}
+
+		private List<HexagonButton> findShortestRoutes(List<HexagonButton> edgeHexList)
+		{
+			var shortestRoutes = new List<HexagonButton>();
+			foreach (HexagonButton hex in edgeHexList)
+			{
+				hex.CostToStart = checkParent(0, hex);
+				if (shortestRoutes.Count == 0)
+					shortestRoutes.Add(hex);
+				else if (shortestRoutes.First().CostToStart > hex.CostToStart)
+				{
+					shortestRoutes.Clear();
+					shortestRoutes.Add(hex);
+				}
+				else if (shortestRoutes.First().CostToStart == hex.CostToStart)
+					shortestRoutes.Add(hex);
+			}
+			return shortestRoutes;
+		}
+
+		private int checkParent(int count, HexagonButton hexToCheck)
+		{
+			if(hexToCheck.Parent == null)
+			{
+				return count;
+			} else
+			{
+				return checkParent(count + 1, hexToCheck.parent);
+			}
+		}
+
+		private List<HexagonButton> chooseRouteByRand(List<HexagonButton> shortestRoutes)
+		{
+			var shortestRouteByRand = new List<HexagonButton>();
+			int routeToChoose = rnd.Next(0, shortestRoutes.Count);
+
+			HexagonButton edgeHex = shortestRoutes.ElementAt(routeToChoose);
+			HexagonButton currentHex = edgeHex;
+
+			do
+			{
+				shortestRouteByRand.Add(currentHex);
+				currentHex = currentHex.parent;
+			} while (currentHex.parent != null);
+
+			shortestRouteByRand.Reverse();
+			
+			return shortestRouteByRand;
 		}
 
 		private HexagonButton checkNeighbour(HexagonButton currentHex, HexagonButton neighbourHex)
@@ -46,7 +115,7 @@ namespace WindowsFormsApplication4
 			foreach (HexagonButton button in buttonList)
 			{
 				button.Visited = false;
-				button.parentButtonList.Clear();
+				button.parent = null;
 			}
 		}
 	}
