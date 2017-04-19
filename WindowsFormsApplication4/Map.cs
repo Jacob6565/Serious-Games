@@ -19,7 +19,7 @@ namespace WindowsFormsApplication4
 
             IniNeighbors();
         }
-
+        //hhh
         public void CreateMap(Handler map)
         {
             for (int i = 0; i < totalHexagonColoumns; i++)
