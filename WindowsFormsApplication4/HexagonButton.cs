@@ -76,8 +76,7 @@ namespace WindowsFormsApplication4
         }
 
 		public HexagonButton parent;
-		public List<HexagonButton> neighbourList;
-
+		public List<HexagonButton> neighbourList = new List<HexagonButton>();
 		public int CostToStart;
     }
 }

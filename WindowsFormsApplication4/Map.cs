@@ -43,11 +43,9 @@ namespace WindowsFormsApplication4
             {
                 for (int j = 0; j < totalHexagonRows; j++)
                 {
-                    Console.WriteLine($"{hexMap[i, j].XCoordinate}, {hexMap[i, j].YCoordinate}");
-                    if (j != 0)
-                    {                       
-                        hexMap[i, j].neighbourList.Add(hexMap[i , j]);
-                    }
+					HexagonButton currentHex = hexMap[i, j];
+                    Console.WriteLine($"{currentHex.XCoordinate}, {currentHex.YCoordinate}");
+					hexMap[1, 1].neighbourList.Add(hexMap[2, 2]);
                     //else if (i != totalHexagonColoumns)
                     //{
                     //    hexMap[i, j].neighbourList.Add(hexMap[i, j]);
@@ -62,7 +60,6 @@ namespace WindowsFormsApplication4
                     //}
                 }
             }
-        }
-        
+        }  
 	}
 }
