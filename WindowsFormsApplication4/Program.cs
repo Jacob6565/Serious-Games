@@ -17,8 +17,10 @@ namespace WindowsFormsApplication4
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Handler FirstLevelHandler = new Handler();
-			Map FirstLevel = new Map(FirstLevelHandler);		
-			Application.Run(FirstLevelHandler);            
+			Map FirstLevel = new Map(FirstLevelHandler);
+			MapCalculations calc = new MapCalculations();
+			calc.calculateRoutes(FirstLevel.hexMap[3, 3]);
+			Application.Run(FirstLevelHandler);        
 		}
 	}
 }
