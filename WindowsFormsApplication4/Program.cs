@@ -19,8 +19,8 @@ namespace WindowsFormsApplication4
 			Handler FirstLevelHandler = new Handler();
 			Map FirstLevel = new Map(FirstLevelHandler);
 			MapCalculations calc = new MapCalculations();
-			FirstLevel.hexMap[3, 3].BackColor = System.Drawing.Color.Aqua;
-			calc.calculateRoutes(FirstLevel.hexMap, FirstLevel.hexMap[3, 3]);
+			FirstLevel.hexMap[6, 4].BackColor = System.Drawing.Color.Aqua;
+			calc.calculateRoutes(FirstLevel.hexMap, FirstLevel.hexMap[6, 4]);
 			Application.Run(FirstLevelHandler);
 		}
 	}

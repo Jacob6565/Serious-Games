@@ -31,7 +31,7 @@ namespace WindowsFormsApplication4
             button.FlatAppearance.BorderSize = 0;
 			button.BackColor = Color.LightGray;
             button.Paint += ButtonPainter;
-            button.MouseClick += button.NotPassable;
+            button.MouseClick += button.HexClicked;
             this.Controls.Add(button);
         }
 

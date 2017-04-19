@@ -101,10 +101,14 @@ namespace WindowsFormsApplication4
 
 		private void resetAllButtons(HexagonButton[,] hexMap)
 		{
-			foreach (HexagonButton button in hexMap)
+			foreach (HexagonButton hex in hexMap)
 			{
-				button.Visited = false;
-				button.parent = null;
+				hex.Visited = false;
+				hex.parent = null;
+				if (hex.BackColor == System.Drawing.Color.FromArgb(50, 205, 50))
+				{
+					hex.BackColor = System.Drawing.Color.LightGray;
+				}
 			}
 		}
 	}

@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WindowsFormsApplication4
 {
 	class Map
 	{
-		private int totalHexagonRows = 8;
-		private int totalHexagonColoumns = 12;
+		private int totalHexagonRows = 9;
+		private int totalHexagonColoumns = 13;
         public HexagonButton[,] hexMap;
 
-        public Map(Handler map)
+        public Map(Handler handler)
         {
             hexMap = new HexagonButton[totalHexagonColoumns, totalHexagonRows];
-            CreateMap(map);
+            CreateMap(handler);
 
             IniNeighbors();
         }
 
-        public void CreateMap(Handler map)
+        public void CreateMap(Handler handler)
         {
             for (int i = 0; i < totalHexagonColoumns; i++)
             {
@@ -32,14 +33,19 @@ namespace WindowsFormsApplication4
                         isEdge = true;
                     }
                     hexMap[i, j] = new HexagonButton(i, j, isEdge);
-                    map.DrawButton(hexMap[i, j]);
-                    map.PlaceHexagonButton(hexMap[i, j]);
+                    handler.DrawButton(hexMap[i, j]);
+                    handler.PlaceHexagonButton(hexMap[i, j]);
                 }
             }
         }
 
+		public void HexClicked(object sender, MouseEventArgs e)
+		{
+			
+		}
 
-        public void IniNeighbors()
+
+		public void IniNeighbors()
         {
             for (int i = 0; i < totalHexagonColoumns; i++)
             {
