@@ -26,8 +26,12 @@ namespace WindowsFormsApplication4
 			{
 				for (int j = 0; j < totalHexagonRows; j++)
 				{
-                    //if (i > 0 && i < totalHexagonRows)
-					hexMap[i,j] = new HexagonButton(i, j, false);
+                    bool isEdge = false;
+                    if (i == 0 || i == totalHexagonColoumns-1 || j == 0 || j == totalHexagonRows-1)
+                    {
+                        isEdge = true;
+                    }
+					hexMap[i,j] = new HexagonButton(i, j, isEdge);
 					
 					map.DrawButton(hexMap[i,j]);
 					map.PlaceHexagonButton(hexMap[i, j]);
