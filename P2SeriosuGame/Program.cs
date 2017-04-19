@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApplication4
+namespace P2SeriousGame
 {
     static class Program
     {
@@ -17,7 +17,7 @@ namespace WindowsFormsApplication4
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Handler FirstLevelHandler = new Handler();
-			Map FirstLevel = new Map(FirstLevelHandler);
+			Map FirstLevel = new Map(FirstLevelHandler, 13, 9);
 			Application.Run(FirstLevelHandler);
 		}
 	}

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApplication4
+namespace P2SeriousGame
 {
 
     public partial class Handler : Form
@@ -38,8 +38,8 @@ namespace WindowsFormsApplication4
 
         public void PlaceHexagonButton(HexagonButton button)
         {
-			button.Left = calculateButtonWidthOffset(button.XCoordinate, button.YCoordinate);
-			button.Top = calculateButtonHeightOffset(button.YCoordinate);
+			button.Left = CalculateButtonWidthOffset(button.XCoordinate, button.YCoordinate);
+			button.Top = CalculateButtonHeightOffset(button.YCoordinate);
         }
 
         public void ButtonPainter(object sender, PaintEventArgs e)
@@ -102,7 +102,7 @@ namespace WindowsFormsApplication4
 
         }
 
-		private int calculateButtonWidthOffset(int xCoordinate, int yCoordinate)
+		private int CalculateButtonWidthOffset(int xCoordinate, int yCoordinate)
 		{
 			int width = 0;
 
@@ -117,7 +117,7 @@ namespace WindowsFormsApplication4
 			return width;
 		}
 
-		private int calculateButtonHeightOffset(int yCoordinate)
+		private int CalculateButtonHeightOffset(int yCoordinate)
 		{
 			int height = 0;
 
@@ -133,7 +133,7 @@ namespace WindowsFormsApplication4
 
         private void ResetButtonClick(object sender, MouseEventArgs e)
         {
-            Application.Restart();
+            Application.Restart();                   
         }
     }
 }
