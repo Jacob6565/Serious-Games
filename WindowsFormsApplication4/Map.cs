@@ -16,12 +16,13 @@ namespace WindowsFormsApplication4
         {
             hexMap = new HexagonButton[totalHexagonColoumns, totalHexagonRows];
             CreateMap(map);
-
-            IniNeighbors();
-
-			
+            IniNeighbors();			
         }
 
+        /// <summary>
+        /// Creates a 
+        /// </summary>
+        /// <param name="map"></param>
         public void CreateMap(Handler map)
         {
             for (int i = 0; i < totalHexagonColoumns; i++)
@@ -40,8 +41,10 @@ namespace WindowsFormsApplication4
             }
         }
 
-
-        public void IniNeighbors()
+        /// <summary>
+        /// Adds neighbours to an array of HexagonButtons (The array needs to contain HexagonButtons references)
+        /// </summary>
+        private void IniNeighbors()
         {
             for (int i = 0; i < totalHexagonColoumns; i++)
             {
