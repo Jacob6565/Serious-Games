@@ -73,10 +73,20 @@ namespace WindowsFormsApplication4
             sender_Button.BackColor = Color.FromArgb(255, 105, 180);
             sender_Button.Enabled = false;
             sender_Button.Passable = false;
+            PrintNeighbours();
         }
 
 		public HexagonButton parent;
 		public List<HexagonButton> neighbourList = new List<HexagonButton>();
 		public int CostToStart;
+
+        private void PrintNeighbours()
+        {
+            foreach (HexagonButton hex in neighbourList)
+            {
+                Console.WriteLine($"{ hex.XCoordinate}, { hex.YCoordinate} { hex.IsEdgeTile}");
+            }
+        }
+
     }
 }

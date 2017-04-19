@@ -37,27 +37,33 @@ namespace WindowsFormsApplication4
                 }
             }
         }
+
+
         public void IniNeighbors()
         {
             for (int i = 0; i < totalHexagonColoumns; i++)
             {
                 for (int j = 0; j < totalHexagonRows; j++)
                 {
-					HexagonButton currentHex = hexMap[i, j];
-                    Console.WriteLine($"{currentHex.XCoordinate}, {currentHex.YCoordinate}");
-					hexMap[1, 1].neighbourList.Add(hexMap[2, 2]);
-                    //else if (i != totalHexagonColoumns)
-                    //{
-                    //    hexMap[i, j].neighbourList.Add(hexMap[i, j]);
-                    //}
-                    //else if (j != 0)
-                    //{
-                    //    hexMap[i, j].neighbourList.Add(hexMap[i, j]);
-                    //}
-                    //else if (j != totalHexagonRows)
-                    //{
-                    //    hexMap[i, j].neighbourList.Add(hexMap[i, j]);
-                    //}
+                    if (!hexMap[i, j].IsEdgeTile)
+                    {
+                        hexMap[i, j].neighbourList.Add(hexMap[i - 1, j]);
+                        hexMap[i, j].neighbourList.Add(hexMap[i + 1, j]);
+                        if (j % 2 == 1)
+                        {
+                            hexMap[i, j].neighbourList.Add(hexMap[i, j - 1]);
+                            hexMap[i, j].neighbourList.Add(hexMap[i + 1, j - 1]);
+                            hexMap[i, j].neighbourList.Add(hexMap[i, j + 1]);
+                            hexMap[i, j].neighbourList.Add(hexMap[i + 1, j + 1]);
+                        }
+                        if(j % 2 == 0)
+                        {
+                            hexMap[i, j].neighbourList.Add(hexMap[i, j - 1]);
+                            hexMap[i, j].neighbourList.Add(hexMap[i - 1, j - 1]);
+                            hexMap[i, j].neighbourList.Add(hexMap[i , j + 1]);
+                            hexMap[i, j].neighbourList.Add(hexMap[i - 1, j + 1]);
+                        }
+                    }
                 }
             }
         }  
