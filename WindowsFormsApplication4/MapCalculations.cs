@@ -70,8 +70,7 @@ namespace WindowsFormsApplication4
 
 		private int checkParent(int count, HexagonButton hexToCheck)
 		{
-			Console.WriteLine($"{hexToCheck.parent.GetType()}");
-			if(hexToCheck.Parent == null)
+			if(hexToCheck.parent == null)
 			{
 				return count;
 			} else
@@ -91,6 +90,7 @@ namespace WindowsFormsApplication4
 			do
 			{
 				shortestRouteByRand.Add(currentHex);
+				currentHex.BackColor = System.Drawing.Color.FromArgb(50, 205, 50);
 				currentHex = currentHex.parent;
 			} while (currentHex.parent != null);
 
