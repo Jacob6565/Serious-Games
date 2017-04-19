@@ -12,9 +12,9 @@ namespace WindowsFormsApplication4
 		private List<HexagonButton> _pathsToEdge = new List<HexagonButton>();
 		private Random rnd = new Random();
 
-		public void calculateRoutes(HexagonButton[,] hexMap, HexagonButton startingHex)
+		public void CalculateRoutes(HexagonButton[,] hexMap, HexagonButton startingHex)
 		{
-			resetAllButtons(hexMap);
+			ResetAllButtons(hexMap);
 			_queue.Add(startingHex);
 
 			while(_queue.Any())
@@ -38,8 +38,8 @@ namespace WindowsFormsApplication4
 					_pathsToEdge.Add(currentHex);
 				}
 			}
-			List<HexagonButton> shortestRoutes = findShortestRoutes(_pathsToEdge);
-			List<HexagonButton> shortestRouteByRand = chooseRouteByRand(shortestRoutes);
+			List<HexagonButton> shortestRoutes = FindShortestRoutes(_pathsToEdge);
+			List<HexagonButton> shortestRouteByRand = ChooseRouteByRand(shortestRoutes);
 
 			Console.WriteLine($"The route starts with: ({startingHex.XCoordinate}, {startingHex.YCoordinate})");
 			foreach (HexagonButton hex in shortestRouteByRand)
@@ -48,12 +48,12 @@ namespace WindowsFormsApplication4
 			}
 		}
 
-		private List<HexagonButton> findShortestRoutes(List<HexagonButton> edgeHexList)
+		private List<HexagonButton> FindShortestRoutes(List<HexagonButton> edgeHexList)
 		{
 			var shortestRoutes = new List<HexagonButton>();
 			foreach (HexagonButton hex in edgeHexList)
 			{
-				hex.CostToStart = checkParent(0, hex);
+				hex.CostToStart = CheckParent(0, hex);
 
 				if (shortestRoutes.Count == 0)
 					shortestRoutes.Add(hex);
@@ -68,18 +68,18 @@ namespace WindowsFormsApplication4
 			return shortestRoutes;
 		}
 
-		private int checkParent(int count, HexagonButton hexToCheck)
+		private int CheckParent(int count, HexagonButton hexToCheck)
 		{
 			if(hexToCheck.parent == null)
 			{
 				return count;
 			} else
 			{
-				return checkParent(count + 1, hexToCheck.parent);
+				return CheckParent(count + 1, hexToCheck.parent);
 			}
 		}
 
-		private List<HexagonButton> chooseRouteByRand(List<HexagonButton> shortestRoutes)
+		private List<HexagonButton> ChooseRouteByRand(List<HexagonButton> shortestRoutes)
 		{
 			var shortestRouteByRand = new List<HexagonButton>();
 			int routeToChoose = rnd.Next(0, shortestRoutes.Count);
@@ -99,7 +99,7 @@ namespace WindowsFormsApplication4
 			return shortestRouteByRand;
 		}
 
-		private void resetAllButtons(HexagonButton[,] hexMap)
+		private void ResetAllButtons(HexagonButton[,] hexMap)
 		{
 			foreach (HexagonButton hex in hexMap)
 			{
