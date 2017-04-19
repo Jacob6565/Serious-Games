@@ -12,9 +12,9 @@ namespace WindowsFormsApplication4
 		private List<HexagonButton> _pathsToEdge = new List<HexagonButton>();
 		private Random rnd = new Random();
 
-		public void calculateRoutes(/*List<HexagonButton> buttonList,*/ HexagonButton startingHex)
+		public void calculateRoutes(HexagonButton[,] hexMap, HexagonButton startingHex)
 		{
-			//resetAllButtons(buttonList);
+			resetAllButtons(hexMap);
 			_queue.Add(startingHex);
 
 			while(_queue.Any())
@@ -26,7 +26,7 @@ namespace WindowsFormsApplication4
 				{
 					foreach (HexagonButton hex in currentHex.neighbourList)
 					{
-						if (hex.Visited == false)
+						if (hex.Visited == false && hex.Passable == true)
 						{
 							hex.parent = currentHex;
 							_queue.Add(hex);
@@ -99,9 +99,9 @@ namespace WindowsFormsApplication4
 			return shortestRouteByRand;
 		}
 
-		private void resetAllButtons(List<HexagonButton> buttonList)
+		private void resetAllButtons(HexagonButton[,] hexMap)
 		{
-			foreach (HexagonButton button in buttonList)
+			foreach (HexagonButton button in hexMap)
 			{
 				button.Visited = false;
 				button.parent = null;

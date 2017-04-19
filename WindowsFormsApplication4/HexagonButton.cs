@@ -73,6 +73,7 @@ namespace WindowsFormsApplication4
             sender_Button.BackColor = Color.FromArgb(255, 105, 180);
             sender_Button.Enabled = false;
             sender_Button.Passable = false;
+
             PrintNeighbours();
         }
 
