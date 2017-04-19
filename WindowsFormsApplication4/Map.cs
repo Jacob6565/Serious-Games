@@ -18,6 +18,8 @@ namespace WindowsFormsApplication4
             CreateMap(map);
 
             IniNeighbors();
+
+			
         }
 
         public void CreateMap(Handler map)
