@@ -15,6 +15,7 @@ namespace WindowsFormsApplication4
 		public void CalculateRoutes(HexagonButton[,] hexMap, HexagonButton startingHex)
 		{
 			ResetAllButtons(hexMap);
+			_pathsToEdge.Clear();
 			_queue.Add(startingHex);
 
 			while(_queue.Any())

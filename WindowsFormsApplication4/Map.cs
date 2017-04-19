@@ -7,11 +7,12 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication4
 {
-	class Map
+	public class Map
 	{
 		private int totalHexagonRows = 9;
 		private int totalHexagonColoumns = 13;
         public HexagonButton[,] hexMap;
+		MapCalculations calc = new MapCalculations();
 
         public Map(Handler handler)
         {
@@ -33,7 +34,7 @@ namespace WindowsFormsApplication4
                         isEdge = true;
                     }
                     hexMap[i, j] = new HexagonButton(i, j, isEdge);
-                    handler.DrawButton(hexMap[i, j]);
+                    handler.DrawButton(hexMap[i, j], this);
                     handler.PlaceHexagonButton(hexMap[i, j]);
                 }
             }
@@ -41,9 +42,9 @@ namespace WindowsFormsApplication4
 
 		public void HexClicked(object sender, MouseEventArgs e)
 		{
-			
+			hexMap[6, 4].BackColor = System.Drawing.Color.Aqua;
+			calc.CalculateRoutes(hexMap, hexMap[6, 4]);
 		}
-
 
 		public void IniNeighbors()
         {

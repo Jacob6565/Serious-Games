@@ -23,7 +23,7 @@ namespace WindowsFormsApplication4
             InitializeComponent();
         }
 
-        public void DrawButton(HexagonButton button)
+        public void DrawButton(HexagonButton button, Map map)
         {
             button.Size = new Size((int)(Formatting * _buttonHeight), (int)(Formatting * _buttonWidth));
             button.TabStop = false;
@@ -32,6 +32,7 @@ namespace WindowsFormsApplication4
 			button.BackColor = Color.LightGray;
             button.Paint += ButtonPainter;
             button.MouseClick += button.HexClicked;
+			button.MouseClick += map.HexClicked;
             this.Controls.Add(button);
         }
 
@@ -59,7 +60,7 @@ namespace WindowsFormsApplication4
             hexagonButton.Region = new System.Drawing.Region(buttonPath);
         }
 
-        private void addExitButton()
+        private void AddExitButton()
 		{
 			Button ExitButton = new Button();
 			ExitButton.Size = new Size(100, 25);
@@ -74,7 +75,7 @@ namespace WindowsFormsApplication4
 			this.Controls.Add(ExitButton);
 		}
 
-        private void addResetButton()
+        private void AddResetButton()
         {
             Button ResetButton = new Button();
             ResetButton.Size = new Size(100, 25);
@@ -96,8 +97,8 @@ namespace WindowsFormsApplication4
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
 			//this.ClientSize = new System.Drawing.Size(1000, 1000);
-			addExitButton();
-            addResetButton();
+			AddExitButton();
+            AddResetButton();
 
         }
 
