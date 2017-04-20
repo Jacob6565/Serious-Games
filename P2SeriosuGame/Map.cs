@@ -13,6 +13,7 @@ namespace P2SeriousGame
 		private int totalHexagonColoumns = 0;
         public HexagonButton[,] hexMap;
 		MapCalculations calc = new MapCalculations();
+		private HexagonButton currentMousePosition;
 
         public Map(Handler handler, int xSize, int ySize)
         {
