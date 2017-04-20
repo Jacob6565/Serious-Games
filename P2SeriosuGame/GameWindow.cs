@@ -25,7 +25,7 @@ namespace P2SeriousGame
 
         public void DrawButton(HexagonButton button, Map map)
         {
-            button.Size = new Size((int)(Formatting * _buttonHeight), (int)(Formatting * _buttonWidth));
+            button.Size = new Size((int)(ConvertPointToPixel(_buttonHeight)), (int)(ConvertPointToPixel(_buttonWidth)));
             button.TabStop = false;
             button.FlatStyle = FlatStyle.Flat;
             button.FlatAppearance.BorderSize = 0;
@@ -134,6 +134,12 @@ namespace P2SeriousGame
         private void ResetButtonClick(object sender, MouseEventArgs e)
         {
             Application.Restart();                   
+        }
+
+        //We assume that there is 72 points per inch and 96 pixels per inch
+        private double ConvertPointToPixel(double point)
+        {
+            return point * 96 / 72;
         }
     }
 }
