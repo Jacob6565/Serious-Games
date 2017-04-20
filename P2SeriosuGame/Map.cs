@@ -16,6 +16,7 @@ namespace P2SeriousGame
 		private int totalHexagonColoumns = 0;
         public HexagonButton[,] hexMap;
 		MapCalculations calc = new MapCalculations();
+		private HexagonButton currentMousePosition;
 
         /// <summary>
         /// Creates a HexagonButton grid in xSize * ySize, needs a reference to the handler window.
@@ -54,12 +55,7 @@ namespace P2SeriousGame
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-		public void HexClicked(object sender, MouseEventArgs e)
+		public void HexClicked(object sender, MouseEventArgs e) // Start point fra midten
 		{
 			hexMap[6, 4].BackColor = System.Drawing.Color.Aqua;
 			calc.CalculateRoutes(hexMap, hexMap[6, 4]);

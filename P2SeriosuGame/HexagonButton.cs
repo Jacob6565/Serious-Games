@@ -83,7 +83,8 @@ namespace P2SeriousGame
 
 		public HexagonButton parent;
 		public List<HexagonButton> neighbourList = new List<HexagonButton>();
-		public int CostToStart;
+
+        public int CostToStart;
 
         private void PrintNeighbours()
         {
