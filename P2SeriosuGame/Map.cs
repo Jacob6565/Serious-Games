@@ -7,6 +7,9 @@ using System.Windows.Forms;
 
 namespace P2SeriousGame
 {
+    /// <summary>
+    /// Class to contain a grid of HexagonButtons
+    /// </summary>
 	public class Map
 	{
         private int totalHexagonRows = 0;
@@ -14,16 +17,25 @@ namespace P2SeriousGame
         public HexagonButton[,] hexMap;
 		MapCalculations calc = new MapCalculations();
 
+        /// <summary>
+        /// Creates a HexagonButton grid in xSize * ySize, needs a reference to the handler window.
+        /// </summary>
+        /// <param name="handler"></param>
+        /// <param name="xSize"></param>
+        /// <param name="ySize"></param>
         public Map(Handler handler, int xSize, int ySize)
         {
             totalHexagonRows = ySize;
             totalHexagonColoumns = xSize;
             hexMap = new HexagonButton[totalHexagonColoumns, totalHexagonRows];
-            CreateMap(handler);
-
+            CreateMap(handler);     
             IniNeighbors();
         }
 
+        /// <summary>
+        /// Initialises the HexagonButton grid. Flags edge buttons.
+        /// </summary>
+        /// <param name="handler"></param>
         public void CreateMap(Handler handler)
         {
             for (int i = 0; i < totalHexagonColoumns; i++)
@@ -42,6 +54,11 @@ namespace P2SeriousGame
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 		public void HexClicked(object sender, MouseEventArgs e)
 		{
 			hexMap[6, 4].BackColor = System.Drawing.Color.Aqua;

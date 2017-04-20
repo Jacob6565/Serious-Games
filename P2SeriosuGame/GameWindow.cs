@@ -110,7 +110,6 @@ namespace P2SeriousGame
             WindowState = FormWindowState.Maximized;
 			AddExitButton();
             AddResetButton();
-
         }
 
 
