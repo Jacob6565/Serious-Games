@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApplication4
+namespace P2SeriousGame
 {
     partial class Handler : Form
     {
@@ -49,7 +49,7 @@ namespace WindowsFormsApplication4
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Handler";
-            this.Text = "Form1";
+            this.Text = "Game Window";
             this.Load += new System.EventHandler(this.DrawWindow);
             this.ResumeLayout(false);
 

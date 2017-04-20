@@ -5,17 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApplication4
+namespace P2SeriousGame
 {
 	public class Map
 	{
-		private int totalHexagonRows = 9;
-		private int totalHexagonColoumns = 13;
+        private int totalHexagonRows = 0;
+		private int totalHexagonColoumns = 0;
         public HexagonButton[,] hexMap;
 		MapCalculations calc = new MapCalculations();
 
-        public Map(Handler handler)
+        public Map(Handler handler, int xSize, int ySize)
         {
+            totalHexagonRows = ySize;
+            totalHexagonColoumns = xSize;
             hexMap = new HexagonButton[totalHexagonColoumns, totalHexagonRows];
             CreateMap(handler);
 
