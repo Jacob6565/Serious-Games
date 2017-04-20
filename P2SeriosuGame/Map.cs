@@ -43,7 +43,7 @@ namespace P2SeriousGame
             }
         }
 
-		public void HexClicked(object sender, MouseEventArgs e)
+		public void HexClicked(object sender, MouseEventArgs e) // Start point fra midten
 		{
 			hexMap[6, 4].BackColor = System.Drawing.Color.Aqua;
 			calc.CalculateRoutes(hexMap, hexMap[6, 4]);
