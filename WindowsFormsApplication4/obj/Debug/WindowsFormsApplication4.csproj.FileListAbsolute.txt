@@ -13,3 +13,12 @@ C:\Users\Jacob\Desktop\Clone\WindowsFormsApplication4\obj\Debug\WindowsFormsAppl
 C:\Users\Casper-Bærbarpc\Desktop\GitHub\WindowsFormsApplication4\bin\Debug\WindowsFormsApplication4.exe.config
 C:\Users\Casper-Bærbarpc\Desktop\GitHub\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.exe
 C:\Users\Casper-Bærbarpc\Desktop\GitHub\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.pdb
+C:\Users\kristoffer\Desktop\C#\Git\WindowsFormsApplication4\bin\Debug\WindowsFormsApplication4.exe.config
+C:\Users\kristoffer\Desktop\C#\Git\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.exe
+C:\Users\kristoffer\Desktop\C#\Git\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.pdb
+C:\Users\kristoffer\Desktop\C#\Git\WindowsFormsApplication4\bin\Debug\WindowsFormsApplication4.exe
+C:\Users\kristoffer\Desktop\C#\Git\WindowsFormsApplication4\bin\Debug\WindowsFormsApplication4.pdb
+C:\Users\kristoffer\Desktop\C#\Git\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.csprojResolveAssemblyReference.cache
+C:\Users\kristoffer\Desktop\C#\Git\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.Handler.resources
+C:\Users\kristoffer\Desktop\C#\Git\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.Properties.Resources.resources
+C:\Users\kristoffer\Desktop\C#\Git\WindowsFormsApplication4\obj\Debug\WindowsFormsApplication4.csproj.GenerateResource.Cache
