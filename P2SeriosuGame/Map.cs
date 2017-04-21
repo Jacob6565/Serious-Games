@@ -12,14 +12,37 @@ namespace P2SeriousGame
     /// </summary>
 	public class Map
 	{
-        private int totalHexagonRows = 0;
-		private int totalHexagonColoumns = 0;
+        private static int _totalHexagonRows = 0;
+		private static int _totalHexagonColoumns = 0;
+        public static int TotalHexagonRows
+        {
+            get
+            {
+                return _totalHexagonRows;
+            }
+            set
+            {
+                _totalHexagonRows = value;
+            }
+        }
+        public static int TotalHexagonColoumns
+        {
+            get
+            {
+                return _totalHexagonColoumns;
+            }
+            set
+            {
+                _totalHexagonColoumns = value;
+            }
+        }
         public HexagonButton[,] hexMap;
 		MapCalculations calc = new MapCalculations();
 		private HexagonButton currentMousePosition;
         private int xValue = 6;
-        private int yValue = 4;
+        public static int yValue = 4;
 
+        
         /// <summary>
         /// Creates a HexagonButton grid in xSize * ySize, needs a reference to the handler window.
         /// </summary>
@@ -28,9 +51,9 @@ namespace P2SeriousGame
         /// <param name="ySize"></param>
         public Map(Handler handler, int xSize, int ySize)
         {
-            totalHexagonRows = ySize;
-            totalHexagonColoumns = xSize;
-            hexMap = new HexagonButton[totalHexagonColoumns, totalHexagonRows];
+            _totalHexagonRows = ySize;
+            _totalHexagonColoumns = xSize;
+            hexMap = new HexagonButton[_totalHexagonColoumns, _totalHexagonRows];
             CreateMap(handler);     
             IniNeighbours();
         }
@@ -41,12 +64,12 @@ namespace P2SeriousGame
         /// <param name="handler"></param>
         public void CreateMap(Handler handler)
         {
-            for (int i = 0; i < totalHexagonColoumns; i++)
+            for (int i = 0; i < _totalHexagonColoumns; i++)
             {
-                for (int j = 0; j < totalHexagonRows; j++)
+                for (int j = 0; j < _totalHexagonRows; j++)
                 {
                     bool isEdge = false;
-                    if (i == 0 || i == totalHexagonColoumns - 1 || j == 0 || j == totalHexagonRows - 1)
+                    if (i == 0 || i == _totalHexagonColoumns - 1 || j == 0 || j == _totalHexagonRows - 1)
                     {
                         isEdge = true;
                     }
@@ -82,9 +105,9 @@ namespace P2SeriousGame
         /// </summary>
 		public void IniNeighbours()
         {
-            for (int i = 0; i < totalHexagonColoumns; i++)
+            for (int i = 0; i < _totalHexagonColoumns; i++)
             {
-                for (int j = 0; j < totalHexagonRows; j++)
+                for (int j = 0; j < _totalHexagonRows; j++)
                 {
                     if (!hexMap[i, j].IsEdgeTile)
                     {

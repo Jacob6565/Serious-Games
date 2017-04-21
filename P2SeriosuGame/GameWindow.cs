@@ -13,25 +13,49 @@ namespace P2SeriousGame
 
     public partial class Handler : Form
     {
-		private const double Formatting = 1.42;
-        private const int _buttonWidth = 100;
-		private const int _buttonHeight = (int)(_buttonWidth * 1.15);
-		private const int _buttonHeightOffset = (3 * (_buttonHeight / 4));
+        private const double Formatting = 1.42;
+               
+        public int ButtonWidth
+        {
+            get
+            {
+                return (int) ((ScreenWidth / Map.TotalHexagonColoumns) - (ScreenWidth/100)*1);
+            }
+        }
 
-		public Handler()
+        public int ButtonHeight
+        {
+            get 
+            {
+                return (int)(ButtonWidth * 1.15);
+            }
+        }
+
+        public int ButtonHeightOffset
+        {
+            get
+            {
+                return 3 * (ButtonHeight / 4);
+            }
+        }
+  
+        public Handler()
         {
             InitializeComponent();
         }
 
+        int ScreenWidth = Screen.PrimaryScreen.Bounds.Width;
+        int ScreenHeight = Screen.PrimaryScreen.Bounds.Height;
         /// <summary>
         /// Initialises and draws a hexagon button, 
         /// and adds a click event calculates a new route when an HexButton is clicked.
         /// </summary>
         /// <param name="button"></param>
         /// <param name="map"></param>
+        /// 
         public void DrawButton(HexagonButton button, Map map)
-        {
-            button.Size = new Size((int)(ConvertPointToPixel(_buttonHeight)), (int)(ConvertPointToPixel(_buttonWidth)));
+        {            
+            button.Size = new Size(ConvertPointToPixel(ButtonWidth), ConvertPointToPixel(ButtonHeight));
             button.TabStop = false;
             button.FlatStyle = FlatStyle.Flat;
             button.FlatAppearance.BorderSize = 0;
@@ -49,14 +73,14 @@ namespace P2SeriousGame
         public void PlaceHexagonButton(HexagonButton button)
         { 
             //For at farve midten før man har klikket på skærmen.
-            if(button.XCoordinate == 6 && button.YCoordinate == 4)
+            if(button.XCoordinate == Map.TotalHexagonColoumns/2 && button.YCoordinate == Map.TotalHexagonRows/2)
             {
                 button.BackColor = System.Drawing.Color.Aqua;
                 button.Enabled = false;
             }
-                                             
-			    button.Left = CalculateButtonWidthOffset(button.XCoordinate, button.YCoordinate);
-			    button.Top = CalculateButtonHeightOffset(button.YCoordinate);
+
+            button.Left = CalculateButtonWidthOffset(button.XCoordinate, button.YCoordinate);
+			button.Top = CalculateButtonHeightOffset(button.YCoordinate);
             
         }
 
@@ -72,10 +96,10 @@ namespace P2SeriousGame
             Button hexagonButton = sender as Button;
 
             System.Drawing.Rectangle newRectangle = hexagonButton.ClientRectangle;
-            e.Graphics.DrawPolygon(Pens.Black, Math.GetPoints(_buttonHeight, _buttonWidth));
+            e.Graphics.DrawPolygon(Pens.Black, Math.GetPoints(ButtonHeight, ButtonWidth));
 
             // Create a hexagon within the new rectangle.
-            buttonPath.AddPolygon(Math.GetPoints(_buttonHeight, _buttonWidth));
+            buttonPath.AddPolygon(Math.GetPoints(ButtonHeight, ButtonWidth));
             // Hexagon region.
             hexagonButton.Region = new System.Drawing.Region(buttonPath);
         }
@@ -109,8 +133,7 @@ namespace P2SeriousGame
             ResetButton.TextAlign = ContentAlignment.MiddleCenter;
             this.Controls.Add(ResetButton);
         }
-
-        
+            
 
         public void DrawWindow(object sender, EventArgs e)
         {
@@ -129,13 +152,16 @@ namespace P2SeriousGame
         /// <returns></returns>
 		private int CalculateButtonWidthOffset(int xCoordinate, int yCoordinate)
 		{
-			int width = 0;
-			width += (xCoordinate * _buttonWidth);			
-			//Gives every second button an offset to make the grid
-			if(yCoordinate % 2 == 1)
-			{
-				width += _buttonWidth / 2;
-			}
+           int width = ((ScreenHeight / 100) * 3);
+ 
+           width += (xCoordinate * ButtonWidth);
+
+           //Gives every second button an offset to make the grid
+           if (yCoordinate % 2 == 1)
+           {
+             width += ButtonWidth / 2;
+           }
+            
 			return width;
 		}
 
@@ -146,10 +172,10 @@ namespace P2SeriousGame
         /// <returns></returns>
 		private int CalculateButtonHeightOffset(int yCoordinate)
 		{
-			int height = 0;
-
-			height += (yCoordinate * _buttonHeightOffset);
-
+            int height = (ScreenHeight / 100) * 3;
+                     
+            height += (yCoordinate * ButtonHeightOffset);
+                                  
 			return height;
 		}
         
@@ -165,7 +191,7 @@ namespace P2SeriousGame
         }
 
         //We assume that there is 72 points per inch and 96 pixels per inch
-        private double ConvertPointToPixel(double point)
+        private int ConvertPointToPixel(int point)
         {
             return point * 96 / 72;
         }
