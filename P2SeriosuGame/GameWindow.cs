@@ -108,9 +108,13 @@ namespace P2SeriousGame
             ResetButton.Text = "Reset Game";
             ResetButton.TextAlign = ContentAlignment.MiddleCenter;
             this.Controls.Add(ResetButton);
+            ResetCounter();
         }
 
-        
+        public void ResetCounter()
+        {
+
+        }
 
         public void DrawWindow(object sender, EventArgs e)
         {
