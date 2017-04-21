@@ -17,6 +17,8 @@ namespace P2SeriousGame
         public HexagonButton[,] hexMap;
 		MapCalculations calc = new MapCalculations();
 		private HexagonButton currentMousePosition;
+        private int xValue = 6;
+        private int yValue = 4;
 
         /// <summary>
         /// Creates a HexagonButton grid in xSize * ySize, needs a reference to the handler window.
@@ -60,11 +62,20 @@ namespace P2SeriousGame
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-		public void HexClicked(object sender, MouseEventArgs e) // Start point fra midten
-		{
-			hexMap[6, 4].BackColor = System.Drawing.Color.Aqua;
-			calc.CalculateRoutes(hexMap, hexMap[6, 4]);
-		}
+        public void HexClicked(object sender, MouseEventArgs e)
+        {
+            //Når der bliver klikket bliver tidliger punkt farvet gråt, så bliver der beregnet ny vej og koordinaterne til næste knap bliver assignet til xValue og yValue og knappen med disse koordinater farves Aqua.
+            //næste to linjer er det som skal ske for den knap musen stop på i det tidligere trin.
+            hexMap[xValue, yValue].BackColor = System.Drawing.Color.LightGray;
+            hexMap[xValue, yValue].Enabled = true;
+
+            //Nye position.
+            calc.CalculateRoutes(hexMap, hexMap[xValue, yValue]);
+            xValue = calc.FirstButtonInPath.XCoordinate;
+            yValue = calc.FirstButtonInPath.YCoordinate;
+            hexMap[xValue, yValue].BackColor = System.Drawing.Color.Aqua;
+            hexMap[xValue, yValue].Enabled = false;       
+        }
 
         /// <summary>
         /// Finds the neighbours for each HexagonButton in Map.cs (except of the edge buttons).

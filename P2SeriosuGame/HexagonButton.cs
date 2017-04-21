@@ -57,7 +57,6 @@ namespace P2SeriousGame
 			get { return _isEdgeTile; }
 		}
 
-
 		private bool _showImage = false;
         public bool ShowImage
         {
@@ -93,6 +92,5 @@ namespace P2SeriousGame
                 Console.WriteLine($"{ hex.XCoordinate}, { hex.YCoordinate} { hex.IsEdgeTile}");
             }
         }
-
     }
 }

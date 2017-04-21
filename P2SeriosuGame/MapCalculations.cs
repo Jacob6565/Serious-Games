@@ -9,12 +9,13 @@ namespace P2SeriousGame
     /// <summary>
     /// Class for calculating a route out of a HexagonButton grid from Mad.cs.
     /// </summary>
-	class MapCalculations
+	public class MapCalculations
 	{
 		private List<HexagonButton> _queue = new List<HexagonButton>();
 		private List<HexagonButton> _pathsToEdge = new List<HexagonButton>();
         private List<HexagonButton> _reachableHexList = new List<HexagonButton>();
 		private Random rnd = new Random();
+        public HexagonButton FirstButtonInPath;
 
         /// <summary>
         /// Takes a HexagonButton grid, and the posistion to start from.
@@ -51,13 +52,13 @@ namespace P2SeriousGame
 				}
 			}
 
-            FindTheRoute(_pathsToEdge, _reachableHexList);
+            FirstButtonInPath = FindTheRoute(_pathsToEdge, _reachableHexList);
 		}
-       
-        private void FindTheRoute(List<HexagonButton> pathsToEdge, List<HexagonButton> reachableHexList)
+                        
+        public HexagonButton FindTheRoute(List<HexagonButton> pathsToEdge, List<HexagonButton> reachableHexList)
         {
             var bestRoutes = new List<HexagonButton>();
-
+          
             //If logic statement is true, then there is a route to an edge
             if(pathsToEdge.Count > 0)
             {
@@ -77,6 +78,8 @@ namespace P2SeriousGame
             }
 
             List<HexagonButton> bestRouteByRand = ChooseRouteByRand(bestRoutes);
+            return bestRouteByRand.First();
+            
         }
 
         //Reachable hexes that are not edges of the map. Used for finding the longest route when mouse is trapped
