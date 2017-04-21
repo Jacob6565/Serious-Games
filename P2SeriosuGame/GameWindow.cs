@@ -23,9 +23,15 @@ namespace P2SeriousGame
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Initialises and draws a hexagon button, 
+        /// and adds a click event calculates a new route when an HexButton is clicked.
+        /// </summary>
+        /// <param name="button"></param>
+        /// <param name="map"></param>
         public void DrawButton(HexagonButton button, Map map)
         {
-            button.Size = new Size((int)(Formatting * _buttonHeight), (int)(Formatting * _buttonWidth));
+            button.Size = new Size((int)(ConvertPointToPixel(_buttonHeight)), (int)(ConvertPointToPixel(_buttonWidth)));
             button.TabStop = false;
             button.FlatStyle = FlatStyle.Flat;
             button.FlatAppearance.BorderSize = 0;
@@ -36,6 +42,10 @@ namespace P2SeriousGame
             this.Controls.Add(button);
         }
 
+        /// <summary>
+        /// Places HexagonButtons in GameWindow based on the coordinates assigned in the button.
+        /// </summary>
+        /// <param name="button"></param>
         public void PlaceHexagonButton(HexagonButton button)
         { 
             //For at farve midten før man har klikket på skærmen.
@@ -50,20 +60,22 @@ namespace P2SeriousGame
             
         }
 
+        /// <summary>
+        /// Calculates the points in a hexagon and makes it a button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void ButtonPainter(object sender, PaintEventArgs e)
         {
             System.Drawing.Drawing2D.GraphicsPath buttonPath =
             new System.Drawing.Drawing2D.GraphicsPath();
-
             Button hexagonButton = sender as Button;
 
             System.Drawing.Rectangle newRectangle = hexagonButton.ClientRectangle;
-
             e.Graphics.DrawPolygon(Pens.Black, Math.GetPoints(_buttonHeight, _buttonWidth));
 
             // Create a hexagon within the new rectangle.
             buttonPath.AddPolygon(Math.GetPoints(_buttonHeight, _buttonWidth));
-
             // Hexagon region.
             hexagonButton.Region = new System.Drawing.Region(buttonPath);
         }
@@ -104,27 +116,34 @@ namespace P2SeriousGame
         {
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
-			//this.ClientSize = new System.Drawing.Size(1000, 1000);
 			AddExitButton();
             AddResetButton();
-
         }
 
+
+        /// <summary>
+        /// Converts a coordinate into a position in a hexgrid.
+        /// </summary>
+        /// <param name="xCoordinate"></param>
+        /// <param name="yCoordinate"></param>
+        /// <returns></returns>
 		private int CalculateButtonWidthOffset(int xCoordinate, int yCoordinate)
 		{
 			int width = 0;
-
-			width += (xCoordinate * _buttonWidth);
-			
+			width += (xCoordinate * _buttonWidth);			
 			//Gives every second button an offset to make the grid
 			if(yCoordinate % 2 == 1)
 			{
 				width += _buttonWidth / 2;
 			}
-
 			return width;
 		}
 
+        /// <summary>
+        /// Converts a coordinate into a position in a hexgrid.
+        /// </summary>
+        /// <param name="yCoordinate"></param>
+        /// <returns></returns>
 		private int CalculateButtonHeightOffset(int yCoordinate)
 		{
 			int height = 0;
@@ -133,15 +152,22 @@ namespace P2SeriousGame
 
 			return height;
 		}
-
+        
 		public void ExitButtonClick(object sender, MouseEventArgs e)
 		{
 			Close();
 		}
 
+
         private void ResetButtonClick(object sender, MouseEventArgs e)
         {
             Application.Restart();                   
+        }
+
+        //We assume that there is 72 points per inch and 96 pixels per inch
+        private double ConvertPointToPixel(double point)
+        {
+            return point * 96 / 72;
         }
     }
 }

@@ -10,6 +10,12 @@ namespace P2SeriousGame
 {
     public class HexagonButton : Button
     {
+        /// <summary>
+        /// Takes posistion in a coordinate system and if hexagun button is an edge button.        
+        /// </summary>
+        /// <param name="xCoordinate"></param>
+        /// <param name="yCoordinate"></param>
+        /// <param name="isEdgeTile"></param>
         public HexagonButton(int xCoordinate, int yCoordinate, bool isEdgeTile)
         {
             _xCoordinate = xCoordinate;
@@ -18,7 +24,6 @@ namespace P2SeriousGame
         }
 
 		private bool _visited = false;
-
 		public bool Visited
 		{
 			get { return _visited; }
