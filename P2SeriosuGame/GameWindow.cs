@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace P2SeriousGame
 {
@@ -18,9 +20,16 @@ namespace P2SeriousGame
 		private const int _buttonHeight = (int)(_buttonWidth * 1.15);
 		private const int _buttonHeightOffset = (3 * (_buttonHeight / 4));
 
+        // SQL Database
+        SqlConnection connection;
+        string connectionString;
+
 		public Handler()
         {
             InitializeComponent();
+
+            connectionString =
+                ConfigurationManager.ConnectionStrings["P2SeriosuGame.Properties.Settings.DatabaseConnectionString"].ConnectionString;
         }
 
         /// <summary>
@@ -108,12 +117,6 @@ namespace P2SeriousGame
             ResetButton.Text = "Reset Game";
             ResetButton.TextAlign = ContentAlignment.MiddleCenter;
             this.Controls.Add(ResetButton);
-            ResetCounter();
-        }
-
-        public void ResetCounter()
-        {
-
         }
 
         public void DrawWindow(object sender, EventArgs e)
@@ -159,13 +162,53 @@ namespace P2SeriousGame
         
 		public void ExitButtonClick(object sender, MouseEventArgs e)
 		{
+            SendToDB();
 			Close();
 		}
+
+        public void SendToDB()
+        {
+            string query = "SET IDENTITY_INSERT TestParametre ON ";
+
+            using (connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+
+            query = "INSERT INTO TestParametre (Id, ResetCount) VALUES (1, @ResetCount)";
+
+            using (connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@ResetCount", resetCounter);
+                command.ExecuteNonQuery();
+            }
+
+            query = "SET IDENTITY_INSERT TestParametre OFF ";
+
+            using (connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
 
 
         private void ResetButtonClick(object sender, MouseEventArgs e)
         {
-            Application.Restart();                   
+            ResetCounter();
+            Application.Restart();
+        }
+
+        int resetCounter;
+
+        public void ResetCounter()
+        {
+            resetCounter += 1;
         }
 
         //We assume that there is 72 points per inch and 96 pixels per inch
