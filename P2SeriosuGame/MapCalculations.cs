@@ -51,13 +51,13 @@ namespace P2SeriousGame
         {
             var bestRoutes = new List<HexagonButton>();
           
-            //If logic statement is true, then there is a route to an edge
+            //If at least one route can be found, there's is a route to an edge
             if(pathsToEdge.Count > 0)
             {
                 bestRoutes = FindShortestRoutes(pathsToEdge);
             }
 
-            //If logic statement is true, then there is a reachable route and the mouse has not been totally trapped yet 
+            //If there's no routes to the edge, but there's still other reachable hexes, the mouse is trapped, but not enclosed yet
             else if (reachableHexList.Count > 0)
             {
                 bestRoutes = FindLongestRoutes(reachableHexList);
