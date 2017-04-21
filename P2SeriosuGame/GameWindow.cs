@@ -37,9 +37,17 @@ namespace P2SeriousGame
         }
 
         public void PlaceHexagonButton(HexagonButton button)
-        {
-			button.Left = CalculateButtonWidthOffset(button.XCoordinate, button.YCoordinate);
-			button.Top = CalculateButtonHeightOffset(button.YCoordinate);
+        { 
+            //For at farve midten før man har klikket på skærmen.
+            if(button.XCoordinate == 6 && button.YCoordinate == 4)
+            {
+                button.BackColor = System.Drawing.Color.Aqua;
+                button.Enabled = false;
+            }
+                                             
+			    button.Left = CalculateButtonWidthOffset(button.XCoordinate, button.YCoordinate);
+			    button.Top = CalculateButtonHeightOffset(button.YCoordinate);
+            
         }
 
         public void ButtonPainter(object sender, PaintEventArgs e)
