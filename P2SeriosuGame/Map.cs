@@ -8,7 +8,7 @@ using System.Windows.Forms;
 namespace P2SeriousGame
 {
     /// <summary>
-    /// Class to contain a grid of HexagonButtons
+    /// Class to contain a grid of HexagonButtons.
     /// </summary>
 	public class Map
 	{
@@ -32,7 +32,7 @@ namespace P2SeriousGame
             totalHexagonColoumns = xSize;
             hexMap = new HexagonButton[totalHexagonColoumns, totalHexagonRows];
             CreateMap(handler);     
-            IniNeighbors();
+            IniNeighbours();
         }
 
         /// <summary>
@@ -57,6 +57,11 @@ namespace P2SeriousGame
             }
         }
 
+        /// <summary>
+        /// Calculates new route when HexagonButton is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void HexClicked(object sender, MouseEventArgs e)
         {
             //Når der bliver klikket bliver tidliger punkt farvet gråt, så bliver der beregnet ny vej og koordinaterne til næste knap bliver assignet til xValue og yValue og knappen med disse koordinater farves Aqua.
@@ -72,7 +77,10 @@ namespace P2SeriousGame
             hexMap[xValue, yValue].Enabled = false;       
         }
 
-		public void IniNeighbors()
+        /// <summary>
+        /// Finds the neighbours for each HexagonButton in Map.cs (except of the edge buttons).
+        /// </summary>
+		public void IniNeighbours()
         {
             for (int i = 0; i < totalHexagonColoumns; i++)
             {
