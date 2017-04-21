@@ -12,6 +12,12 @@ namespace P2SeriousGame
 {
     public class Math
     {
+        /// <summary>
+        /// Calculates the 6 points in a hexagon from a rectangle.
+        /// </summary>
+        /// <param name="height"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
         public static PointF[] GetPoints(int height, int width)
         {
             float x, y, r, h;
