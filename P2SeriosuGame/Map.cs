@@ -26,7 +26,7 @@ namespace P2SeriousGame
 
             IniNeighbors();
         }
-
+        //
         public void CreateMap(Handler handler)
         {
             for (int i = 0; i < totalHexagonColoumns; i++)
