@@ -14,31 +14,11 @@ namespace P2SeriousGame
     public partial class Handler : Form
     {
         private const double Formatting = 1.42;
-               
-        public int ButtonWidth
-        {
-            get
-            {
-                return (int) ((ScreenWidth / Map.TotalHexagonColoumns) - (ScreenWidth/100)*1);
-            }
-        }
 
-        public int ButtonHeight
-        {
-            get 
-            {
-                return (int)(ButtonWidth * 1.15);
-            }
-        }
-
-        public int ButtonHeightOffset
-        {
-            get
-            {
-                return 3 * (ButtonHeight / 4);
-            }
-        }
-  
+        public int ButtonWidth => (int)((ScreenWidth / Map.TotalHexagonColoumns) - (ScreenWidth / 100) * 1);
+        public int ButtonHeight => (int)(ButtonWidth * 1.15);
+        public int ButtonHeightOffset => 3 * (ButtonHeight / 4);
+          
         public Handler()
         {
             InitializeComponent();
