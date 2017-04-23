@@ -4,100 +4,100 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="database_p2Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="person">
+      <Schema Namespace="p2_databaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Person">
           <Key>
             <PropertyRef Name="IdPerson" />
           </Key>
           <Property Name="IdPerson" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FirstName" Type="varchar" MaxLength="50" />
-          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="First Name" Type="nchar" MaxLength="50" />
+          <Property Name="Last Name" Type="nchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="rounds">
+        <EntityType Name="Rounds">
           <Key>
             <PropertyRef Name="IdRounds" />
           </Key>
           <Property Name="IdRounds" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <EntityType Name="testparameters">
+        <EntityType Name="TestParameters">
           <Key>
             <PropertyRef Name="IdTestParameters" />
           </Key>
           <Property Name="IdTestParameters" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Clicks" Type="int" />
-          <Property Name="ResetCount" Type="int" />
+          <Property Name="Reset Count" Type="int" />
           <Property Name="Wins" Type="int" />
           <Property Name="Loss" Type="int" />
           <Property Name="Time Used" Type="int" />
         </EntityType>
-        <EntityContainer Name="database_p2ModelStoreContainer">
-          <EntitySet Name="person" EntityType="Self.person" Schema="database_p2" store:Type="Tables" />
-          <EntitySet Name="rounds" EntityType="Self.rounds" Schema="database_p2" store:Type="Tables" />
-          <EntitySet Name="testparameters" EntityType="Self.testparameters" Schema="database_p2" store:Type="Tables" />
+        <EntityContainer Name="p2_databaseModelStoreContainer">
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rounds" EntityType="Self.Rounds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestParameters" EntityType="Self.TestParameters" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="database_p2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="person">
+      <Schema Namespace="p2_databaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Person">
           <Key>
             <PropertyRef Name="IdPerson" />
           </Key>
           <Property Name="IdPerson" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="First_Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Last_Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
         </EntityType>
-        <EntityType Name="rounds">
+        <EntityType Name="Rounds">
           <Key>
             <PropertyRef Name="IdRounds" />
           </Key>
           <Property Name="IdRounds" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-        <EntityType Name="testparameters">
+        <EntityType Name="TestParameters">
           <Key>
             <PropertyRef Name="IdTestParameters" />
           </Key>
           <Property Name="IdTestParameters" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Clicks" Type="Int32" />
-          <Property Name="ResetCount" Type="Int32" />
+          <Property Name="Reset_Count" Type="Int32" />
           <Property Name="Wins" Type="Int32" />
           <Property Name="Loss" Type="Int32" />
           <Property Name="Time_Used" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="database_p2Entities2" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="person" EntityType="Self.person" />
-          <EntitySet Name="rounds" EntityType="Self.rounds" />
-          <EntitySet Name="testparameters" EntityType="Self.testparameters" />
+        <EntityContainer Name="p2_databaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Person" EntityType="Self.Person" />
+          <EntitySet Name="Rounds" EntityType="Self.Rounds" />
+          <EntitySet Name="TestParameters" EntityType="Self.TestParameters" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="database_p2ModelStoreContainer" CdmEntityContainer="database_p2Entities2">
-          <EntitySetMapping Name="person">
-            <EntityTypeMapping TypeName="database_p2Model.person">
-              <MappingFragment StoreEntitySet="person">
+        <EntityContainerMapping StorageEntityContainer="p2_databaseModelStoreContainer" CdmEntityContainer="p2_databaseEntities">
+          <EntitySetMapping Name="Person">
+            <EntityTypeMapping TypeName="p2_databaseModel.Person">
+              <MappingFragment StoreEntitySet="Person">
                 <ScalarProperty Name="IdPerson" ColumnName="IdPerson" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="First_Name" ColumnName="First Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="rounds">
-            <EntityTypeMapping TypeName="database_p2Model.rounds">
-              <MappingFragment StoreEntitySet="rounds">
+          <EntitySetMapping Name="Rounds">
+            <EntityTypeMapping TypeName="p2_databaseModel.Rounds">
+              <MappingFragment StoreEntitySet="Rounds">
                 <ScalarProperty Name="IdRounds" ColumnName="IdRounds" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="testparameters">
-            <EntityTypeMapping TypeName="database_p2Model.testparameters">
-              <MappingFragment StoreEntitySet="testparameters">
+          <EntitySetMapping Name="TestParameters">
+            <EntityTypeMapping TypeName="p2_databaseModel.TestParameters">
+              <MappingFragment StoreEntitySet="TestParameters">
                 <ScalarProperty Name="IdTestParameters" ColumnName="IdTestParameters" />
                 <ScalarProperty Name="Clicks" ColumnName="Clicks" />
-                <ScalarProperty Name="ResetCount" ColumnName="ResetCount" />
+                <ScalarProperty Name="Reset_Count" ColumnName="Reset Count" />
                 <ScalarProperty Name="Wins" ColumnName="Wins" />
                 <ScalarProperty Name="Loss" ColumnName="Loss" />
                 <ScalarProperty Name="Time_Used" ColumnName="Time Used" />

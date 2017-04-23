@@ -13,10 +13,10 @@ namespace P2SeriosuGame.SQL
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class database_p2Entities2 : DbContext
+    public partial class p2_databaseEntities : DbContext
     {
-        public database_p2Entities2()
-            : base("name=database_p2Entities2")
+        public p2_databaseEntities()
+            : base("name=p2_databaseEntities")
         {
         }
     
@@ -25,8 +25,8 @@ namespace P2SeriosuGame.SQL
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<person> person { get; set; }
-        public DbSet<rounds> rounds { get; set; }
-        public DbSet<testparameters> testparameters { get; set; }
+        public DbSet<Person> Person { get; set; }
+        public DbSet<Rounds> Rounds { get; set; }
+        public DbSet<TestParameters> TestParameters { get; set; }
     }
 }

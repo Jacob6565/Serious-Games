@@ -12,10 +12,10 @@ namespace P2SeriosuGame.SQL
     using System;
     using System.Collections.Generic;
     
-    public partial class person
+    public partial class Person
     {
         public int IdPerson { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string First_Name { get; set; }
+        public string Last_Name { get; set; }
     }
 }

@@ -21,16 +21,9 @@ namespace P2SeriousGame
 		private const int _buttonHeight = (int)(_buttonWidth * 1.15);
 		private const int _buttonHeightOffset = (3 * (_buttonHeight / 4));
 
-        // SQL Database
-        SqlConnection connection;
-        string connectionString;
-
 		public Handler()
         {
             InitializeComponent();
-
-            connectionString =
-                ConfigurationManager.ConnectionStrings["P2SeriosuGame.Properties.Settings.DatabaseConnectionString"].ConnectionString;
         }
 
         /// <summary>
@@ -197,7 +190,7 @@ namespace P2SeriousGame
             //    command.ExecuteNonQuery();
             //}
 
-            using (var context = new database_p2Entities2())
+            using (var context = new p2_databaseEntities())
             {
                 //context.TestParametre.Add(new TestParameters
                 //{
@@ -217,13 +210,13 @@ namespace P2SeriousGame
         {
             string testFirstName = "Tommy", testLastName = "Johnson"; // Test
             ResetCounter();
-            using (var context = new database_p2Entities2())
+            using (var context = new p2_databaseEntities())
             {
-                context.rounds.Add(new rounds { });
-                context.person.Add(new person
+                context.Rounds.Add(new Rounds { });
+                context.Person.Add(new Person
                 {
-                    FirstName = testFirstName,
-                    LastName = testLastName
+                    First_Name = testFirstName,
+                    Last_Name = testLastName
 
                 });
 

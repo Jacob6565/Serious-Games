@@ -12,7 +12,7 @@ namespace P2SeriosuGame.SQL
     using System;
     using System.Collections.Generic;
     
-    public partial class rounds
+    public partial class Rounds
     {
         public int IdRounds { get; set; }
     }
