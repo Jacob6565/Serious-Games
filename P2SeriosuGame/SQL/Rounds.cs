@@ -12,15 +12,8 @@ namespace P2SeriosuGame.SQL
     using System;
     using System.Collections.Generic;
     
-    public partial class Rounds
+    public partial class rounds
     {
-        public Rounds()
-        {
-            this.PersonRoundsTestParametre = new HashSet<PersonRoundsTestParametre>();
-        }
-    
         public int IdRounds { get; set; }
-    
-        public virtual ICollection<PersonRoundsTestParametre> PersonRoundsTestParametre { get; set; }
     }
 }

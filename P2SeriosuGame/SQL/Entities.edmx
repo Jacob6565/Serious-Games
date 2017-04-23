@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="database_p2Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="IdPerson" />
+          </Key>
+          <Property Name="IdPerson" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="rounds">
+          <Key>
+            <PropertyRef Name="IdRounds" />
+          </Key>
+          <Property Name="IdRounds" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="testparameters">
+          <Key>
+            <PropertyRef Name="IdTestParameters" />
+          </Key>
+          <Property Name="IdTestParameters" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Clicks" Type="int" />
+          <Property Name="ResetCount" Type="int" />
+          <Property Name="Wins" Type="int" />
+          <Property Name="Loss" Type="int" />
+          <Property Name="Time Used" Type="int" />
+        </EntityType>
+        <EntityContainer Name="database_p2ModelStoreContainer">
+          <EntitySet Name="person" EntityType="Self.person" Schema="database_p2" store:Type="Tables" />
+          <EntitySet Name="rounds" EntityType="Self.rounds" Schema="database_p2" store:Type="Tables" />
+          <EntitySet Name="testparameters" EntityType="Self.testparameters" Schema="database_p2" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="database_p2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="IdPerson" />
+          </Key>
+          <Property Name="IdPerson" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="rounds">
+          <Key>
+            <PropertyRef Name="IdRounds" />
+          </Key>
+          <Property Name="IdRounds" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="testparameters">
+          <Key>
+            <PropertyRef Name="IdTestParameters" />
+          </Key>
+          <Property Name="IdTestParameters" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Clicks" Type="Int32" />
+          <Property Name="ResetCount" Type="Int32" />
+          <Property Name="Wins" Type="Int32" />
+          <Property Name="Loss" Type="Int32" />
+          <Property Name="Time_Used" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="database_p2Entities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="person" EntityType="Self.person" />
+          <EntitySet Name="rounds" EntityType="Self.rounds" />
+          <EntitySet Name="testparameters" EntityType="Self.testparameters" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="database_p2ModelStoreContainer" CdmEntityContainer="database_p2Entities2">
+          <EntitySetMapping Name="person">
+            <EntityTypeMapping TypeName="database_p2Model.person">
+              <MappingFragment StoreEntitySet="person">
+                <ScalarProperty Name="IdPerson" ColumnName="IdPerson" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rounds">
+            <EntityTypeMapping TypeName="database_p2Model.rounds">
+              <MappingFragment StoreEntitySet="rounds">
+                <ScalarProperty Name="IdRounds" ColumnName="IdRounds" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="testparameters">
+            <EntityTypeMapping TypeName="database_p2Model.testparameters">
+              <MappingFragment StoreEntitySet="testparameters">
+                <ScalarProperty Name="IdTestParameters" ColumnName="IdTestParameters" />
+                <ScalarProperty Name="Clicks" ColumnName="Clicks" />
+                <ScalarProperty Name="ResetCount" ColumnName="ResetCount" />
+                <ScalarProperty Name="Wins" ColumnName="Wins" />
+                <ScalarProperty Name="Loss" ColumnName="Loss" />
+                <ScalarProperty Name="Time_Used" ColumnName="Time Used" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

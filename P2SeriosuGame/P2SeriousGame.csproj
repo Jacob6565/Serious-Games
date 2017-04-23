@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -54,6 +54,10 @@
   <ItemGroup>
     <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -87,32 +91,29 @@
     <Compile Include="Math.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SQL\Person.cs">
-      <DependentUpon>SQL_db.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SQL\PersonRoundsTestParametre.cs">
-      <DependentUpon>SQL_db.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SQL\Rounds.cs">
-      <DependentUpon>SQL_db.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SQL\SQL_db.Context.cs">
+    <Compile Include="SQL\Entities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SQL_db.Context.tt</DependentUpon>
+      <DependentUpon>Entities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="SQL\SQL_db.cs">
+    <Compile Include="SQL\Entities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SQL_db.tt</DependentUpon>
+      <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
-    <Compile Include="SQL\SQL_db.Designer.cs">
+    <Compile Include="SQL\Entities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SQL_db.edmx</DependentUpon>
+      <DependentUpon>Entities.edmx</DependentUpon>
     </Compile>
-    <Compile Include="SQL\TestParameters.cs">
-      <DependentUpon>SQL_db.tt</DependentUpon>
+    <Compile Include="SQL\person.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SQL\rounds.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SQL\testparameters.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <EmbeddedResource Include="GameWindow.resx">
       <DependentUpon>GameWindow.cs</DependentUpon>
@@ -137,35 +138,26 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EntityDeploy Include="SQL\SQL_db.edmx">
+    <EntityDeploy Include="SQL\Entities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SQL_db.Designer.cs</LastGenOutput>
+      <LastGenOutput>Entities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="SQL\SQL_db.edmx.diagram">
-      <DependentUpon>SQL_db.edmx</DependentUpon>
+    <None Include="SQL\Entities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Entities.edmx</DependentUpon>
+      <LastGenOutput>Entities.Context.cs</LastGenOutput>
+    </None>
+    <None Include="SQL\Entities.edmx.diagram">
+      <DependentUpon>Entities.edmx</DependentUpon>
+    </None>
+    <None Include="SQL\Entities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Entities.edmx</DependentUpon>
+      <LastGenOutput>Entities.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SQL\Database.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SQL\Database_log.ldf">
-      <DependentUpon>Database.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SQL\SQL_db.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SQL_db.edmx</DependentUpon>
-      <LastGenOutput>SQL_db.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="SQL\SQL_db.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SQL_db.edmx</DependentUpon>
-      <LastGenOutput>SQL_db.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

@@ -197,7 +197,7 @@ namespace P2SeriousGame
             //    command.ExecuteNonQuery();
             //}
 
-            using (var context = new DatabaseEntities())
+            using (var context = new database_p2Entities2())
             {
                 //context.TestParametre.Add(new TestParameters
                 //{
@@ -215,20 +215,20 @@ namespace P2SeriousGame
         
         private void ResetButtonClick(object sender, MouseEventArgs e)
         {
-            string testFirstName = "Tommy", testLastName = "Johnson";
+            string testFirstName = "Tommy", testLastName = "Johnson"; // Test
             ResetCounter();
-            using (var context = new DatabaseEntities())
+            using (var context = new database_p2Entities2())
             {
-                context.Rounds.Add(new Rounds { });
-                context.Person.Add(new Person
+                context.rounds.Add(new rounds { });
+                context.person.Add(new person
                 {
                     FirstName = testFirstName,
                     LastName = testLastName
 
                 });
+
+                context.SaveChanges();
             }
-
-
 
             Application.Restart();
         }
