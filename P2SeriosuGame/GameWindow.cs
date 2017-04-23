@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Configuration;
+using P2SeriosuGame.SQL;
 
 namespace P2SeriousGame
 {
@@ -168,39 +169,67 @@ namespace P2SeriousGame
 
         public void SendToDB()
         {
-            string query = "SET IDENTITY_INSERT TestParametre ON ";
+            //string query = "SET IDENTITY_INSERT TestParametre ON ";
 
-            using (connection = new SqlConnection(connectionString))
-            using (SqlCommand command = new SqlCommand(query, connection))
+            //using (connection = new SqlConnection(connectionString))
+            //using (SqlCommand command = new SqlCommand(query, connection))
+            //{
+            //    connection.Open();
+            //    command.ExecuteNonQuery();
+            //}
+
+            //query = "INSERT INTO TestParametre (Id, ResetCount) VALUES (1, @ResetCount)";
+
+            //using (connection = new SqlConnection(connectionString))
+            //using (SqlCommand command = new SqlCommand(query, connection))
+            //{
+            //    connection.Open();
+            //    command.Parameters.AddWithValue("@ResetCount", resetCounter);
+            //    command.ExecuteNonQuery();
+            //}
+
+            //query = "SET IDENTITY_INSERT TestParametre OFF ";
+
+            //using (connection = new SqlConnection(connectionString))
+            //using (SqlCommand command = new SqlCommand(query, connection))
+            //{
+            //    connection.Open();
+            //    command.ExecuteNonQuery();
+            //}
+
+            using (var context = new DatabaseEntities())
             {
-                connection.Open();
-                command.ExecuteNonQuery();
+                //context.TestParametre.Add(new TestParameters
+                //{
+                //    Clicks =,
+                //    ResetCount = resetCounter,
+                //    Wins = ,
+                //    Loss = ,
+                //    TimeUsed = 
+                //});
+
+                context.SaveChanges();
             }
 
-            query = "INSERT INTO TestParametre (Id, ResetCount) VALUES (1, @ResetCount)";
-
-            using (connection = new SqlConnection(connectionString))
-            using (SqlCommand command = new SqlCommand(query, connection))
-            {
-                connection.Open();
-                command.Parameters.AddWithValue("@ResetCount", resetCounter);
-                command.ExecuteNonQuery();
-            }
-
-            query = "SET IDENTITY_INSERT TestParametre OFF ";
-
-            using (connection = new SqlConnection(connectionString))
-            using (SqlCommand command = new SqlCommand(query, connection))
-            {
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
         }
-
-
+        
         private void ResetButtonClick(object sender, MouseEventArgs e)
         {
+            string testFirstName = "Tommy", testLastName = "Johnson";
             ResetCounter();
+            using (var context = new DatabaseEntities())
+            {
+                context.Rounds.Add(new Rounds { });
+                context.Person.Add(new Person
+                {
+                    FirstName = testFirstName,
+                    LastName = testLastName
+
+                });
+            }
+
+
+
             Application.Restart();
         }
 

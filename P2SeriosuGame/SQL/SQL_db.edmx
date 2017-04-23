@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="FirstName" MaxLength="50" Type="nvarchar" />
+          <Property Name="LastName" MaxLength="50" Type="nvarchar" />
+        </EntityType>
+        <EntityType Name="PersonRoundsTestParametre">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="PersonId" Nullable="false" Type="int" />
+          <Property Name="TestParametreId" Nullable="false" Type="int" />
+          <Property Name="RoundId" Nullable="false" Type="int" />
+        </EntityType>
+        <EntityType Name="Rounds">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+        </EntityType>
+        <EntityType Name="TestParametre">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Clicks" Type="int" />
+          <Property Name="ResetCount" Type="int" />
+          <Property Name="Wins" Type="int" />
+          <Property Name="Loss" Type="int" />
+          <Property Name="TimeUsed" Type="int" />
+        </EntityType>
+        <Association Name="PersonFK">
+          <End Type="Self.Person" Multiplicity="1" Role="Person" />
+          <End Type="Self.PersonRoundsTestParametre" Multiplicity="*" Role="PersonRoundsTestParametre" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonRoundsTestParametre">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoundsFK">
+          <End Type="Self.Rounds" Multiplicity="1" Role="Rounds" />
+          <End Type="Self.PersonRoundsTestParametre" Multiplicity="*" Role="PersonRoundsTestParametre" />
+          <ReferentialConstraint>
+            <Principal Role="Rounds">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonRoundsTestParametre">
+              <PropertyRef Name="RoundId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TestParametreFK">
+          <End Type="Self.TestParametre" Multiplicity="1" Role="TestParametre" />
+          <End Type="Self.PersonRoundsTestParametre" Multiplicity="*" Role="PersonRoundsTestParametre" />
+          <ReferentialConstraint>
+            <Principal Role="TestParametre">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PersonRoundsTestParametre">
+              <PropertyRef Name="TestParametreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseModelStoreContainer">
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonRoundsTestParametre" EntityType="Self.PersonRoundsTestParametre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rounds" EntityType="Self.Rounds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestParametre" EntityType="Self.TestParametre" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="PersonFK" Association="Self.PersonFK">
+            <End EntitySet="Person" Role="Person" />
+            <End EntitySet="PersonRoundsTestParametre" Role="PersonRoundsTestParametre" />
+          </AssociationSet>
+          <AssociationSet Name="RoundsFK" Association="Self.RoundsFK">
+            <End EntitySet="Rounds" Role="Rounds" />
+            <End EntitySet="PersonRoundsTestParametre" Role="PersonRoundsTestParametre" />
+          </AssociationSet>
+          <AssociationSet Name="TestParametreFK" Association="Self.TestParametreFK">
+            <End EntitySet="TestParametre" Role="TestParametre" />
+            <End EntitySet="PersonRoundsTestParametre" Role="PersonRoundsTestParametre" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="IdPerson" />
+          </Key>
+          <Property Name="IdPerson" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="FirstName" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="LastName" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <NavigationProperty Name="PersonRoundsTestParametre" Relationship="Self.PersonFK" FromRole="Person" ToRole="PersonRoundsTestParametre" />
+        </EntityType>
+        <EntityType Name="PersonRoundsTestParametre">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="PersonId" Nullable="false" Type="Int32" />
+          <Property Name="TestParametersId" Nullable="false" Type="Int32" />
+          <Property Name="RoundId" Nullable="false" Type="Int32" />
+          <NavigationProperty Name="Person" Relationship="Self.PersonFK" FromRole="PersonRoundsTestParametre" ToRole="Person" />
+          <NavigationProperty Name="Rounds" Relationship="Self.RoundsFK" FromRole="PersonRoundsTestParametre" ToRole="Rounds" />
+          <NavigationProperty Name="TestParameters" Relationship="Self.TestParametreFK" FromRole="PersonRoundsTestParametre" ToRole="TestParametre" />
+        </EntityType>
+        <EntityType Name="Rounds">
+          <Key>
+            <PropertyRef Name="IdRounds" />
+          </Key>
+          <Property Name="IdRounds" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <NavigationProperty Name="PersonRoundsTestParametre" Relationship="Self.RoundsFK" FromRole="Rounds" ToRole="PersonRoundsTestParametre" />
+        </EntityType>
+        <EntityType Name="TestParameters">
+          <Key>
+            <PropertyRef Name="IdTestParameters" />
+          </Key>
+          <Property Name="IdTestParameters" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="Clicks" Type="Int32" />
+          <Property Name="ResetCount" Type="Int32" />
+          <Property Name="Wins" Type="Int32" />
+          <Property Name="Loss" Type="Int32" />
+          <Property Name="TimeUsed" Type="Int32" />
+          <NavigationProperty Name="PersonRoundsTestParametre" Relationship="Self.TestParametreFK" FromRole="TestParametre" ToRole="PersonRoundsTestParametre" />
+        </EntityType>
+        <Association Name="PersonFK">
+          <End Type="Self.Person" Multiplicity="1" Role="Person" />
+          <End Type="Self.PersonRoundsTestParametre" Multiplicity="*" Role="PersonRoundsTestParametre" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="IdPerson" />
+            </Principal>
+            <Dependent Role="PersonRoundsTestParametre">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoundsFK">
+          <End Type="Self.Rounds" Multiplicity="1" Role="Rounds" />
+          <End Type="Self.PersonRoundsTestParametre" Multiplicity="*" Role="PersonRoundsTestParametre" />
+          <ReferentialConstraint>
+            <Principal Role="Rounds">
+              <PropertyRef Name="IdRounds" />
+            </Principal>
+            <Dependent Role="PersonRoundsTestParametre">
+              <PropertyRef Name="RoundId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TestParametreFK">
+          <End Type="DatabaseModel.TestParameters" Multiplicity="1" Role="TestParametre" />
+          <End Type="Self.PersonRoundsTestParametre" Multiplicity="*" Role="PersonRoundsTestParametre" />
+          <ReferentialConstraint>
+            <Principal Role="TestParametre">
+              <PropertyRef Name="IdTestParameters" />
+            </Principal>
+            <Dependent Role="PersonRoundsTestParametre">
+              <PropertyRef Name="TestParametersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Person" EntityType="Self.Person" />
+          <EntitySet Name="PersonRoundsTestParametre" EntityType="Self.PersonRoundsTestParametre" />
+          <EntitySet Name="Rounds" EntityType="Self.Rounds" />
+          <EntitySet Name="TestParametre" EntityType="DatabaseModel.TestParameters" />
+          <AssociationSet Name="PersonFK" Association="Self.PersonFK">
+            <End EntitySet="Person" Role="Person" />
+            <End EntitySet="PersonRoundsTestParametre" Role="PersonRoundsTestParametre" />
+          </AssociationSet>
+          <AssociationSet Name="RoundsFK" Association="Self.RoundsFK">
+            <End EntitySet="Rounds" Role="Rounds" />
+            <End EntitySet="PersonRoundsTestParametre" Role="PersonRoundsTestParametre" />
+          </AssociationSet>
+          <AssociationSet Name="TestParametreFK" Association="Self.TestParametreFK">
+            <End EntitySet="TestParametre" Role="TestParametre" />
+            <End EntitySet="PersonRoundsTestParametre" Role="PersonRoundsTestParametre" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+          <EntitySetMapping Name="Person">
+            <EntityTypeMapping TypeName="DatabaseModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="IdPerson" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonRoundsTestParametre">
+            <EntityTypeMapping TypeName="DatabaseModel.PersonRoundsTestParametre">
+              <MappingFragment StoreEntitySet="PersonRoundsTestParametre">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="TestParametersId" ColumnName="TestParametreId" />
+                <ScalarProperty Name="RoundId" ColumnName="RoundId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rounds">
+            <EntityTypeMapping TypeName="DatabaseModel.Rounds">
+              <MappingFragment StoreEntitySet="Rounds">
+                <ScalarProperty Name="IdRounds" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestParametre">
+            <EntityTypeMapping TypeName="DatabaseModel.TestParameters">
+              <MappingFragment StoreEntitySet="TestParametre">
+                <ScalarProperty Name="IdTestParameters" ColumnName="Id" />
+                <ScalarProperty Name="Clicks" ColumnName="Clicks" />
+                <ScalarProperty Name="ResetCount" ColumnName="ResetCount" />
+                <ScalarProperty Name="Wins" ColumnName="Wins" />
+                <ScalarProperty Name="Loss" ColumnName="Loss" />
+                <ScalarProperty Name="TimeUsed" ColumnName="TimeUsed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
