@@ -18,6 +18,11 @@
             <PropertyRef Name="IdRounds" />
           </Key>
           <Property Name="IdRounds" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Clicks" Type="int" />
+          <Property Name="AVG Clicks" Type="int" />
+          <Property Name="Win" Type="int" />
+          <Property Name="Loss" Type="int" />
+          <Property Name="Time Used" Type="int" />
         </EntityType>
         <EntityType Name="TestParameters">
           <Key>
@@ -25,10 +30,11 @@
           </Key>
           <Property Name="IdTestParameters" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Clicks" Type="int" />
-          <Property Name="Reset Count" Type="int" />
+          <Property Name="Rounds" Type="int" />
           <Property Name="Wins" Type="int" />
           <Property Name="Loss" Type="int" />
           <Property Name="Time Used" Type="int" />
+          <Property Name="AVG Clicks" Type="int" />
         </EntityType>
         <EntityContainer Name="p2_databaseModelStoreContainer">
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
@@ -53,6 +59,11 @@
             <PropertyRef Name="IdRounds" />
           </Key>
           <Property Name="IdRounds" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Clicks" Type="Int32" />
+          <Property Name="AVG_Clicks" Type="Int32" />
+          <Property Name="Win" Type="Int32" />
+          <Property Name="Loss" Type="Int32" />
+          <Property Name="Time_Used" Type="Int32" />
         </EntityType>
         <EntityType Name="TestParameters">
           <Key>
@@ -60,12 +71,13 @@
           </Key>
           <Property Name="IdTestParameters" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Clicks" Type="Int32" />
-          <Property Name="Reset_Count" Type="Int32" />
+          <Property Name="Rounds" Type="Int32" />
           <Property Name="Wins" Type="Int32" />
           <Property Name="Loss" Type="Int32" />
           <Property Name="Time_Used" Type="Int32" />
+          <Property Name="AVG_Clicks" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="p2_databaseEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="p2_databaseEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Person" EntityType="Self.Person" />
           <EntitySet Name="Rounds" EntityType="Self.Rounds" />
           <EntitySet Name="TestParameters" EntityType="Self.TestParameters" />
@@ -75,7 +87,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="p2_databaseModelStoreContainer" CdmEntityContainer="p2_databaseEntities">
+        <EntityContainerMapping StorageEntityContainer="p2_databaseModelStoreContainer" CdmEntityContainer="p2_databaseEntities1">
           <EntitySetMapping Name="Person">
             <EntityTypeMapping TypeName="p2_databaseModel.Person">
               <MappingFragment StoreEntitySet="Person">
@@ -89,6 +101,11 @@
             <EntityTypeMapping TypeName="p2_databaseModel.Rounds">
               <MappingFragment StoreEntitySet="Rounds">
                 <ScalarProperty Name="IdRounds" ColumnName="IdRounds" />
+                <ScalarProperty Name="Clicks" ColumnName="Clicks" />
+                <ScalarProperty Name="AVG_Clicks" ColumnName="AVG Clicks" />
+                <ScalarProperty Name="Win" ColumnName="Win" />
+                <ScalarProperty Name="Loss" ColumnName="Loss" />
+                <ScalarProperty Name="Time_Used" ColumnName="Time Used" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -97,10 +114,11 @@
               <MappingFragment StoreEntitySet="TestParameters">
                 <ScalarProperty Name="IdTestParameters" ColumnName="IdTestParameters" />
                 <ScalarProperty Name="Clicks" ColumnName="Clicks" />
-                <ScalarProperty Name="Reset_Count" ColumnName="Reset Count" />
+                <ScalarProperty Name="Rounds" ColumnName="Rounds" />
                 <ScalarProperty Name="Wins" ColumnName="Wins" />
                 <ScalarProperty Name="Loss" ColumnName="Loss" />
                 <ScalarProperty Name="Time_Used" ColumnName="Time Used" />
+                <ScalarProperty Name="AVG_Clicks" ColumnName="AVG Clicks" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

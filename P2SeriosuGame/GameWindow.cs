@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
-using System.Configuration;
 using P2SeriosuGame.SQL;
+
 
 namespace P2SeriousGame
 {
@@ -161,7 +161,7 @@ namespace P2SeriousGame
 
         public void SendToDatabase()
         {
-            using (var context = new p2_databaseEntities())
+            using (var context = new p2_databaseEntities1())
             {
                 //context.TestParametre.Add(new TestParameters
                 //{
@@ -180,9 +180,16 @@ namespace P2SeriousGame
         {
             string testFirstName = "Tommy", testLastName = "Johnson"; // Test
             ResetCounter();
-            using (var context = new p2_databaseEntities())
+            using (var context = new p2_databaseEntities1())
             {
-                context.Rounds.Add(new Rounds { }); // Adds new row to Rounds table
+                context.Rounds.Add(new Rounds       // Adds new row to Rounds table
+                {
+                    //Clicks = ,
+                    //AVG_Clicks = ,
+                    //Win = ,
+                    //Loss = ,
+                    //Time_Used = 
+                });
                 context.Person.Add(new Person       // Adds new row to Person table
                 {
                     First_Name = testFirstName,

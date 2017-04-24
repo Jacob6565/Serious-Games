@@ -15,5 +15,10 @@ namespace P2SeriosuGame.SQL
     public partial class Rounds
     {
         public int IdRounds { get; set; }
+        public Nullable<int> Clicks { get; set; }
+        public Nullable<int> AVG_Clicks { get; set; }
+        public Nullable<int> Win { get; set; }
+        public Nullable<int> Loss { get; set; }
+        public Nullable<int> Time_Used { get; set; }
     }
 }

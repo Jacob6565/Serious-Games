@@ -16,9 +16,10 @@ namespace P2SeriosuGame.SQL
     {
         public int IdTestParameters { get; set; }
         public Nullable<int> Clicks { get; set; }
-        public Nullable<int> Reset_Count { get; set; }
+        public Nullable<int> Rounds { get; set; }
         public Nullable<int> Wins { get; set; }
         public Nullable<int> Loss { get; set; }
         public Nullable<int> Time_Used { get; set; }
+        public Nullable<int> AVG_Clicks { get; set; }
     }
 }
