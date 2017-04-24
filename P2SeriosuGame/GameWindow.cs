@@ -121,7 +121,6 @@ namespace P2SeriousGame
             AddResetButton();
         }
 
-
         /// <summary>
         /// Converts a coordinate into a position in a hexgrid.
         /// </summary>
@@ -156,45 +155,17 @@ namespace P2SeriousGame
         
 		public void ExitButtonClick(object sender, MouseEventArgs e)
 		{
-            SendToDB();
+            SendToDatabase();
 			Close();
 		}
 
-        public void SendToDB()
+        public void SendToDatabase()
         {
-            //string query = "SET IDENTITY_INSERT TestParametre ON ";
-
-            //using (connection = new SqlConnection(connectionString))
-            //using (SqlCommand command = new SqlCommand(query, connection))
-            //{
-            //    connection.Open();
-            //    command.ExecuteNonQuery();
-            //}
-
-            //query = "INSERT INTO TestParametre (Id, ResetCount) VALUES (1, @ResetCount)";
-
-            //using (connection = new SqlConnection(connectionString))
-            //using (SqlCommand command = new SqlCommand(query, connection))
-            //{
-            //    connection.Open();
-            //    command.Parameters.AddWithValue("@ResetCount", resetCounter);
-            //    command.ExecuteNonQuery();
-            //}
-
-            //query = "SET IDENTITY_INSERT TestParametre OFF ";
-
-            //using (connection = new SqlConnection(connectionString))
-            //using (SqlCommand command = new SqlCommand(query, connection))
-            //{
-            //    connection.Open();
-            //    command.ExecuteNonQuery();
-            //}
-
             using (var context = new p2_databaseEntities())
             {
                 //context.TestParametre.Add(new TestParameters
                 //{
-                //    Clicks =,
+                //    Clicks = ,
                 //    ResetCount = resetCounter,
                 //    Wins = ,
                 //    Loss = ,
@@ -203,7 +174,6 @@ namespace P2SeriousGame
 
                 context.SaveChanges();
             }
-
         }
         
         private void ResetButtonClick(object sender, MouseEventArgs e)
@@ -212,12 +182,13 @@ namespace P2SeriousGame
             ResetCounter();
             using (var context = new p2_databaseEntities())
             {
-                context.Rounds.Add(new Rounds { });
-                context.Person.Add(new Person
+                context.Rounds.Add(new Rounds { }); // Adds new row to Rounds table
+                context.Person.Add(new Person       // Adds new row to Person table
                 {
                     First_Name = testFirstName,
                     Last_Name = testLastName
-
+                });
+                context.TestParameters.Add(new TestParameters{
                 });
 
                 context.SaveChanges();
