@@ -72,19 +72,14 @@ namespace P2SeriousGame
             if (hexagonRows == 1)
                 _buttonHeight = (int)(_gameScreenHeight / hexagonRows);
 
-            else if (hexagonRows == 2)
+
+            else if (hexagonRows % 2 == 0)
             {
                 rowHeight = (hexagonRows * 0.75) + 0.25;
                 _buttonHeight = (int)(_gameScreenHeight / rowHeight);
             }
 
-            else if (hexagonRows % 2 == 0 && hexagonRows > 2)
-            {
-                rowHeight = (hexagonRows * 0.75) + 0.25;
-                _buttonHeight = (int)(_gameScreenHeight / rowHeight);
-            }
-
-            else if (hexagonRows % 2 == 1 && hexagonRows > 2)
+            else if (hexagonRows % 2 == 1 && hexagonRows > 1)
             {
                 rowHeight = ((hexagonRows - 1) / 4) + ((hexagonRows + 1) / 2);
                 _buttonHeight = (int)(_gameScreenHeight / rowHeight);
