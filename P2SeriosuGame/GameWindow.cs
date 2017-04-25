@@ -14,13 +14,103 @@ namespace P2SeriousGame
     public partial class Handler : Form
     {
 		private const double Formatting = 1.42;
-        private const int _buttonWidth = 100;
-		private const int _buttonHeight = (int)(_buttonWidth * 1.15);
-		private const int _buttonHeightOffset = (3 * (_buttonHeight / 4));
+        private int _buttonWidth;
+        private int _buttonHeight;
+        private int ButtonHeightOffset => (3 * (_buttonHeight / 4));
 
-		public Handler()
+        /// <summary>
+        /// 
+        /// </summary>
+        public Handler()
         {
             InitializeComponent();
+        }
+
+        //These constants declare the amount of reserved space or margins, where 0.05 equals 5%
+        private const double _leftWidthReserved = 0.05;
+        private const double _endWidthReserved = 0.12;
+        private const double _topHeightReserved = 0.05;
+        private const double _bottomHeightReserved = 0.03;
+
+        //The gamescreen variables sets the height and width of the area on the screen where hexagonbutton can be drawn
+        private double _gameScreenWidth = Screen.PrimaryScreen.Bounds.Width * (1 - (_leftWidthReserved + _endWidthReserved));
+        private double _gameScreenHeight = Screen.PrimaryScreen.Bounds.Height * (1 - (_topHeightReserved + _bottomHeightReserved));
+
+        //Centers the hexagonmap starting placement, if the hexagonmap doesnt fill out the entire gamescreen width
+        private double WidthCentering => (_gameScreenWidth - (_buttonWidth * Map.TotalHexagonColumns)) / 2;
+
+        //WidthStart and heightStart sets the starting place for the hexagonmap
+        private int WidthStart => (int) ((_leftWidthReserved * Screen.PrimaryScreen.Bounds.Width) + WidthCentering);
+        private int _heightStart = (int) (_topHeightReserved * Screen.PrimaryScreen.Bounds.Height);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void CalculateButtonDimension()
+        {
+            CalculateButtonDimensionBasedOnScreenHeight();
+
+            //Does the calculated width fit the screen width, if not then calculate height and width based on screen width
+            if ((_buttonWidth * Map.TotalHexagonColumns) > _gameScreenWidth)
+                CalculateButtonDimensionBasedOnScreenWidth();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void CalculateButtonDimensionBasedOnScreenHeight()
+        {
+            double rowHeight;
+            double hexagonRows = Map.TotalHexagonRows;
+
+            //// SKAL DET VÆRE DER????????????
+            //
+            //
+            //
+            double heightToWidth = System.Math.Sqrt(3)/2;
+            //These series of if-else calculates the height of one button, determined by the number of rows and the screen height
+            if (hexagonRows == 1)
+                _buttonHeight = (int)(_gameScreenHeight / hexagonRows);
+
+            else if (hexagonRows == 2)
+            {
+                rowHeight = (hexagonRows * 0.75) + 0.25;
+                _buttonHeight = (int)(_gameScreenHeight / rowHeight);
+            }
+
+            else if (hexagonRows % 2 == 0 && hexagonRows > 2)
+            {
+                rowHeight = (hexagonRows * 0.75) + 0.25;
+                _buttonHeight = (int)(_gameScreenHeight / rowHeight);
+            }
+
+            else if (hexagonRows % 2 == 1 && hexagonRows > 2)
+            {
+                rowHeight = ((hexagonRows - 1) / 4) + ((hexagonRows + 1) / 2);
+                _buttonHeight = (int)(_gameScreenHeight / rowHeight);
+            }
+
+            //We calculate the width by multiplying height to width ratio
+            _buttonWidth = (int)((_buttonHeight * heightToWidth));
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void CalculateButtonDimensionBasedOnScreenWidth()
+        {
+            //// SKAL DET VÆRE DER????????????
+            //
+            //
+            //
+            double widthToHeight = (2/3) * System.Math.Sqrt(3);
+
+            //We calculate the button width by dividing the screen width with number of columns + 0.5 (because we have an offset)
+            _buttonWidth = (int)(_gameScreenWidth/ (Map.TotalHexagonColumns + 0.5));
+
+            //We calculate the height by multiplying width to height ratio
+            _buttonHeight = (int)(_buttonWidth * widthToHeight);
         }
 
         /// <summary>
@@ -38,8 +128,15 @@ namespace P2SeriousGame
 			button.BackColor = Color.LightGray;
             button.Paint += ButtonPainter;
             button.MouseClick += button.HexClicked;
+            button.MouseClick += HexClickedColor;
 			button.MouseClick += map.HexClicked;
             this.Controls.Add(button);
+        }
+
+        public void HexClickedColor(object sender, MouseEventArgs e)
+        {
+            HexagonButton sender_Button = sender as HexagonButton;
+            sender_Button.BackColor = Color.FromArgb(255, 105, 180);
         }
 
         /// <summary>
@@ -129,7 +226,7 @@ namespace P2SeriousGame
         /// <returns></returns>
 		private int CalculateButtonWidthOffset(int xCoordinate, int yCoordinate)
 		{
-			int width = 0;
+			int width = WidthStart;
 			width += (xCoordinate * _buttonWidth);			
 			//Gives every second button an offset to make the grid
 			if(yCoordinate % 2 == 1)
@@ -146,9 +243,9 @@ namespace P2SeriousGame
         /// <returns></returns>
 		private int CalculateButtonHeightOffset(int yCoordinate)
 		{
-			int height = 0;
+			int height = _heightStart;
 
-			height += (yCoordinate * _buttonHeightOffset);
+			height += (yCoordinate * ButtonHeightOffset);
 
 			return height;
 		}
