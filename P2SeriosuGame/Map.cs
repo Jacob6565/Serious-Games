@@ -15,7 +15,7 @@ namespace P2SeriousGame
         private int totalHexagonRows = 0;
 		private int totalHexagonColoumns = 0;
         public HexagonButton[,] hexMap;
-		MapCalculations calc = new MapCalculations();
+		Pathfinding path = new Pathfinding();
 		private HexagonButton currentMousePosition;
         private int xValue = 6;
         private int yValue = 4;
@@ -70,9 +70,9 @@ namespace P2SeriousGame
             hexMap[xValue, yValue].Enabled = true;
 
             //Nye position.
-            calc.CalculateRoutes(hexMap, hexMap[xValue, yValue]);
-            xValue = calc.FirstButtonInPath.XCoordinate;
-            yValue = calc.FirstButtonInPath.YCoordinate;
+            path.CalculateRoutes(hexMap, hexMap[xValue, yValue]);
+            xValue = path.FirstButtonInPath.XCoordinate;
+            yValue = path.FirstButtonInPath.YCoordinate;
             hexMap[xValue, yValue].BackColor = System.Drawing.Color.Aqua;
             hexMap[xValue, yValue].Enabled = false;       
         }
