@@ -88,7 +88,6 @@ namespace P2SeriousGame
 
             //We calculate the width by multiplying height to width ratio
             ButtonWidth = (int)((ButtonHeight * heightToWidth));
-
         }
 
         /// <summary>
@@ -147,7 +146,6 @@ namespace P2SeriousGame
                                              
 			    button.Left = CalculateButtonWidthOffset(button.XCoordinate, button.YCoordinate);
 			    button.Top = CalculateButtonHeightOffset(button.YCoordinate);
-            
         }
 
         /// <summary>

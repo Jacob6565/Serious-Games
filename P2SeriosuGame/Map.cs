@@ -19,16 +19,15 @@ namespace P2SeriousGame
             get { return _totalHexagonRows; }
         }
 
-        private static int _totalHexagonColoumns = 0;
+        private static int _totalHexagonColumns = 0;
         public static int TotalHexagonColumns
         {
-            get { return _totalHexagonColoumns; }
+            get { return _totalHexagonColumns; }
         }
 
 
         public HexagonButton[,] hexMap;
 		Pathfinding path = new Pathfinding();
-		private HexagonButton currentMousePosition;
         private int xValue;
         public int XValue
         {
@@ -77,8 +76,8 @@ namespace P2SeriousGame
         /// <param name="ySize"></param>
         public Map(Handler handler, int xSize, int ySize)
         {
-            TotalHexagonRows = ySize;
-            TotalHexagonColumns = xSize;
+            _totalHexagonRows = ySize;
+            _totalHexagonColumns = xSize;
             hexMap = new HexagonButton[TotalHexagonColumns, TotalHexagonRows];
             CreateMap(handler);     
             FindNeighbours();
@@ -91,12 +90,12 @@ namespace P2SeriousGame
         public void CreateMap(Handler handler)
         {
             handler.CalculateButtonDimension();
-            for (int i = 0; i < _totalHexagonColoumns; i++)
+            for (int i = 0; i < _totalHexagonColumns; i++)
             {
                 for (int j = 0; j < _totalHexagonRows; j++)
                 {
                     bool isEdge = false;
-                    if (i == 0 || i == _totalHexagonColoumns - 1 || j == 0 || j == _totalHexagonRows - 1)
+                    if (i == 0 || i == _totalHexagonColumns - 1 || j == 0 || j == _totalHexagonRows - 1)
                     {
                         isEdge = true;
                     }
@@ -133,7 +132,7 @@ namespace P2SeriousGame
         /// </summary>
 		public void FindNeighbours()
         {
-            for (int i = 0; i < _totalHexagonColoumns; i++)
+            for (int i = 0; i < _totalHexagonColumns; i++)
             {
                 for (int j = 0; j < _totalHexagonRows; j++)
                 {
