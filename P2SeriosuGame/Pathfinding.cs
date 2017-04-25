@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Threading;
 
 namespace P2SeriousGame
 {
@@ -24,6 +26,9 @@ namespace P2SeriousGame
         /// <param name="startingHex"></param>
 		public void CalculateRoutes(HexagonButton[,] hexMap, HexagonButton startingHex)
 		{
+			Stopwatch stopWatch = new Stopwatch();
+			stopWatch.Start();
+
 			ResetAllButtons(hexMap);
 			_pathsToEdge.Clear();
             _reachableHexList.Clear();
@@ -55,6 +60,14 @@ namespace P2SeriousGame
 			}
 
             FirstButtonInPath = FindTheRoute(_pathsToEdge, _reachableHexList);
+
+			stopWatch.Stop();
+			// Get the elapsed time as a TimeSpan value.
+			TimeSpan ts = stopWatch.Elapsed;
+
+			// Format and display the TimeSpan value.
+			string elapsedTime = ts.TotalMilliseconds.ToString();
+			Console.WriteLine("RunTime " + elapsedTime);
 		}
                         
         public HexagonButton FindTheRoute(List<HexagonButton> pathsToEdge, List<HexagonButton> reachableHexList)
