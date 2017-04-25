@@ -25,7 +25,6 @@ namespace P2SeriousGame
             get { return _totalHexagonColumns; }
         }
 
-
         public HexagonButton[,] hexMap;
 		Pathfinding path = new Pathfinding();
         private int xValue;
@@ -113,7 +112,7 @@ namespace P2SeriousGame
         /// <param name="e"></param>
         public void HexClicked(object sender, MouseEventArgs e)
         {
-            //Når der bliver klikket bliver tidliger punkt farvet gråt, så bliver der beregnet ny vej og koordinaterne til næste knap bliver assignet til xValue og yValue og knappen med disse koordinater farves Aqua.
+            //Når der bliver klikket bliver tidligere punkt farvet gråt, så bliver der beregnet ny vej og koordinaterne til næste knap bliver assignet til xValue og yValue og knappen med disse koordinater farves Aqua.
             //næste to linjer er det som skal ske for den knap musen stop på i det tidligere trin.
             hexMap[XValue, YValue].BackColor = System.Drawing.Color.LightGray;
             hexMap[XValue, YValue].Enabled = true;
