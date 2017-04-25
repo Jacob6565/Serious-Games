@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using P2SeriosuGame.SQL;
+
 
 namespace P2SeriousGame
 {
@@ -18,12 +21,14 @@ namespace P2SeriousGame
         private int _buttonHeight;
         private int ButtonHeightOffset => (3 * (_buttonHeight / 4));
 
+        private Stopwatch _watchRound;
         /// <summary>
         /// 
         /// </summary>
         public Handler()
         {
             InitializeComponent();
+            _watchRound = Stopwatch.StartNew();
         }
 
         //These constants declare the amount of reserved space or margins, where 0.05 equals 5%
@@ -133,10 +138,14 @@ namespace P2SeriousGame
             this.Controls.Add(button);
         }
 
+        // Counts amount of hexagons clicked in the round
+        private int _hexClickedRound;
+
         public void HexClickedColor(object sender, MouseEventArgs e)
         {
             HexagonButton sender_Button = sender as HexagonButton;
             sender_Button.BackColor = Color.FromArgb(255, 105, 180);
+            _hexClickedRound += 1;
         }
 
         /// <summary>
@@ -207,8 +216,6 @@ namespace P2SeriousGame
             this.Controls.Add(ResetButton);
         }
 
-        
-
         public void DrawWindow(object sender, EventArgs e)
         {
             FormBorderStyle = FormBorderStyle.None;
@@ -216,7 +223,6 @@ namespace P2SeriousGame
 			AddExitButton();
             AddResetButton();
         }
-
 
         /// <summary>
         /// Converts a coordinate into a position in a hexgrid.
@@ -252,13 +258,71 @@ namespace P2SeriousGame
         
 		public void ExitButtonClick(object sender, MouseEventArgs e)
 		{
+            SendToDatabase();
 			Close();
 		}
 
+        
 
+        public void SendToDatabase()
+        {
+            using (var context = new p2_databaseEntities())
+            {
+                context.TestParameters.Add(new TestParameters
+                {
+                    //Clicks = ,
+                    Rounds = _resetCounter + 1,
+                    // Wins = ,
+                    // Loss = ,
+                    // Time_Used =
+                });
+
+                context.SaveChanges();
+            }
+        }
+        
         private void ResetButtonClick(object sender, MouseEventArgs e)
         {
-            Application.Restart();                   
+            _watchRound.Stop();
+            var elapsedSec = _watchRound.ElapsedMilliseconds / 1000;
+            float seconds = unchecked(elapsedSec);
+
+            string testFirstName = "Tommy", testLastName = "Johnson"; // Test
+            ResetCounter();
+
+            using (var context = new p2_databaseEntities())
+            {
+                context.Rounds.Add(new Rounds       // Adds new row to Rounds table
+                {
+                    Clicks = _hexClickedRound,
+                    AVG_Clicks = AverageClick(_hexClickedRound, seconds), // Lav en fucking metode - Tuan
+                    //Win = ,
+                    //Loss = ,
+                    Time_Used = seconds
+                });
+
+                context.Person.Add(new Person       // Adds new row to Person table
+                {
+                    First_Name = testFirstName,
+                    Last_Name = testLastName
+                });
+
+                context.SaveChanges();
+            }
+
+            Application.Restart();
+        }
+
+        public float AverageClick(float clicks, float seconds)
+        {
+            return clicks / seconds;
+        }
+
+        public int _resetCounter;
+
+        public void ResetCounter()
+        {
+            _resetCounter += 1;
         }
 
         //We assume that there is 72 points per inch and 96 pixels per inch
