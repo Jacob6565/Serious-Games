@@ -285,7 +285,7 @@ namespace P2SeriousGame
         {
             _watchRound.Stop();
             var elapsedSec = _watchRound.ElapsedMilliseconds / 1000;
-            float secondsInt = unchecked(elapsedSec);
+            float seconds = unchecked(elapsedSec);
 
             string testFirstName = "Tommy", testLastName = "Johnson"; // Test
             ResetCounter();
@@ -295,10 +295,10 @@ namespace P2SeriousGame
                 context.Rounds.Add(new Rounds       // Adds new row to Rounds table
                 {
                     Clicks = _hexClickedRound,
-                    AVG_Clicks = AverageClick(_hexClickedRound, secondsInt), // Lav en fucking metode - Tuan
+                    AVG_Clicks = AverageClick(_hexClickedRound, seconds), // Lav en fucking metode - Tuan
                     //Win = ,
                     //Loss = ,
-                    Time_Used = secondsInt
+                    Time_Used = seconds
                 });
 
                 context.Person.Add(new Person       // Adds new row to Person table
@@ -313,9 +313,9 @@ namespace P2SeriousGame
             Application.Restart();
         }
 
-        public float AverageClick(float a, float b)
+        public float AverageClick(float clicks, float seconds)
         {
-            return a / b;
+            return clicks / seconds;
         }
 
         public int _resetCounter;
