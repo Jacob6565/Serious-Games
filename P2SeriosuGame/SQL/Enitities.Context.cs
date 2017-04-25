@@ -13,10 +13,10 @@ namespace P2SeriosuGame.SQL
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class p2_databaseEntities1 : DbContext
+    public partial class p2_databaseEntities : DbContext
     {
-        public p2_databaseEntities1()
-            : base("name=p2_databaseEntities1")
+        public p2_databaseEntities()
+            : base("name=p2_databaseEntities")
         {
         }
     

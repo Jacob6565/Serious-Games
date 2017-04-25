@@ -21,14 +21,14 @@ namespace P2SeriousGame
         private int _buttonHeight;
         private int ButtonHeightOffset => (3 * (_buttonHeight / 4));
 
-        private Stopwatch _watch;
+        private Stopwatch _watchRound;
         /// <summary>
         /// 
         /// </summary>
         public Handler()
         {
             InitializeComponent();
-            _watch = Stopwatch.StartNew();
+            _watchRound = Stopwatch.StartNew();
         }
 
         //These constants declare the amount of reserved space or margins, where 0.05 equals 5%
@@ -139,13 +139,13 @@ namespace P2SeriousGame
         }
 
         // Counts amount of hexagons clicked in the round
-        private int _hexClicked;
+        private int _hexClickedRound;
 
         public void HexClickedColor(object sender, MouseEventArgs e)
         {
             HexagonButton sender_Button = sender as HexagonButton;
             sender_Button.BackColor = Color.FromArgb(255, 105, 180);
-            _hexClicked += 1;
+            _hexClickedRound += 1;
         }
 
         /// <summary>
@@ -258,7 +258,6 @@ namespace P2SeriousGame
         
 		public void ExitButtonClick(object sender, MouseEventArgs e)
 		{
-            _watch.Stop();
             SendToDatabase();
 			Close();
 		}
@@ -267,18 +266,15 @@ namespace P2SeriousGame
 
         public void SendToDatabase()
         {
-            
-            var elapsedSec = _watch.ElapsedMilliseconds / 1000;
-            int secondsInt = unchecked((int)elapsedSec);
-            using (var context = new p2_databaseEntities1())
+            using (var context = new p2_databaseEntities())
             {
                 context.TestParameters.Add(new TestParameters
                 {
-                    Clicks = _hexClicked,
+                    //Clicks = ,
                     Rounds = _resetCounter + 1,
                     // Wins = ,
                     // Loss = ,
-                    Time_Used = secondsInt
+                    // Time_Used =
                 });
 
                 context.SaveChanges();
@@ -287,17 +283,22 @@ namespace P2SeriousGame
         
         private void ResetButtonClick(object sender, MouseEventArgs e)
         {
+            _watchRound.Stop();
+            var elapsedSec = _watchRound.ElapsedMilliseconds / 1000;
+            float secondsInt = unchecked(elapsedSec);
+
             string testFirstName = "Tommy", testLastName = "Johnson"; // Test
             ResetCounter();
-            using (var context = new p2_databaseEntities1())
+
+            using (var context = new p2_databaseEntities())
             {
                 context.Rounds.Add(new Rounds       // Adds new row to Rounds table
                 {
-                    //Clicks = ,
-                    //AVG_Clicks = ,
+                    Clicks = _hexClickedRound,
+                    AVG_Clicks = AverageClick(_hexClickedRound, secondsInt), // Lav en fucking metode - Tuan
                     //Win = ,
                     //Loss = ,
-                    //Time_Used = 
+                    Time_Used = secondsInt
                 });
 
                 context.Person.Add(new Person       // Adds new row to Person table
@@ -310,6 +311,11 @@ namespace P2SeriousGame
             }
 
             Application.Restart();
+        }
+
+        public float AverageClick(float a, float b)
+        {
+            return a / b;
         }
 
         public int _resetCounter;
