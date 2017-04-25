@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace P2SeriousGame
 {
+    /// <summary>
+    /// Class for calculating a route out of a HexagonButton grid from Mad.cs.
+    /// </summary>
 	public class MapCalculations
 	{
 		private List<HexagonButton> _queue = new List<HexagonButton>();
@@ -14,6 +17,11 @@ namespace P2SeriousGame
 		private Random rnd = new Random();
         public HexagonButton FirstButtonInPath;
 
+        /// <summary>
+        /// Takes a HexagonButton grid, and the posistion to start from.
+        /// </summary>
+        /// <param name="hexMap"></param>
+        /// <param name="startingHex"></param>
 		public void CalculateRoutes(HexagonButton[,] hexMap, HexagonButton startingHex)
 		{
 			ResetAllButtons(hexMap);
@@ -51,13 +59,13 @@ namespace P2SeriousGame
         {
             var bestRoutes = new List<HexagonButton>();
           
-            //If logic statement is true, then there is a route to an edge
+            //If at least one route can be found, there's is a route to an edge
             if(pathsToEdge.Count > 0)
             {
                 bestRoutes = FindShortestRoutes(pathsToEdge);
             }
 
-            //If logic statement is true, then there is a reachable route and the mouse has not been totally trapped yet 
+            //If there's no routes to the edge, but there's still other reachable hexes, the mouse is trapped, but not enclosed yet
             else if (reachableHexList.Count > 0)
             {
                 bestRoutes = FindLongestRoutes(reachableHexList);
@@ -95,6 +103,12 @@ namespace P2SeriousGame
             return longestRoutes;
         }
 
+
+        /// <summary>
+        /// Compares the different routes, and returns the shortest.
+        /// </summary>
+        /// <param name="edgeHexList"></param>
+        /// <returns></returns>
 		private List<HexagonButton> FindShortestRoutes(List<HexagonButton> edgeHexList)
 		{
 			var shortestRoutes = new List<HexagonButton>();
@@ -115,6 +129,12 @@ namespace P2SeriousGame
 			return shortestRoutes;
 		}
 
+        /// <summary>
+        /// Finds the cost of a route.
+        /// </summary>
+        /// <param name="count"></param>
+        /// <param name="hexToCheck"></param>
+        /// <returns></returns>
 		private int CheckParent(int count, HexagonButton hexToCheck)
 		{
 			if(hexToCheck.parent == null)
@@ -126,6 +146,11 @@ namespace P2SeriousGame
 			}
 		}
 
+        /// <summary>
+        /// If there is multiple routes with the same cost, choose a random one.
+        /// </summary>
+        /// <param name="routes"></param>
+        /// <returns></returns>
 		private List<HexagonButton> ChooseRouteByRand(List<HexagonButton> routes)
 		{
 			var routeByRand = new List<HexagonButton>();
@@ -146,6 +171,11 @@ namespace P2SeriousGame
 			return routeByRand;
 		}
 
+
+        /// <summary>
+        /// Resets all HexagonButtons in regards to parent and visited.
+        /// </summary>
+        /// <param name="hexMap"></param>
 		private void ResetAllButtons(HexagonButton[,] hexMap)
 		{
 			foreach (HexagonButton hex in hexMap)
