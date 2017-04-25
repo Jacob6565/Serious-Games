@@ -21,12 +21,14 @@ namespace P2SeriousGame
         private int _buttonHeight;
         private int ButtonHeightOffset => (3 * (_buttonHeight / 4));
 
+        private Stopwatch _watch;
         /// <summary>
         /// 
         /// </summary>
         public Handler()
         {
             InitializeComponent();
+            _watch = Stopwatch.StartNew();
         }
 
         //These constants declare the amount of reserved space or margins, where 0.05 equals 5%
@@ -136,10 +138,14 @@ namespace P2SeriousGame
             this.Controls.Add(button);
         }
 
+        // Counts amount of hexagons clicked in the round
+        private int _hexClicked;
+
         public void HexClickedColor(object sender, MouseEventArgs e)
         {
             HexagonButton sender_Button = sender as HexagonButton;
             sender_Button.BackColor = Color.FromArgb(255, 105, 180);
+            _hexClicked += 1;
         }
 
         /// <summary>
@@ -252,22 +258,28 @@ namespace P2SeriousGame
         
 		public void ExitButtonClick(object sender, MouseEventArgs e)
 		{
+            _watch.Stop();
             SendToDatabase();
 			Close();
 		}
 
+        
+
         public void SendToDatabase()
         {
+            
+            var elapsedSec = _watch.ElapsedMilliseconds / 1000;
+            int secondsInt = unchecked((int)elapsedSec);
             using (var context = new p2_databaseEntities1())
             {
-                //context.TestParametre.Add(new TestParameters
-                //{
-                //    Clicks = ,
-                //    ResetCount = resetCounter,
-                //    Wins = ,
-                //    Loss = ,
-                //    TimeUsed = 
-                //});
+                context.TestParameters.Add(new TestParameters
+                {
+                    Clicks = _hexClicked,
+                    Rounds = _resetCounter + 1,
+                    // Wins = ,
+                    // Loss = ,
+                    Time_Used = secondsInt
+                });
 
                 context.SaveChanges();
             }
@@ -287,12 +299,11 @@ namespace P2SeriousGame
                     //Loss = ,
                     //Time_Used = 
                 });
+
                 context.Person.Add(new Person       // Adds new row to Person table
                 {
                     First_Name = testFirstName,
                     Last_Name = testLastName
-                });
-                context.TestParameters.Add(new TestParameters{
                 });
 
                 context.SaveChanges();
@@ -301,11 +312,11 @@ namespace P2SeriousGame
             Application.Restart();
         }
 
-        int resetCounter;
+        public int _resetCounter;
 
         public void ResetCounter()
         {
-            resetCounter += 1;
+            _resetCounter += 1;
         }
 
         //We assume that there is 72 points per inch and 96 pixels per inch

@@ -26,7 +26,6 @@ namespace P2SeriousGame
             set { _totalHexagonColoumns = value; }
         }
 
-
         public HexagonButton[,] hexMap;
 		MapCalculations calc = new MapCalculations();
 		private HexagonButton currentMousePosition;
@@ -78,7 +77,7 @@ namespace P2SeriousGame
         /// <param name="e"></param>
         public void HexClicked(object sender, MouseEventArgs e)
         {
-            //Når der bliver klikket bliver tidliger punkt farvet gråt, så bliver der beregnet ny vej og koordinaterne til næste knap bliver assignet til xValue og yValue og knappen med disse koordinater farves Aqua.
+            //Når der bliver klikket bliver tidligere punkt farvet gråt, så bliver der beregnet ny vej og koordinaterne til næste knap bliver assignet til xValue og yValue og knappen med disse koordinater farves Aqua.
             //næste to linjer er det som skal ske for den knap musen stop på i det tidligere trin.
             hexMap[xValue, yValue].BackColor = System.Drawing.Color.LightGray;
             hexMap[xValue, yValue].Enabled = true;
