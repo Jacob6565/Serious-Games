@@ -12,6 +12,7 @@ namespace P2SeriousGame
     /// </summary>
 	public class Map
 	{
+        private static bool _firstThreeGets = true;
         private static int _totalHexagonRows = 0;
         public static int TotalHexagonRows
         {
@@ -30,8 +31,45 @@ namespace P2SeriousGame
         public HexagonButton[,] hexMap;
 		Pathfinding path = new Pathfinding();
 		private HexagonButton currentMousePosition;
-        private int xValue = 6;
-        private int yValue = 4;
+        private int xValue;
+        public int XValue
+        {
+            get
+            {
+                if (_firstThreeGets)
+                {
+                    return TotalHexagonColumns / 2;
+                }
+                else
+                {
+                    return xValue;
+                }
+            }
+            set
+            {
+                xValue = value;
+            }
+        }
+        private int yValue;
+        public int YValue
+        {
+            get
+            {
+                if (_firstThreeGets)
+                {
+                    return TotalHexagonRows / 2;
+                }
+                else
+                {
+                    return yValue;
+                }
+            }
+            set
+            {
+                yValue = value;
+            }
+        }
+
 
         /// <summary>
         /// Creates a HexagonButton grid in xSize * ySize, needs a reference to the handler window.
@@ -41,9 +79,9 @@ namespace P2SeriousGame
         /// <param name="ySize"></param>
         public Map(Handler handler, int xSize, int ySize)
         {
-            _totalHexagonRows = ySize;
-            _totalHexagonColoumns = xSize;
-            hexMap = new HexagonButton[_totalHexagonColoumns, _totalHexagonRows];
+            TotalHexagonRows = ySize;
+            TotalHexagonColumns = xSize;
+            hexMap = new HexagonButton[TotalHexagonColumns, TotalHexagonRows];
             CreateMap(handler);     
             IniNeighbours();
         }
@@ -80,15 +118,16 @@ namespace P2SeriousGame
         {
             //Når der bliver klikket bliver tidliger punkt farvet gråt, så bliver der beregnet ny vej og koordinaterne til næste knap bliver assignet til xValue og yValue og knappen med disse koordinater farves Aqua.
             //næste to linjer er det som skal ske for den knap musen stop på i det tidligere trin.
-            hexMap[xValue, yValue].BackColor = System.Drawing.Color.LightGray;
-            hexMap[xValue, yValue].Enabled = true;
+            hexMap[XValue, YValue].BackColor = System.Drawing.Color.LightGray;
+            hexMap[XValue, YValue].Enabled = true;
 
             //Nye position.
-            path.CalculateRoutes(hexMap, hexMap[xValue, yValue]);
-            xValue = path.FirstButtonInPath.XCoordinate;
-            yValue = path.FirstButtonInPath.YCoordinate;
-            hexMap[xValue, yValue].BackColor = System.Drawing.Color.Aqua;
-            hexMap[xValue, yValue].Enabled = false;       
+            path.CalculateRoutes(hexMap, hexMap[XValue, YValue]);
+            _firstThreeGets = false;
+            XValue = path.FirstButtonInPath.XCoordinate;
+            YValue = path.FirstButtonInPath.YCoordinate;
+            hexMap[XValue, YValue].BackColor = System.Drawing.Color.Aqua;
+            hexMap[XValue, YValue].Enabled = false;       
         }
 
         /// <summary>
