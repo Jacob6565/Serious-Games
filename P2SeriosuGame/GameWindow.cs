@@ -13,11 +13,6 @@ namespace P2SeriousGame
 
     public partial class Handler : Form
     {
-		private const double Formatting = 1.42;
-        private int _buttonWidth;
-        private int _buttonHeight;
-        private int ButtonHeightOffset => (3 * (_buttonHeight / 4));
-
         /// <summary>
         /// 
         /// </summary>
@@ -25,6 +20,10 @@ namespace P2SeriousGame
         {
             InitializeComponent();
         }
+
+        private int _buttonWidth;
+        private int _buttonHeight;
+        private int ButtonHeightOffset => (3 * (_buttonHeight / 4));
 
         //These constants declare the amount of reserved space or margins, where 0.05 equals 5%
         private const double _leftWidthReserved = 0.05;
@@ -62,12 +61,11 @@ namespace P2SeriousGame
         {
             double rowHeight;
             double hexagonRows = Map.TotalHexagonRows;
+            const double evenRowsToHeight = 0.75;
 
-            //// SKAL DET VÆRE DER????????????
-            //
-            //
-            //
+            //The height to width ratio for a pointy top regulare hexagon
             double heightToWidth = System.Math.Sqrt(3)/2;
+
             //These series of if-else calculates the height of one button, determined by the number of rows and the screen height
             if (hexagonRows == 1)
                 _buttonHeight = (int)(_gameScreenHeight / hexagonRows);
@@ -75,7 +73,7 @@ namespace P2SeriousGame
 
             else if (hexagonRows % 2 == 0)
             {
-                rowHeight = (hexagonRows * 0.75) + 0.25;
+                rowHeight = (hexagonRows * evenRowsToHeight) + 0.25;
                 _buttonHeight = (int)(_gameScreenHeight / rowHeight);
             }
 
@@ -95,11 +93,8 @@ namespace P2SeriousGame
         /// </summary>
         private void CalculateButtonDimensionBasedOnScreenWidth()
         {
-            //// SKAL DET VÆRE DER????????????
-            //
-            //
-            //
-            double widthToHeight = (2/3) * System.Math.Sqrt(3);
+            //The width to height ratio for a pointy top regulare hexagon
+            double widthToHeight = System.Math.Sqrt(3) * ((double)2 / 3);
 
             //We calculate the button width by dividing the screen width with number of columns + 0.5 (because we have an offset)
             _buttonWidth = (int)(_gameScreenWidth/ (Map.TotalHexagonColumns + 0.5));
