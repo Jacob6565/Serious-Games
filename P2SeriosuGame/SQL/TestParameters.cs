@@ -20,6 +20,6 @@ namespace P2SeriosuGame.SQL
         public Nullable<int> Wins { get; set; }
         public Nullable<int> Loss { get; set; }
         public Nullable<int> Time_Used { get; set; }
-        public Nullable<int> AVG_Clicks { get; set; }
+        public Nullable<double> AVG_Clicks { get; set; }
     }
 }

@@ -8,12 +8,24 @@ using System.Windows.Forms;
 namespace P2SeriousGame
 {
     /// <summary>
-    /// Class to contain a grid of HexagonButtons
+    /// Class to contain a grid of HexagonButtons.
     /// </summary>
 	public class Map
 	{
-        private int totalHexagonRows = 0;
-		private int totalHexagonColoumns = 0;
+        private static int _totalHexagonRows = 0;
+        public static int TotalHexagonRows
+        {
+            get { return _totalHexagonRows; }
+            set { _totalHexagonRows = value; }
+        }
+
+        private static int _totalHexagonColoumns = 0;
+        public static int TotalHexagonColumns
+        {
+            get { return _totalHexagonColoumns; }
+            set { _totalHexagonColoumns = value; }
+        }
+
         public HexagonButton[,] hexMap;
 		MapCalculations calc = new MapCalculations();
 		private HexagonButton currentMousePosition;
@@ -28,25 +40,26 @@ namespace P2SeriousGame
         /// <param name="ySize"></param>
         public Map(Handler handler, int xSize, int ySize)
         {
-            totalHexagonRows = ySize;
-            totalHexagonColoumns = xSize;
-            hexMap = new HexagonButton[totalHexagonColoumns, totalHexagonRows];
+            _totalHexagonRows = ySize;
+            _totalHexagonColoumns = xSize;
+            hexMap = new HexagonButton[_totalHexagonColoumns, _totalHexagonRows];
             CreateMap(handler);     
-            IniNeighbors();
+            IniNeighbours();
         }
-
+        
         /// <summary>
         /// Initialises the HexagonButton grid. Flags edge buttons.
         /// </summary>
         /// <param name="handler"></param>
         public void CreateMap(Handler handler)
         {
-            for (int i = 0; i < totalHexagonColoumns; i++)
+            handler.CalculateButtonDimension();
+            for (int i = 0; i < _totalHexagonColoumns; i++)
             {
-                for (int j = 0; j < totalHexagonRows; j++)
+                for (int j = 0; j < _totalHexagonRows; j++)
                 {
                     bool isEdge = false;
-                    if (i == 0 || i == totalHexagonColoumns - 1 || j == 0 || j == totalHexagonRows - 1)
+                    if (i == 0 || i == _totalHexagonColoumns - 1 || j == 0 || j == _totalHexagonRows - 1)
                     {
                         isEdge = true;
                     }
@@ -57,9 +70,14 @@ namespace P2SeriousGame
             }
         }
 
+        /// <summary>
+        /// Calculates new route when HexagonButton is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void HexClicked(object sender, MouseEventArgs e)
         {
-            //Når der bliver klikket bliver tidliger punkt farvet gråt, så bliver der beregnet ny vej og koordinaterne til næste knap bliver assignet til xValue og yValue og knappen med disse koordinater farves Aqua.
+            //Når der bliver klikket bliver tidligere punkt farvet gråt, så bliver der beregnet ny vej og koordinaterne til næste knap bliver assignet til xValue og yValue og knappen med disse koordinater farves Aqua.
             //næste to linjer er det som skal ske for den knap musen stop på i det tidligere trin.
             hexMap[xValue, yValue].BackColor = System.Drawing.Color.LightGray;
             hexMap[xValue, yValue].Enabled = true;
@@ -72,11 +90,14 @@ namespace P2SeriousGame
             hexMap[xValue, yValue].Enabled = false;       
         }
 
-		public void IniNeighbors()
+        /// <summary>
+        /// Finds the neighbours for each HexagonButton in Map.cs (except of the edge buttons).
+        /// </summary>
+		public void IniNeighbours()
         {
-            for (int i = 0; i < totalHexagonColoumns; i++)
+            for (int i = 0; i < _totalHexagonColoumns; i++)
             {
-                for (int j = 0; j < totalHexagonRows; j++)
+                for (int j = 0; j < _totalHexagonRows; j++)
                 {
                     if (!hexMap[i, j].IsEdgeTile)
                     {

@@ -18,11 +18,11 @@
             <PropertyRef Name="IdRounds" />
           </Key>
           <Property Name="IdRounds" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Clicks" Type="int" />
-          <Property Name="AVG Clicks" Type="int" />
+          <Property Name="Clicks" Type="float" />
+          <Property Name="AVG Clicks" Type="float" />
           <Property Name="Win" Type="int" />
           <Property Name="Loss" Type="int" />
-          <Property Name="Time Used" Type="int" />
+          <Property Name="Time Used" Type="float" />
         </EntityType>
         <EntityType Name="TestParameters">
           <Key>
@@ -34,7 +34,7 @@
           <Property Name="Wins" Type="int" />
           <Property Name="Loss" Type="int" />
           <Property Name="Time Used" Type="int" />
-          <Property Name="AVG Clicks" Type="int" />
+          <Property Name="AVG Clicks" Type="float" />
         </EntityType>
         <EntityContainer Name="p2_databaseModelStoreContainer">
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
@@ -59,11 +59,11 @@
             <PropertyRef Name="IdRounds" />
           </Key>
           <Property Name="IdRounds" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Clicks" Type="Int32" />
-          <Property Name="AVG_Clicks" Type="Int32" />
+          <Property Name="Clicks" Type="Double" />
+          <Property Name="AVG_Clicks" Type="Double" />
           <Property Name="Win" Type="Int32" />
           <Property Name="Loss" Type="Int32" />
-          <Property Name="Time_Used" Type="Int32" />
+          <Property Name="Time_Used" Type="Double" />
         </EntityType>
         <EntityType Name="TestParameters">
           <Key>
@@ -75,9 +75,9 @@
           <Property Name="Wins" Type="Int32" />
           <Property Name="Loss" Type="Int32" />
           <Property Name="Time_Used" Type="Int32" />
-          <Property Name="AVG_Clicks" Type="Int32" />
+          <Property Name="AVG_Clicks" Type="Double" />
         </EntityType>
-        <EntityContainer Name="p2_databaseEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="p2_databaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Person" EntityType="Self.Person" />
           <EntitySet Name="Rounds" EntityType="Self.Rounds" />
           <EntitySet Name="TestParameters" EntityType="Self.TestParameters" />
@@ -87,7 +87,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="p2_databaseModelStoreContainer" CdmEntityContainer="p2_databaseEntities1">
+        <EntityContainerMapping StorageEntityContainer="p2_databaseModelStoreContainer" CdmEntityContainer="p2_databaseEntities">
           <EntitySetMapping Name="Person">
             <EntityTypeMapping TypeName="p2_databaseModel.Person">
               <MappingFragment StoreEntitySet="Person">
