@@ -46,7 +46,9 @@ namespace P2SeriousGame
                             _reachableHexList.Add(hex);
 						}
 					}
-				} else
+				}
+
+                else
 				{
 					_pathsToEdge.Add(currentHex);
 				}
@@ -64,22 +66,18 @@ namespace P2SeriousGame
             {
                 bestRoutes = FindShortestRoutes(pathsToEdge);
             }
-
             //If there's no routes to the edge, but there's still other reachable hexes, the mouse is trapped, but not enclosed yet
             else if (reachableHexList.Count > 0)
             {
                 bestRoutes = FindLongestRoutes(reachableHexList);
             }
-
             else
             {
                 //You Won :)
                 throw new NotImplementedException();
             }
-
             List<HexagonButton> bestRouteByRand = ChooseRouteByRand(bestRoutes);
             return bestRouteByRand.First();
-            
         }
 
         //Reachable hexes that are not edges of the map. Used for finding the longest route when mouse is trapped
