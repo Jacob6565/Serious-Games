@@ -102,7 +102,7 @@ namespace P2SeriousGame
             //We calculate the height by multiplying width to height ratio
             _buttonHeight = (int)(_buttonWidth * widthToHeight);
         }
-
+        
         /// <summary>
         /// Initialises and draws a hexagon button, 
         /// and adds a click event calculates a new route when an HexButton is clicked.

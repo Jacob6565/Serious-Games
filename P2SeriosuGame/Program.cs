@@ -17,7 +17,7 @@ namespace P2SeriousGame
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Handler FirstLevelHandler = new Handler();
-			Map FirstLevel = new Map(FirstLevelHandler, 20, 1);
+			Map FirstLevel = new Map(FirstLevelHandler, 40, 40);
 			Application.Run(FirstLevelHandler);
 		}
 	}

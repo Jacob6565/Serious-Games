@@ -16,14 +16,12 @@ namespace P2SeriousGame
         public static int TotalHexagonRows
         {
             get { return _totalHexagonRows; }
-            set { _totalHexagonRows = value; }
         }
 
         private static int _totalHexagonColoumns = 0;
         public static int TotalHexagonColumns
         {
             get { return _totalHexagonColoumns; }
-            set { _totalHexagonColoumns = value; }
         }
 
 
@@ -45,7 +43,7 @@ namespace P2SeriousGame
             _totalHexagonColoumns = xSize;
             hexMap = new HexagonButton[_totalHexagonColoumns, _totalHexagonRows];
             CreateMap(handler);     
-            IniNeighbours();
+            FindNeighbours();
         }
         
         /// <summary>
@@ -94,7 +92,7 @@ namespace P2SeriousGame
         /// <summary>
         /// Finds the neighbours for each HexagonButton in Map.cs (except of the edge buttons).
         /// </summary>
-		public void IniNeighbours()
+		public void FindNeighbours()
         {
             for (int i = 0; i < _totalHexagonColoumns; i++)
             {
