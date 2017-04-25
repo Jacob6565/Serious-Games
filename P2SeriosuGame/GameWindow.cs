@@ -72,14 +72,11 @@ namespace P2SeriousGame
             //These series of if-else calculates the height of one button, determined by the number of rows and the screen height
             if (hexagonRows == 1)
                 ButtonHeight = (int)(_gameScreenHeight / hexagonRows);
-
-
             else if (hexagonRows % 2 == 0)
             {
                 rowHeight = (hexagonRows * evenRowsToHeight) + 0.25;
                 ButtonHeight = (int)(_gameScreenHeight / rowHeight);
             }
-
             else if (hexagonRows % 2 == 1 && hexagonRows > 1)
             {
                 rowHeight = ((hexagonRows - 1) / 4) + ((hexagonRows + 1) / 2);
