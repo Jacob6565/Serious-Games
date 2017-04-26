@@ -287,7 +287,7 @@ namespace P2SeriousGame
             _secondsTotal += secondsRound;
             _clickedTotal += _hexClickedRound;
 
-            using (var context = new p2_databaseEntities())
+            using (var context = new Entities())
             {
                 context.TestParameters.Add(new TestParameters // adds a row to the TestParameters table in the SQL database
                 {
@@ -330,7 +330,7 @@ namespace P2SeriousGame
 
             ResetCounter();
 
-            using (var context = new p2_databaseEntities())
+            using (var context = new Entities())
             {
                 context.Rounds.Add(new Rounds // adds a row to the Rounds table in the SQL database
                 {

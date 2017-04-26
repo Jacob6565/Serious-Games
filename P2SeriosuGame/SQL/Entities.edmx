@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="p2_databaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Person">
           <Key>
             <PropertyRef Name="IdPerson" />
@@ -30,13 +30,13 @@
           </Key>
           <Property Name="IdTestParameters" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Clicks" Type="float" />
+          <Property Name="AVG Clicks" Type="float" />
           <Property Name="Rounds" Type="int" />
           <Property Name="Wins" Type="int" />
-          <Property Name="Loss" Type="int" />
+          <Property Name="Losses" Type="int" />
           <Property Name="Time Used" Type="float" />
-          <Property Name="AVG Clicks" Type="float" />
         </EntityType>
-        <EntityContainer Name="p2_databaseModelStoreContainer">
+        <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rounds" EntityType="Self.Rounds" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TestParameters" EntityType="Self.TestParameters" Schema="dbo" store:Type="Tables" />
@@ -45,7 +45,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="p2_databaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Person">
           <Key>
             <PropertyRef Name="IdPerson" />
@@ -71,13 +71,13 @@
           </Key>
           <Property Name="IdTestParameters" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Clicks" Type="Double" />
+          <Property Name="AVG_Clicks" Type="Double" />
           <Property Name="Rounds" Type="Int32" />
           <Property Name="Wins" Type="Int32" />
-          <Property Name="Loss" Type="Int32" />
+          <Property Name="Losses" Type="Int32" />
           <Property Name="Time_Used" Type="Double" />
-          <Property Name="AVG_Clicks" Type="Double" />
         </EntityType>
-        <EntityContainer Name="p2_databaseEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Person" EntityType="Self.Person" />
           <EntitySet Name="Rounds" EntityType="Self.Rounds" />
           <EntitySet Name="TestParameters" EntityType="Self.TestParameters" />
@@ -87,9 +87,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="p2_databaseModelStoreContainer" CdmEntityContainer="p2_databaseEntities">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Person">
-            <EntityTypeMapping TypeName="p2_databaseModel.Person">
+            <EntityTypeMapping TypeName="Model.Person">
               <MappingFragment StoreEntitySet="Person">
                 <ScalarProperty Name="IdPerson" ColumnName="IdPerson" />
                 <ScalarProperty Name="First_Name" ColumnName="First Name" />
@@ -98,7 +98,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Rounds">
-            <EntityTypeMapping TypeName="p2_databaseModel.Rounds">
+            <EntityTypeMapping TypeName="Model.Rounds">
               <MappingFragment StoreEntitySet="Rounds">
                 <ScalarProperty Name="IdRounds" ColumnName="IdRounds" />
                 <ScalarProperty Name="Clicks" ColumnName="Clicks" />
@@ -110,15 +110,15 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TestParameters">
-            <EntityTypeMapping TypeName="p2_databaseModel.TestParameters">
+            <EntityTypeMapping TypeName="Model.TestParameters">
               <MappingFragment StoreEntitySet="TestParameters">
                 <ScalarProperty Name="IdTestParameters" ColumnName="IdTestParameters" />
                 <ScalarProperty Name="Clicks" ColumnName="Clicks" />
+                <ScalarProperty Name="AVG_Clicks" ColumnName="AVG Clicks" />
                 <ScalarProperty Name="Rounds" ColumnName="Rounds" />
                 <ScalarProperty Name="Wins" ColumnName="Wins" />
-                <ScalarProperty Name="Loss" ColumnName="Loss" />
+                <ScalarProperty Name="Losses" ColumnName="Losses" />
                 <ScalarProperty Name="Time_Used" ColumnName="Time Used" />
-                <ScalarProperty Name="AVG_Clicks" ColumnName="AVG Clicks" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
