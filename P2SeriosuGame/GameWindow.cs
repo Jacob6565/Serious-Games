@@ -248,16 +248,59 @@ namespace P2SeriousGame
 			return height;
 		}
 
+        public void ExitButtonClick(object sender, MouseEventArgs e)
+        {
+            SendToDatabase();
+            Close();
+        }
+
         private float _secondsTotal;
         private float _clickedTotal;
 
-        private void ResetButtonClick(object sender, MouseEventArgs e)
+        public void SendToDatabase()
         {
             _watchRound.Stop(); // Stops the time for the round
             var elapsedSec = _watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
             float secondsRound = unchecked(elapsedSec);
 
             _secondsTotal += secondsRound;
+            _clickedTotal += _hexClickedRound;
+
+            using (var context = new p2_databaseEntities())
+            {
+                context.TestParameters.Add(new TestParameters // adds a row to the TestParameters table in the SQL database
+                {
+                    Clicks = _clickedTotal,
+                    AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
+                    Rounds = _resetCounter + 1,
+                    //Wins = ,
+                    //Loss = ,
+                    Time_Used = _secondsTotal
+                });
+
+                context.Rounds.Add(new Rounds // adds a row to the Rounds table in the SQL database
+                {
+                    Clicks = _hexClickedRound,
+                    AVG_Clicks = AverageClick(_hexClickedRound, secondsRound),
+                    //Win = ,
+                    //Loss = ,
+                    Time_Used = secondsRound
+                });
+
+                context.SaveChanges();
+            }
+        }
+
+        private long elapsedSec;
+        private float _secondsRound;
+
+        private void ResetButtonClick(object sender, MouseEventArgs e)
+        {
+            _watchRound.Stop(); // Stops the time for the round
+            elapsedSec = _watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
+            _secondsRound = unchecked(elapsedSec);
+
+            _secondsTotal += _secondsRound;
             _clickedTotal += _hexClickedRound;
 
             // Testing parameters
@@ -271,10 +314,10 @@ namespace P2SeriousGame
                 context.Rounds.Add(new Rounds // adds a row to the Rounds table in the SQL database
                 {
                     Clicks = _hexClickedRound,
-                    AVG_Clicks = AverageClick(_hexClickedRound, secondsRound),
+                    AVG_Clicks = AverageClick(_hexClickedRound, _secondsRound),
                     //Win = ,
                     //Loss = ,
-                    Time_Used = secondsRound
+                    Time_Used = _secondsRound
                 });
 
                 context.Person.Add(new Person // adds a row to the Person table in the SQL database
@@ -299,30 +342,6 @@ namespace P2SeriousGame
         private float AverageClick(float hexClicked, float seconds)
         {
             return hexClicked / seconds;
-        }
-
-        public void ExitButtonClick(object sender, MouseEventArgs e)
-        {
-            SendToDatabase();
-            Close();
-        }
-
-        public void SendToDatabase()
-        {
-            using (var context = new p2_databaseEntities())
-            {
-                context.TestParameters.Add(new TestParameters // adds a row to the TestParameters table in the SQL database
-                {
-                    Clicks = _clickedTotal,
-                    AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
-                    Rounds = _resetCounter + 1,
-                    //Wins = ,
-                    //Loss = ,
-                    Time_Used = _secondsTotal
-                });
-
-                context.SaveChanges();
-            }
         }
 
         //We assume that there is 72 points per inch and 96 pixels per inch
