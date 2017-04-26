@@ -125,7 +125,7 @@ namespace P2SeriousGame
             button.Paint += ButtonPainter;
             button.MouseClick += button.HexClicked;
             button.MouseClick += HexClickedColor;
-			button.MouseClick += map.HexClicked;
+			button.MouseClick += map.MousePositioner;
             this.Controls.Add(button);
         }
 
@@ -200,6 +200,7 @@ namespace P2SeriousGame
             ResetButton.BackColor = Color.Red;
             ResetButton.Location = new Point(this.Bounds.Right - ResetButton.Width - 20, this.Bounds.Top + 60);
             ResetButton.MouseClick += ResetButtonClick;
+            ResetButton.MouseClick += TryCountDataCollector;
             ResetButton.Text = "Reset Game";
             ResetButton.TextAlign = ContentAlignment.MiddleCenter;
             this.Controls.Add(ResetButton);
@@ -254,6 +255,26 @@ namespace P2SeriousGame
             Close();
         }
 
+        private void ResetButtonClick(object sender, MouseEventArgs e)
+        {
+            foreach (HexagonButton hex in Map.hexMap)
+            {
+                hex.Visited = false;
+                hex.Passable = true;
+                hex.Enabled = true;
+                hex.BackColor = System.Drawing.Color.LightGray;
+                PlaceHexagonButton(hex);
+            }
+            Map.ResetMouse();
+        }
+
+        //We assume that there is 72 points per inch and 96 pixels per inch
+        private double ConvertPointToPixel(double point)
+        {
+            return point * 96 / 72;
+        }
+
+
         private float _secondsTotal;
         private float _clickedTotal;
 
@@ -294,7 +315,7 @@ namespace P2SeriousGame
         private long elapsedSec;
         private float _secondsRound;
 
-        private void ResetButtonClick(object sender, MouseEventArgs e)
+        private void TryCountDataCollector(object sender, MouseEventArgs e)
         {
             _watchRound.Stop(); // Stops the time for the round
             elapsedSec = _watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
@@ -328,8 +349,6 @@ namespace P2SeriousGame
 
                 context.SaveChanges();
             }
-
-                Application.Restart();                   
         }
 
         private int _resetCounter;
@@ -342,12 +361,6 @@ namespace P2SeriousGame
         private float AverageClick(float hexClicked, float seconds)
         {
             return hexClicked / seconds;
-        }
-
-        //We assume that there is 72 points per inch and 96 pixels per inch
-        private double ConvertPointToPixel(double point)
-        {
-            return point * 96 / 72;
         }
     }
 }
