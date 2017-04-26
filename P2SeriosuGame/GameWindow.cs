@@ -2,23 +2,25 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using P2SeriosuGame.SQL;
 
 namespace P2SeriousGame
 {
 
     public partial class Handler : Form
     {
-        /// <summary>
-        /// 
-        /// </summary>
+        private Stopwatch _watchRound;
+
         public Handler()
         {
             InitializeComponent();
+            _watchRound = Stopwatch.StartNew();
         }
                
         private int ButtonWidth;
@@ -126,10 +128,13 @@ namespace P2SeriousGame
             this.Controls.Add(button);
         }
 
+        private float _hexClickedRound;
+
         public void HexClickedColor(object sender, MouseEventArgs e)
         {
             HexagonButton sender_Button = sender as HexagonButton;
             sender_Button.BackColor = Color.FromArgb(255, 105, 180);
+            _hexClickedRound += 1;
         }
 
         /// <summary>
@@ -245,13 +250,78 @@ namespace P2SeriousGame
         
 		public void ExitButtonClick(object sender, MouseEventArgs e)
 		{
+            SendToDatabase();
 			Close();
 		}
 
+        public void SendToDatabase()
+        {
+            using (var context = new p2_databaseEntities())
+            {
+                context.TestParameters.Add(new TestParameters
+                {
+                    Clicks = _clickedTotal,
+                    AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
+                    Rounds = _resetCounter + 1,
+                    //Wins = ,
+                    //Loss = ,
+                    Time_Used = _secondsTotal
+
+                });
+            }
+        }
+
+        private float _secondsTotal;
+        private float _clickedTotal;
 
         private void ResetButtonClick(object sender, MouseEventArgs e)
         {
-            Application.Restart();                   
+            _watchRound.Stop();
+            var elapsedSec = _watchRound.ElapsedMilliseconds / 1000;
+            float secondsRound = unchecked(elapsedSec);
+
+            _secondsTotal += secondsRound;
+            _clickedTotal += _hexClickedRound;
+
+            // Testing
+            string testFirstName = "Foo";
+            string testLastName = "Bar";
+
+            ResetCounter();
+
+            using (var context = new p2_databaseEntities())
+            {
+                context.Rounds.Add(new Rounds
+                {
+                    Clicks = _hexClickedRound,
+                    AVG_Clicks = AverageClick(_hexClickedRound, secondsRound),
+                    //Win = ,
+                    //Loss = ,
+                    Time_Used = secondsRound
+                });
+
+                context.Person.Add(new Person
+                {
+                    First_Name = testFirstName,
+                    Last_Name = testLastName
+                });
+
+                context.SaveChanges();
+            }
+
+                Application.Restart();                   
+        }
+
+        private int _resetCounter;
+
+        private void ResetCounter()
+        {
+            _resetCounter += 1;
+        }
+
+        private float AverageClick(float hexClicked, float seconds)
+        {
+            return hexClicked / seconds;
         }
 
         //We assume that there is 72 points per inch and 96 pixels per inch
