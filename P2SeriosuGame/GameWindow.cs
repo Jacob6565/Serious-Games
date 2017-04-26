@@ -247,43 +247,20 @@ namespace P2SeriousGame
 
 			return height;
 		}
-        
-		public void ExitButtonClick(object sender, MouseEventArgs e)
-		{
-            SendToDatabase();
-			Close();
-		}
-
-        public void SendToDatabase()
-        {
-            using (var context = new p2_databaseEntities())
-            {
-                context.TestParameters.Add(new TestParameters
-                {
-                    Clicks = _clickedTotal,
-                    AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
-                    Rounds = _resetCounter + 1,
-                    //Wins = ,
-                    //Loss = ,
-                    Time_Used = _secondsTotal
-
-                });
-            }
-        }
 
         private float _secondsTotal;
         private float _clickedTotal;
 
         private void ResetButtonClick(object sender, MouseEventArgs e)
         {
-            _watchRound.Stop();
-            var elapsedSec = _watchRound.ElapsedMilliseconds / 1000;
+            _watchRound.Stop(); // Stops the time for the round
+            var elapsedSec = _watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
             float secondsRound = unchecked(elapsedSec);
 
             _secondsTotal += secondsRound;
             _clickedTotal += _hexClickedRound;
 
-            // Testing
+            // Testing parameters
             string testFirstName = "Foo";
             string testLastName = "Bar";
 
@@ -322,6 +299,30 @@ namespace P2SeriousGame
         private float AverageClick(float hexClicked, float seconds)
         {
             return hexClicked / seconds;
+        }
+
+        public void ExitButtonClick(object sender, MouseEventArgs e)
+        {
+            SendToDatabase();
+            Close();
+        }
+
+        public void SendToDatabase()
+        {
+            using (var context = new p2_databaseEntities())
+            {
+                context.TestParameters.Add(new TestParameters
+                {
+                    Clicks = _clickedTotal,
+                    AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
+                    Rounds = _resetCounter + 1,
+                    //Wins = ,
+                    //Loss = ,
+                    Time_Used = _secondsTotal
+                });
+
+                context.SaveChanges();
+            }
         }
 
         //We assume that there is 72 points per inch and 96 pixels per inch
