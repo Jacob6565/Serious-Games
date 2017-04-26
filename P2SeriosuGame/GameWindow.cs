@@ -95,11 +95,16 @@ namespace P2SeriousGame
             //The width to height ratio for a pointy top regulare hexagon
             double widthToHeight = System.Math.Sqrt(3) * ((double)2 / 3);
 
+            double buttonWidthTemp;
+
             //We calculate the button width by dividing the screen width with number of columns + 0.5 (because we have an offset)
-            ButtonWidth = (int)(_gameScreenWidth/ (Map.TotalHexagonColumns + 0.5));
+            buttonWidthTemp = (int)(_gameScreenWidth/ (Map.TotalHexagonColumns + 0.5));
 
             //We calculate the height by multiplying width to height ratio
-            ButtonHeight = (int)(ButtonWidth * widthToHeight);
+            ButtonHeight = (int)(buttonWidthTemp * widthToHeight);
+
+            //Now we do not need the buttonWidthTemp with precision, so we typecast the double to an int
+            ButtonWidth = (int)buttonWidthTemp;
         }
         
         /// <summary>
