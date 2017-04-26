@@ -268,7 +268,7 @@ namespace P2SeriousGame
 
             using (var context = new p2_databaseEntities())
             {
-                context.Rounds.Add(new Rounds
+                context.Rounds.Add(new Rounds // adds a row to the Rounds table in the SQL database
                 {
                     Clicks = _hexClickedRound,
                     AVG_Clicks = AverageClick(_hexClickedRound, secondsRound),
@@ -277,7 +277,7 @@ namespace P2SeriousGame
                     Time_Used = secondsRound
                 });
 
-                context.Person.Add(new Person
+                context.Person.Add(new Person // adds a row to the Person table in the SQL database
                 {
                     First_Name = testFirstName,
                     Last_Name = testLastName
@@ -311,7 +311,7 @@ namespace P2SeriousGame
         {
             using (var context = new p2_databaseEntities())
             {
-                context.TestParameters.Add(new TestParameters
+                context.TestParameters.Add(new TestParameters // adds a row to the TestParameters table in the SQL database
                 {
                     Clicks = _clickedTotal,
                     AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
