@@ -12,7 +12,6 @@ namespace P2SeriousGame
     /// </summary>
 	public class Map
 	{
-        private static bool _firstThreeGets = true;
         private static int _totalHexagonRows = 0;
         public static int TotalHexagonRows
         {
@@ -25,45 +24,27 @@ namespace P2SeriousGame
             get { return _totalHexagonColumns; }
         }
 
-        public HexagonButton[,] hexMap;
+        static public HexagonButton[,] hexMap;
 		Pathfinding path = new Pathfinding();
-        private int xValue;
-        public int XValue
+
+        static public bool newGame = true;
+
+        private int StartMouseXCoordinate => TotalHexagonColumns / 2;
+        private int StartMouseYCoordinate => TotalHexagonRows / 2;
+
+
+        private int mouseXCoordinate;
+        public int MouseXCoordinate
         {
-            get
-            {
-                if (_firstThreeGets)
-                {
-                    return TotalHexagonColumns / 2;
-                }
-                else
-                {
-                    return xValue;
-                }
-            }
-            set
-            {
-                xValue = value;
-            }
+            get { return mouseXCoordinate; }
+            set { mouseXCoordinate = value; }
         }
-        private int yValue;
-        public int YValue
+
+        private int mouseYCoordinate;
+        public int MouseYCoordinate
         {
-            get
-            {
-                if (_firstThreeGets)
-                {
-                    return TotalHexagonRows / 2;
-                }
-                else
-                {
-                    return yValue;
-                }
-            }
-            set
-            {
-                yValue = value;
-            }
+            get { return mouseYCoordinate; }
+            set { mouseYCoordinate = value; }
         }
 
 
@@ -81,7 +62,7 @@ namespace P2SeriousGame
             CreateMap(handler);     
             FindNeighbours();
         }
-        
+
         /// <summary>
         /// Initialises the HexagonButton grid. Flags edge buttons.
         /// </summary>
@@ -110,20 +91,28 @@ namespace P2SeriousGame
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void HexClicked(object sender, MouseEventArgs e)
+        public void MousePositioner(object sender, MouseEventArgs e)
         {
             //Når der bliver klikket bliver tidligere punkt farvet gråt, så bliver der beregnet ny vej og koordinaterne til næste knap bliver assignet til xValue og yValue og knappen med disse koordinater farves Aqua.
             //næste to linjer er det som skal ske for den knap musen stop på i det tidligere trin.
-            hexMap[XValue, YValue].BackColor = System.Drawing.Color.LightGray;
-            hexMap[XValue, YValue].Enabled = true;
-
+            if (newGame)
+            {
+                hexMap[StartMouseXCoordinate, StartMouseYCoordinate].BackColor = System.Drawing.Color.LightGray;
+                hexMap[StartMouseXCoordinate, StartMouseYCoordinate].Enabled = true;
+                path.CalculateRoutes(hexMap, hexMap[StartMouseXCoordinate, StartMouseYCoordinate]);
+                newGame = false;
+            }
+            else if (!newGame)
+            {
+                hexMap[MouseXCoordinate, MouseYCoordinate].BackColor = System.Drawing.Color.LightGray;
+                hexMap[MouseXCoordinate, MouseYCoordinate].Enabled = true;
+                path.CalculateRoutes(hexMap, hexMap[MouseXCoordinate, MouseYCoordinate]);
+            }
             //Nye position.
-            path.CalculateRoutes(hexMap, hexMap[XValue, YValue]);
-            _firstThreeGets = false;
-            XValue = path.FirstButtonInPath.XCoordinate;
-            YValue = path.FirstButtonInPath.YCoordinate;
-            hexMap[XValue, YValue].BackColor = System.Drawing.Color.Aqua;
-            hexMap[XValue, YValue].Enabled = false;       
+            MouseXCoordinate = path.FirstButtonInPath.XCoordinate;
+            MouseYCoordinate = path.FirstButtonInPath.YCoordinate;
+            hexMap[MouseXCoordinate, MouseYCoordinate].BackColor = System.Drawing.Color.Aqua;
+            hexMap[MouseXCoordinate, MouseYCoordinate].Enabled = false;       
         }
 
         /// <summary>
@@ -156,6 +145,11 @@ namespace P2SeriousGame
                     }
                 }
             }
+        }
+        
+        static public void ResetMouse()
+        {
+            newGame = true;
         }  
 	}
 }

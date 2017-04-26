@@ -123,7 +123,7 @@ namespace P2SeriousGame
             button.Paint += ButtonPainter;
             button.MouseClick += button.HexClicked;
             button.MouseClick += HexClickedColor;
-			button.MouseClick += map.HexClicked;
+			button.MouseClick += map.MousePositioner;
             this.Controls.Add(button);
         }
 
@@ -251,7 +251,15 @@ namespace P2SeriousGame
 
         private void ResetButtonClick(object sender, MouseEventArgs e)
         {
-            Application.Restart();                   
+            foreach (HexagonButton hex in Map.hexMap)
+            {
+                hex.Visited = false;
+                hex.Passable = true;
+                hex.Enabled = true;
+                hex.BackColor = System.Drawing.Color.LightGray;
+                PlaceHexagonButton(hex);
+            }
+            Map.ResetMouse();
         }
 
         //We assume that there is 72 points per inch and 96 pixels per inch

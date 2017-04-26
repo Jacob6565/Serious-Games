@@ -57,19 +57,6 @@ namespace P2SeriousGame
 			get { return _isEdgeTile; }
 		}
 
-		private bool _showImage = false;
-        public bool ShowImage
-        {
-            get
-            {
-                return _showImage;
-            }
-            set
-            {
-                _showImage = value;
-            }
-        }
-
         public void HexClicked(object sender, MouseEventArgs e)
         {
 			//Console.WriteLine($"You pressed on tile: ({XCoordinate}, {YCoordinate}) {IsEdgeTile}");
