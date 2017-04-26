@@ -2,23 +2,25 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using P2SeriosuGame.SQL;
 
 namespace P2SeriousGame
 {
 
     public partial class Handler : Form
     {
-        /// <summary>
-        /// 
-        /// </summary>
+        private Stopwatch _watchRound;
+
         public Handler()
         {
             InitializeComponent();
+            _watchRound = Stopwatch.StartNew();
         }
                
         private int ButtonWidth;
@@ -123,14 +125,17 @@ namespace P2SeriousGame
             button.Paint += ButtonPainter;
             button.MouseClick += button.HexClicked;
             button.MouseClick += HexClickedColor;
-			button.MouseClick += map.MousePositioner;
+			button.MouseClick += map.HexClicked;
             this.Controls.Add(button);
         }
+
+        private float _hexClickedRound;
 
         public void HexClickedColor(object sender, MouseEventArgs e)
         {
             HexagonButton sender_Button = sender as HexagonButton;
             sender_Button.BackColor = Color.FromArgb(255, 105, 180);
+            _hexClickedRound += 1;
         }
 
         /// <summary>
@@ -242,24 +247,101 @@ namespace P2SeriousGame
 
 			return height;
 		}
-        
-		public void ExitButtonClick(object sender, MouseEventArgs e)
-		{
-			Close();
-		}
 
+        public void ExitButtonClick(object sender, MouseEventArgs e)
+        {
+            SendToDatabase();
+            Close();
+        }
+
+        private float _secondsTotal;
+        private float _clickedTotal;
+
+        public void SendToDatabase()
+        {
+            _watchRound.Stop(); // Stops the time for the round
+            var elapsedSec = _watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
+            float secondsRound = unchecked(elapsedSec);
+
+            _secondsTotal += secondsRound;
+            _clickedTotal += _hexClickedRound;
+
+            using (var context = new p2_databaseEntities())
+            {
+                context.TestParameters.Add(new TestParameters // adds a row to the TestParameters table in the SQL database
+                {
+                    Clicks = _clickedTotal,
+                    AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
+                    Rounds = _resetCounter + 1,
+                    //Wins = ,
+                    //Loss = ,
+                    Time_Used = _secondsTotal
+                });
+
+                context.Rounds.Add(new Rounds // adds a row to the Rounds table in the SQL database
+                {
+                    Clicks = _hexClickedRound,
+                    AVG_Clicks = AverageClick(_hexClickedRound, secondsRound),
+                    //Win = ,
+                    //Loss = ,
+                    Time_Used = secondsRound
+                });
+
+                context.SaveChanges();
+            }
+        }
+
+        private long elapsedSec;
+        private float _secondsRound;
 
         private void ResetButtonClick(object sender, MouseEventArgs e)
         {
-            foreach (HexagonButton hex in Map.hexMap)
+            _watchRound.Stop(); // Stops the time for the round
+            elapsedSec = _watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
+            _secondsRound = unchecked(elapsedSec);
+
+            _secondsTotal += _secondsRound;
+            _clickedTotal += _hexClickedRound;
+
+            // Testing parameters
+            string testFirstName = "Foo";
+            string testLastName = "Bar";
+
+            ResetCounter();
+
+            using (var context = new p2_databaseEntities())
             {
-                hex.Visited = false;
-                hex.Passable = true;
-                hex.Enabled = true;
-                hex.BackColor = System.Drawing.Color.LightGray;
-                PlaceHexagonButton(hex);
+                context.Rounds.Add(new Rounds // adds a row to the Rounds table in the SQL database
+                {
+                    Clicks = _hexClickedRound,
+                    AVG_Clicks = AverageClick(_hexClickedRound, _secondsRound),
+                    //Win = ,
+                    //Loss = ,
+                    Time_Used = _secondsRound
+                });
+
+                context.Person.Add(new Person // adds a row to the Person table in the SQL database
+                {
+                    First_Name = testFirstName,
+                    Last_Name = testLastName
+                });
+
+                context.SaveChanges();
             }
-            Map.ResetMouse();
+
+                Application.Restart();                   
+        }
+
+        private int _resetCounter;
+
+        private void ResetCounter()
+        {
+            _resetCounter += 1;
+        }
+
+        private float AverageClick(float hexClicked, float seconds)
+        {
+            return hexClicked / seconds;
         }
 
         //We assume that there is 72 points per inch and 96 pixels per inch
