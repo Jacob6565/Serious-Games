@@ -348,8 +348,8 @@ namespace P2SeriousGame
                 {
                     Clicks = _hexClickedRound,
                     AVG_Clicks = AverageClick(_hexClickedRound, _secondsRound),
-                    // Win = ,
-                    //Loss = ,
+                    Win = _roundWin,
+                    Loss = _roundLoss,
                     Time_Used = _secondsRound
                 });
 
