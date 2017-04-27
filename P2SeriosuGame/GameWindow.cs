@@ -199,8 +199,8 @@ namespace P2SeriousGame
             ResetButton.FlatAppearance.BorderSize = 0;
             ResetButton.BackColor = Color.Red;
             ResetButton.Location = new Point(this.Bounds.Right - ResetButton.Width - 20, this.Bounds.Top + 60);
-            ResetButton.MouseClick += ResetButtonClick;
             ResetButton.MouseClick += TryCountDataCollector;
+            ResetButton.MouseClick += ResetButtonClick;
             ResetButton.Text = "Reset Game";
             ResetButton.TextAlign = ContentAlignment.MiddleCenter;
             this.Controls.Add(ResetButton);
@@ -274,9 +274,10 @@ namespace P2SeriousGame
             return point * 96 / 72;
         }
 
-
         private float _secondsTotal;
         private float _clickedTotal;
+        private int _roundWin;
+        private int _roundLoss;
 
         public void SendToDatabase()
         {
@@ -287,15 +288,26 @@ namespace P2SeriousGame
             _secondsTotal += secondsRound;
             _clickedTotal += _hexClickedRound;
 
+            if (Pathfinding.gameRoundWin == true)
+            {
+                _roundWin = 1;
+                _roundLoss = 0;
+            }
+            else if (Pathfinding.gameRoundWin == false)
+            {
+                _roundWin = 0;
+                _roundLoss = 1;
+            }
+
             using (var context = new Entities())
             {
                 context.TestParameters.Add(new TestParameters // adds a row to the TestParameters table in the SQL database
                 {
-                    Clicks = _clickedTotal,
+                    Clicks = _clickedTotal, 
                     AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
                     Rounds = _resetCounter + 1,
-                    //Wins = ,
-                    //Loss = ,
+                    Wins = Pathfinding.gameTotalWins,
+                    //Losses = _roundLoss,
                     Time_Used = _secondsTotal
                 });
 
@@ -303,8 +315,8 @@ namespace P2SeriousGame
                 {
                     Clicks = _hexClickedRound,
                     AVG_Clicks = AverageClick(_hexClickedRound, secondsRound),
-                    //Win = ,
-                    //Loss = ,
+                    Win = _roundWin,
+                    Loss = _roundLoss,
                     Time_Used = secondsRound
                 });
 
@@ -336,7 +348,7 @@ namespace P2SeriousGame
                 {
                     Clicks = _hexClickedRound,
                     AVG_Clicks = AverageClick(_hexClickedRound, _secondsRound),
-                    //Win = ,
+                    // Win = ,
                     //Loss = ,
                     Time_Used = _secondsRound
                 });

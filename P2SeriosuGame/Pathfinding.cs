@@ -69,7 +69,10 @@ namespace P2SeriousGame
 			string elapsedTime = ts.TotalMilliseconds.ToString();
 			Console.WriteLine("RunTime " + elapsedTime);
 		}
-                        
+
+        public static int gameTotalWins;
+        public static bool gameRoundWin;
+
         public HexagonButton FindTheRoute(List<HexagonButton> pathsToEdge, List<HexagonButton> reachableHexList)
         {
             var bestRoutes = new List<HexagonButton>();
@@ -87,6 +90,8 @@ namespace P2SeriousGame
             else
             {
                 //You Won :)
+                gameTotalWins += 1;
+                gameRoundWin = true;
                 throw new NotImplementedException();
             }
             List<HexagonButton> bestRouteByRand = ChooseRouteByRand(bestRoutes);
