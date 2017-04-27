@@ -307,7 +307,7 @@ namespace P2SeriousGame
                     AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
                     Rounds = _resetCounter + 1,
                     Wins = Pathfinding.gameTotalWins,
-                    //Losses = _roundLoss,
+                    Losses = _totalLoss,
                     Time_Used = _secondsTotal
                 });
 
@@ -326,6 +326,7 @@ namespace P2SeriousGame
 
         private long elapsedSec;
         private float _secondsRound;
+        private static int _totalLoss;
 
         private void TryCountDataCollector(object sender, MouseEventArgs e)
         {
@@ -336,6 +337,8 @@ namespace P2SeriousGame
             _secondsTotal += _secondsRound;
             _clickedTotal += _hexClickedRound;
 
+            _totalLoss += 1; 
+        
             // Testing parameters
             string testFirstName = "Foo";
             string testLastName = "Bar";
