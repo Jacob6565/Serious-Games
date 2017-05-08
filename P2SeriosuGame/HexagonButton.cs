@@ -10,6 +10,7 @@ namespace P2SeriousGame
 {
     public class HexagonButton : Button
     {
+       
         /// <summary>
         /// Takes posistion in a coordinate system and if hexagun button is an edge button.        
         /// </summary>

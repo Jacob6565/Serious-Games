@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace P2SeriosuGame
+namespace P2SeriousGame
 {
-	class Session
-	{
+    public class Session
+    {
+        public int SessionID {get; set;}
+        List<Round> Rounds = new List<Round>();       
 	}
 }
