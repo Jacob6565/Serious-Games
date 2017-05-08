@@ -23,7 +23,7 @@ namespace P2SeriousGame
         public Handler()
         {
             InitializeComponent();
-            SQL.
+            SQL.watchRound.Start();
         }
                
         private int ButtonWidth;

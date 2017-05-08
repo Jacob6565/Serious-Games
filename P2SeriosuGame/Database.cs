@@ -18,7 +18,7 @@ namespace P2SeriosuGame
 
         public Database() { }
 
-        private Stopwatch _watchRound;
+        public Stopwatch watchRound;
 
         private float _hexClickedRound;
 
@@ -38,8 +38,8 @@ namespace P2SeriosuGame
 
         public void SendToDatabase()
         {
-            _watchRound.Stop(); // Stops the time for the round
-            var elapsedSec = _watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
+            watchRound.Stop(); // Stops the time for the round
+            var elapsedSec = watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
             float secondsRound = unchecked(elapsedSec);
 
             _secondsTotal += secondsRound;
@@ -83,8 +83,8 @@ namespace P2SeriosuGame
 
         public void RoundDataCollector()
         {
-            _watchRound.Stop(); // Stops the time for the round
-            elapsedSec = _watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
+            watchRound.Stop(); // Stops the time for the round
+            elapsedSec = watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
             _secondsRound = unchecked(elapsedSec);
 
             _secondsTotal += _secondsRound;
