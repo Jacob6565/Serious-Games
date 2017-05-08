@@ -50,6 +50,7 @@ namespace P2SeriousGame
 
         IPathfinding path;
         
+        //
         /// <summary>
         /// Creates a HexagonButton grid in xSize * ySize, needs a reference to the handler window.
         /// </summary>
