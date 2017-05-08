@@ -4,9 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace P2SeriosuGame
+namespace P2SeriousGame
 {
-	class Round
-	{
-	}
+    public class Round
+    {       
+        public double ClicksPerMinute { get; set; }
+        public int NumberOfClicks { get; set; }
+        public bool IsWin { get; set; }
+
+        private DateTime[] timeBetweenClicks = new DateTime[50];
+        public DateTime[] TimeBetweenClicks
+        {
+            get
+            {
+                return timeBetweenClicks;
+            }
+            set
+            {
+                timeBetweenClicks = value;
+            }
+        }
+    }
 }
