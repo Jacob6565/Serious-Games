@@ -24,8 +24,9 @@ namespace P2SeriousGame
             get { return _totalHexagonColumns; }
         }
 
+        private HexagonButton _firstButtonInPath;
         static public HexagonButton[,] hexMap;
-		Pathfinding path = new Pathfinding();
+
 
         static public bool newGame = true;
 
@@ -47,17 +48,20 @@ namespace P2SeriousGame
             set { mouseYCoordinate = value; }
         }
 
-
+        IPathfinding path;
+        
+        //
         /// <summary>
         /// Creates a HexagonButton grid in xSize * ySize, needs a reference to the handler window.
         /// </summary>
         /// <param name="handler"></param>
         /// <param name="xSize"></param>
         /// <param name="ySize"></param>
-        public Map(Handler handler, int xSize, int ySize)
+        public Map(Handler handler, int xSize, int ySize, IPathfinding path)
         {
             _totalHexagonRows = ySize;
             _totalHexagonColumns = xSize;
+            this.path = path;
             hexMap = new HexagonButton[TotalHexagonColumns, TotalHexagonRows];
             CreateMap(handler);     
             FindNeighbours();
@@ -99,18 +103,18 @@ namespace P2SeriousGame
             {
                 hexMap[StartMouseXCoordinate, StartMouseYCoordinate].BackColor = System.Drawing.Color.LightGray;
                 hexMap[StartMouseXCoordinate, StartMouseYCoordinate].Enabled = true;
-                path.CalculateRoutes(hexMap, hexMap[StartMouseXCoordinate, StartMouseYCoordinate]);
+                _firstButtonInPath = path.CalculateRoutes(hexMap, hexMap[StartMouseXCoordinate, StartMouseYCoordinate]);
                 newGame = false;
             }
             else if (!newGame)
             {
                 hexMap[MouseXCoordinate, MouseYCoordinate].BackColor = System.Drawing.Color.LightGray;
                 hexMap[MouseXCoordinate, MouseYCoordinate].Enabled = true;
-                path.CalculateRoutes(hexMap, hexMap[MouseXCoordinate, MouseYCoordinate]);
+                _firstButtonInPath = path.CalculateRoutes(hexMap, hexMap[MouseXCoordinate, MouseYCoordinate]);
             }
             //Nye position.
-            MouseXCoordinate = path.FirstButtonInPath.XCoordinate;
-            MouseYCoordinate = path.FirstButtonInPath.YCoordinate;
+            MouseXCoordinate = _firstButtonInPath.XCoordinate;
+            MouseYCoordinate = _firstButtonInPath.YCoordinate;
             hexMap[MouseXCoordinate, MouseYCoordinate].BackColor = System.Drawing.Color.Aqua;
             hexMap[MouseXCoordinate, MouseYCoordinate].Enabled = false;       
         }
