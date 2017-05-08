@@ -11,12 +11,16 @@ using System.Windows.Forms;
 namespace P2SeriousGame
 {
 
-    public partial class GameWindow : Form
+    public partial class Handler : Form
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public Handler()
+        {
+            InitializeComponent();
+        }
 
-        FlowLayoutPanel menuPanel = new FlowLayoutPanel();
-        Panel gamePanel = new Panel();        
-       
         private int _buttonWidth;
         private int _buttonHeight;
         private int ButtonHeightOffset => (3 * (_buttonHeight / 4));
@@ -37,11 +41,6 @@ namespace P2SeriousGame
         //WidthStart and heightStart sets the starting place for the hexagonmap
         private int WidthStart => (int) ((_leftWidthReserved * Screen.PrimaryScreen.Bounds.Width) + WidthCentering);
         private int _heightStart = (int) (_topHeightReserved * Screen.PrimaryScreen.Bounds.Height);
-
-        public GameWindow()
-        {
-            InitializeComponent();
-        }
 
         /// <summary>
         /// 
@@ -121,7 +120,7 @@ namespace P2SeriousGame
             button.MouseClick += button.HexClicked;
             button.MouseClick += HexClickedColor;
 			button.MouseClick += map.HexClicked;
-            gamePanel.Controls.Add(button);
+            this.Controls.Add(button);
         }
 
         public void HexClickedColor(object sender, MouseEventArgs e)
@@ -147,7 +146,7 @@ namespace P2SeriousGame
 			    button.Top = CalculateButtonHeightOffset(button.YCoordinate);
             
         }
-        //System.Drawing.Drawing2D.GraphicsPath buttonPath = new System.Drawing.Drawing2D.GraphicsPath();
+
         /// <summary>
         /// Calculates the points in a hexagon and makes it a button.
         /// </summary>
@@ -165,10 +164,10 @@ namespace P2SeriousGame
             // Create a hexagon within the new rectangle.
             buttonPath.AddPolygon(Math.GetPoints(_buttonHeight, _buttonWidth));
             // Hexagon region.
-            hexagonButton.Region = new Region(buttonPath);
+            hexagonButton.Region = new System.Drawing.Region(buttonPath);
         }
 
-        private void AddExitButton(Panel panel)
+        private void AddExitButton()
 		{
 			Button ExitButton = new Button();
 			ExitButton.Size = new Size(100, 25);
@@ -177,15 +176,13 @@ namespace P2SeriousGame
 			ExitButton.FlatAppearance.BorderSize = 0;
 			ExitButton.BackColor = Color.LightGray;
 			ExitButton.Location = new Point(this.Bounds.Right - ExitButton.Width - 20, this.Bounds.Top + 20);
-			//ExitButton.MouseClick += ExitButtonClick;
-            ExitButton.MouseClick += StartGame;
+			ExitButton.MouseClick += ExitButtonClick;
 			ExitButton.Text = "Close application";
 			ExitButton.TextAlign = ContentAlignment.MiddleCenter;
-            panel.Controls.Add(ExitButton);
+			this.Controls.Add(ExitButton);
 		}
 
-
-        private void AddResetButton(Panel panel)
+        private void AddResetButton()
         {
             Button ResetButton = new Button();
             ResetButton.Size = new Size(100, 25);
@@ -197,7 +194,7 @@ namespace P2SeriousGame
             ResetButton.MouseClick += ResetButtonClick;
             ResetButton.Text = "Reset Game";
             ResetButton.TextAlign = ContentAlignment.MiddleCenter;
-            panel.Controls.Add(ResetButton);
+            this.Controls.Add(ResetButton);
         }
 
         
@@ -206,7 +203,8 @@ namespace P2SeriousGame
         {
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
-            InitializePanels();          
+			AddExitButton();
+            AddResetButton();
         }
 
 
@@ -228,66 +226,6 @@ namespace P2SeriousGame
 			return width;
 		}
 
-        private void InitializePanels()
-        {
-            this.Controls.Add(menuPanel);
-            this.Controls.Add(gamePanel);
-            gamePanel.Width = Screen.PrimaryScreen.WorkingArea.Width;
-            gamePanel.Height = Screen.PrimaryScreen.WorkingArea.Height;
-            menuPanel.Width = Screen.PrimaryScreen.WorkingArea.Width;
-            menuPanel.Height = Screen.PrimaryScreen.WorkingArea.Height;
-            menuPanel.BackColor = Color.BlanchedAlmond;
-            menuPanel.FlowDirection = FlowDirection.TopDown;
-            menuPanel.Padding = new Padding(Size.Width/2 - 150, 25, Size.Width / 2 + 150, 25);
-            AddExitButton(gamePanel);
-            AddResetButton(gamePanel);
-            StartGameButton(menuPanel);
-            CloseGameButton(menuPanel);
-        }
-
-        private void StartGameButton(Panel panel)
-        {
-            Button btnStartGame = new Button();
-            btnStartGame.Size = new Size(300, 100);
-            btnStartGame.TabStop = false;
-            btnStartGame.FlatStyle = FlatStyle.Flat;
-            btnStartGame.FlatAppearance.BorderSize = 0;
-            btnStartGame.BackColor = Color.Azure;
-            btnStartGame.Location = new Point(this.Bounds.Right/2 - btnStartGame.Width/2, this.Bounds.Top + 60);
-            btnStartGame.MouseClick += StartGame;
-            btnStartGame.Text = "Start Game";
-            btnStartGame.TextAlign = ContentAlignment.MiddleCenter;
-            panel.Controls.Add(btnStartGame);
-        }
-
-        private void CloseGameButton(Panel panel)
-        {
-            Button btnCloseGame = new Button();
-            btnCloseGame.Size = new Size(300, 100);
-            btnCloseGame.TabStop = false;
-            btnCloseGame.FlatStyle = FlatStyle.Flat;
-            btnCloseGame.FlatAppearance.BorderSize = 0;            
-            btnCloseGame.BackColor = Color.Azure;
-            btnCloseGame.Text = "Exit Game";
-            btnCloseGame.TextAlign = ContentAlignment.MiddleCenter;
-            btnCloseGame.Location = new Point(this.Bounds.Right / 2 - btnCloseGame.Width / 2, this.Bounds.Top + 60);            
-            btnCloseGame.MouseClick += ExitButtonClick;
-            panel.Controls.Add(btnCloseGame);
-        }
-
-
-        private void StartGame(object sender, MouseEventArgs e)
-        {
-            if (menuPanel.Visible)
-            {            
-                menuPanel.Visible = false;
-            }
-            else
-            {
-                menuPanel.Visible = true;
-                
-            }
-        }
         /// <summary>
         /// Converts a coordinate into a position in a hexgrid.
         /// </summary>
