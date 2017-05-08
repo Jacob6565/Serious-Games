@@ -16,9 +16,7 @@ namespace P2SeriousGame
 
     public partial class Handler : Form
     {
-
         Database SQL = new Database();
-
 
         public Handler()
         {

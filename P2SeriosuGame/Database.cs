@@ -15,11 +15,9 @@ namespace P2SeriosuGame
 {
     class Database
     {
-
         public Database() { }
 
         public Stopwatch watchRound;
-
         private float _hexClickedRound;
 
         // trygetcollector...
@@ -94,26 +92,6 @@ namespace P2SeriosuGame
             string testLastName = "Bar";
 
             ResetCounter();
-
-            using (var context = new Entities())
-            {
-                context.Rounds.Add(new Rounds // adds a row to the Rounds table in the SQL database
-                {
-                    Clicks = _hexClickedRound,
-                    AVG_Clicks = AverageClick(_hexClickedRound, _secondsRound),
-                    Win = _roundWin,
-                    Loss = _roundLoss,
-                    Time_Used = _secondsRound
-                });
-
-                context.Person.Add(new Person // adds a row to the Person table in the SQL database
-                {
-                    First_Name = testFirstName,
-                    Last_Name = testLastName
-                });
-
-                context.SaveChanges();
-            }
         }
 
         private float AverageClick(float hexClicked, float seconds)
@@ -126,6 +104,37 @@ namespace P2SeriosuGame
         private void ResetCounter()
         {
             _resetCounter += 1;
+        }
+
+        public void AddPersonToDatabase()
+        {
+            using (var context = new Entities())
+            {
+                context.Person.Add(new Person // adds a row to the Person table in the SQL database
+                {
+                    First_Name = testFirstName,
+                    Last_Name = testLastName
+                });
+
+                context.SaveChanges();
+            }
+        }
+
+        public void AddRoundsToDatabase()
+        {
+            using (var context = new Entities())
+            {
+                context.Rounds.Add(new Rounds // adds a row to the Rounds table in the SQL database
+                {
+                    Clicks = _hexClickedRound,
+                    AVG_Clicks = AverageClick(_hexClickedRound, _secondsRound),
+                    Win = _roundWin,
+                    Loss = _roundLoss,
+                    Time_Used = _secondsRound
+                });
+
+                context.SaveChanges();
+            }
         }
 
 
