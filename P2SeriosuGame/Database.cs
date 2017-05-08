@@ -33,9 +33,6 @@ namespace P2SeriosuGame
         private int _roundWin;
         private int _roundLoss;
 
-
-
-
         public void SendToDatabase()
         {
             watchRound.Stop(); // Stops the time for the round
