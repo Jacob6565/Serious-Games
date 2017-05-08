@@ -78,7 +78,7 @@ namespace P2SeriosuGame
             }
         }
 
-        public void RoundDataCollector()
+        public void RoundDataCollector(object sender, MouseEventArgs e)
         {
             watchRound.Stop(); // Stops the time for the round
             elapsedSec = watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
@@ -120,7 +120,6 @@ namespace P2SeriosuGame
         {
             return hexClicked / seconds;
         }
-
 
         private int _resetCounter;
 
