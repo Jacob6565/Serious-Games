@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace P2SeriosuGame
+namespace P2SeriousGame
 {
-	interface IFetchData
+	public interface IFetchData
 	{
 		Session GetSessionData(int SessionID);
 	}
