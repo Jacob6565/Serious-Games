@@ -288,12 +288,12 @@ namespace P2SeriousGame
             _secondsTotal += secondsRound;
             _clickedTotal += _hexClickedRound;
 
-            if (Pathfinding.gameRoundWin == true)
+            if (Pathfinding.gameRoundWin)
             {
                 _roundWin = 1;
                 _roundLoss = 0;
             }
-            else if (Pathfinding.gameRoundWin == false)
+            else if (!Pathfinding.gameRoundWin)
             {
                 _roundWin = 0;
                 _roundLoss = 1;
