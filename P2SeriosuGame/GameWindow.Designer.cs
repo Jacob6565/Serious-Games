@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace P2SeriousGame
 {
-    partial class Handler : Form
+    partial class GameWindow : Form
     {
         /// <summary>
         /// Required designer variable.
@@ -38,7 +38,7 @@ namespace P2SeriousGame
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Handler));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameWindow));
             this.SuspendLayout();
             // 
             // Handler

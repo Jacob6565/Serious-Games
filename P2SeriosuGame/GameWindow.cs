@@ -12,17 +12,18 @@ using P2SeriosuGame.SQL;
 
 namespace P2SeriousGame
 {
-
-    public partial class Handler : Form
+    public partial class GameWindow : Form
     {
-        private Stopwatch _watchRound;
-
-        public Handler()
+        public GameWindow()
         {
             InitializeComponent();
             _watchRound = Stopwatch.StartNew();
         }
-               
+
+        private Stopwatch _watchRound;
+        FlowLayoutPanel menuPanel = new FlowLayoutPanel();
+        Panel gamePanel = new Panel();
+
         private int ButtonWidth;
         private int ButtonHeight;
         private int ButtonHeightOffset => (3 * (ButtonHeight / 4));
@@ -126,7 +127,7 @@ namespace P2SeriousGame
             button.MouseClick += button.HexClicked;
             button.MouseClick += HexClickedColor;
 			button.MouseClick += map.MousePositioner;
-            this.Controls.Add(button);
+            gamePanel.Controls.Add(button);
         }
 
         private float _hexClickedRound;
@@ -175,22 +176,23 @@ namespace P2SeriousGame
             hexagonButton.Region = new System.Drawing.Region(buttonPath);
         }
 
-        private void AddExitButton()
-		{
-			Button ExitButton = new Button();
-			ExitButton.Size = new Size(100, 25);
-			ExitButton.TabStop = false;
-			ExitButton.FlatStyle = FlatStyle.Flat;
-			ExitButton.FlatAppearance.BorderSize = 0;
-			ExitButton.BackColor = Color.LightGray;
-			ExitButton.Location = new Point(this.Bounds.Right - ExitButton.Width - 20, this.Bounds.Top + 20);
-			ExitButton.MouseClick += ExitButtonClick;
-			ExitButton.Text = "Close application";
-			ExitButton.TextAlign = ContentAlignment.MiddleCenter;
-			this.Controls.Add(ExitButton);
-		}
+        private void AddExitButton(Panel panel)
+        {
+            Button ExitButton = new Button();
+            ExitButton.Size = new Size(100, 25);
+            ExitButton.TabStop = false;
+            ExitButton.FlatStyle = FlatStyle.Flat;
+            ExitButton.FlatAppearance.BorderSize = 0;
+            ExitButton.BackColor = Color.LightGray;
+            ExitButton.Location = new Point(this.Bounds.Right - ExitButton.Width - 20, this.Bounds.Top + 20);
+            //ExitButton.MouseClick += ExitButtonClick;
+            ExitButton.MouseClick += StartGame;
+            ExitButton.Text = "Close application";
+            ExitButton.TextAlign = ContentAlignment.MiddleCenter;
+            panel.Controls.Add(ExitButton);
+        }
 
-        private void AddResetButton()
+        private void AddResetButton(Panel panel)
         {
             Button ResetButton = new Button();
             ResetButton.Size = new Size(100, 25);
@@ -199,23 +201,78 @@ namespace P2SeriousGame
             ResetButton.FlatAppearance.BorderSize = 0;
             ResetButton.BackColor = Color.Red;
             ResetButton.Location = new Point(this.Bounds.Right - ResetButton.Width - 20, this.Bounds.Top + 60);
-            ResetButton.MouseClick += TryCountDataCollector;
             ResetButton.MouseClick += ResetButtonClick;
             ResetButton.Text = "Reset Game";
             ResetButton.TextAlign = ContentAlignment.MiddleCenter;
-            this.Controls.Add(ResetButton);
+            panel.Controls.Add(ResetButton);
         }
-
-        
 
         public void DrawWindow(object sender, EventArgs e)
         {
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
-			AddExitButton();
-            AddResetButton();
+            InitializePanels();
         }
 
+        private void InitializePanels()
+        {
+            this.Controls.Add(menuPanel);
+            this.Controls.Add(gamePanel);
+            gamePanel.Width = Screen.PrimaryScreen.WorkingArea.Width;
+            gamePanel.Height = Screen.PrimaryScreen.WorkingArea.Height;
+            menuPanel.Width = Screen.PrimaryScreen.WorkingArea.Width;
+            menuPanel.Height = Screen.PrimaryScreen.WorkingArea.Height;
+            menuPanel.BackColor = Color.BlanchedAlmond;
+            menuPanel.FlowDirection = FlowDirection.TopDown;
+            menuPanel.Padding = new Padding(Size.Width / 2 - 150, 25, Size.Width / 2 + 150, 25);
+            AddExitButton(gamePanel);
+            AddResetButton(gamePanel);
+            StartGameButton(menuPanel);
+            CloseGameButton(menuPanel);
+        }
+
+        private void StartGameButton(Panel panel)
+        {
+            Button btnStartGame = new Button();
+            btnStartGame.Size = new Size(300, 100);
+            btnStartGame.TabStop = false;
+            btnStartGame.FlatStyle = FlatStyle.Flat;
+            btnStartGame.FlatAppearance.BorderSize = 0;
+            btnStartGame.BackColor = Color.Azure;
+            btnStartGame.Location = new Point(this.Bounds.Right / 2 - btnStartGame.Width / 2, this.Bounds.Top + 60);
+            btnStartGame.MouseClick += StartGame;
+            btnStartGame.Text = "Start Game";
+            btnStartGame.TextAlign = ContentAlignment.MiddleCenter;
+            panel.Controls.Add(btnStartGame);
+        }
+
+        private void CloseGameButton(Panel panel)
+        {
+            Button btnCloseGame = new Button();
+            btnCloseGame.Size = new Size(300, 100);
+            btnCloseGame.TabStop = false;
+            btnCloseGame.FlatStyle = FlatStyle.Flat;
+            btnCloseGame.FlatAppearance.BorderSize = 0;
+            btnCloseGame.BackColor = Color.Azure;
+            btnCloseGame.Text = "Exit Game";
+            btnCloseGame.TextAlign = ContentAlignment.MiddleCenter;
+            btnCloseGame.Location = new Point(this.Bounds.Right / 2 - btnCloseGame.Width / 2, this.Bounds.Top + 60);
+            btnCloseGame.MouseClick += ExitButtonClick;
+            panel.Controls.Add(btnCloseGame);
+        }
+
+        private void StartGame(object sender, MouseEventArgs e)
+        {
+            if (menuPanel.Visible)
+            {
+                menuPanel.Visible = false;
+            }
+            else
+            {
+                menuPanel.Visible = true;
+
+            }
+        }
 
         /// <summary>
         /// Converts a coordinate into a position in a hexgrid.
