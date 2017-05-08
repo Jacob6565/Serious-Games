@@ -9,18 +9,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using P2SeriosuGame.SQL;
+using P2SeriosuGame;
 
 namespace P2SeriousGame
 {
 
     public partial class Handler : Form
     {
-        private Stopwatch _watchRound;
+
+        Database SQL = new Database();
+
 
         public Handler()
         {
             InitializeComponent();
-            _watchRound = Stopwatch.StartNew();
+            SQL.
         }
                
         private int ButtonWidth;
@@ -199,7 +202,7 @@ namespace P2SeriousGame
             ResetButton.FlatAppearance.BorderSize = 0;
             ResetButton.BackColor = Color.Red;
             ResetButton.Location = new Point(this.Bounds.Right - ResetButton.Width - 20, this.Bounds.Top + 60);
-            ResetButton.MouseClick += TryCountDataCollector;
+            ResetButton.MouseClick += RoundDataCollector;
             ResetButton.MouseClick += ResetButtonClick;
             ResetButton.Text = "Reset Game";
             ResetButton.TextAlign = ContentAlignment.MiddleCenter;
@@ -274,6 +277,7 @@ namespace P2SeriousGame
             return point * 96 / 72;
         }
 
+        /*
         private float _secondsTotal;
         private float _clickedTotal;
         private int _roundWin;
@@ -328,7 +332,7 @@ namespace P2SeriousGame
         private float _secondsRound;
         private static int _totalLoss;
 
-        private void TryCountDataCollector(object sender, MouseEventArgs e)
+        private void RoundDataCollector(object sender, MouseEventArgs e)
         {
             _watchRound.Stop(); // Stops the time for the round
             elapsedSec = _watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
@@ -376,6 +380,6 @@ namespace P2SeriousGame
         private float AverageClick(float hexClicked, float seconds)
         {
             return hexClicked / seconds;
-        }
+        }*/
     }
 }
