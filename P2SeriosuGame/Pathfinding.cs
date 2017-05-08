@@ -11,7 +11,7 @@ namespace P2SeriousGame
     /// <summary>
     /// Class for calculating a route out of a HexagonButton grid from Mad.cs.
     /// </summary>
-	public class Pathfinding
+	public class Pathfinding : IPathFinding
 	{
 		private List<HexagonButton> _queue = new List<HexagonButton>();
 		private List<HexagonButton> _pathsToEdge = new List<HexagonButton>();
