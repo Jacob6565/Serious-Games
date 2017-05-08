@@ -2,28 +2,33 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using P2SeriosuGame.SQL;
 
 namespace P2SeriousGame
 {
 
     public partial class Handler : Form
     {
-        /// <summary>
-        /// 
-        /// </summary>
+        private Stopwatch _watchRound;
+
         public Handler()
         {
             InitializeComponent();
+            _watchRound = Stopwatch.StartNew();
         }
+               
+        private int ButtonWidth;
+        private int ButtonHeight;
+        private int ButtonHeightOffset => (3 * (ButtonHeight / 4));
 
-        private int _buttonWidth;
-        private int _buttonHeight;
-        private int ButtonHeightOffset => (3 * (_buttonHeight / 4));
+        int ScreenWidth = Screen.PrimaryScreen.Bounds.Width;
+        int ScreenHeight = Screen.PrimaryScreen.Bounds.Height;
 
         //These constants declare the amount of reserved space or margins, where 0.05 equals 5%
         private const double _leftWidthReserved = 0.05;
@@ -36,7 +41,7 @@ namespace P2SeriousGame
         private double _gameScreenHeight = Screen.PrimaryScreen.Bounds.Height * (1 - (_topHeightReserved + _bottomHeightReserved));
 
         //Centers the hexagonmap starting placement, if the hexagonmap doesnt fill out the entire gamescreen width
-        private double WidthCentering => (_gameScreenWidth - (_buttonWidth * Map.TotalHexagonColumns)) / 2;
+        private double WidthCentering => (_gameScreenWidth - (ButtonWidth * Map.TotalHexagonColumns)) / 2;
 
         //WidthStart and heightStart sets the starting place for the hexagonmap
         private int WidthStart => (int) ((_leftWidthReserved * Screen.PrimaryScreen.Bounds.Width) + WidthCentering);
@@ -50,7 +55,7 @@ namespace P2SeriousGame
             CalculateButtonDimensionBasedOnScreenHeight();
 
             //Does the calculated width fit the screen width, if not then calculate height and width based on screen width
-            if ((_buttonWidth * Map.TotalHexagonColumns) > _gameScreenWidth)
+            if ((ButtonWidth * Map.TotalHexagonColumns) > _gameScreenWidth)
                 CalculateButtonDimensionBasedOnScreenWidth();
         }
 
@@ -68,24 +73,20 @@ namespace P2SeriousGame
 
             //These series of if-else calculates the height of one button, determined by the number of rows and the screen height
             if (hexagonRows == 1)
-                _buttonHeight = (int)(_gameScreenHeight / hexagonRows);
-
-
+                ButtonHeight = (int)(_gameScreenHeight / hexagonRows);
             else if (hexagonRows % 2 == 0)
             {
                 rowHeight = (hexagonRows * evenRowsToHeight) + 0.25;
-                _buttonHeight = (int)(_gameScreenHeight / rowHeight);
+                ButtonHeight = (int)(_gameScreenHeight / rowHeight);
             }
-
             else if (hexagonRows % 2 == 1 && hexagonRows > 1)
             {
                 rowHeight = ((hexagonRows - 1) / 4) + ((hexagonRows + 1) / 2);
-                _buttonHeight = (int)(_gameScreenHeight / rowHeight);
+                ButtonHeight = (int)(_gameScreenHeight / rowHeight);
             }
 
             //We calculate the width by multiplying height to width ratio
-            _buttonWidth = (int)((_buttonHeight * heightToWidth));
-
+            ButtonWidth = (int)((ButtonHeight * heightToWidth));
         }
 
         /// <summary>
@@ -96,13 +97,18 @@ namespace P2SeriousGame
             //The width to height ratio for a pointy top regulare hexagon
             double widthToHeight = System.Math.Sqrt(3) * ((double)2 / 3);
 
+            double buttonWidthTemp;
+
             //We calculate the button width by dividing the screen width with number of columns + 0.5 (because we have an offset)
-            _buttonWidth = (int)(_gameScreenWidth/ (Map.TotalHexagonColumns + 0.5));
+            buttonWidthTemp = (int)(_gameScreenWidth/ (Map.TotalHexagonColumns + 0.5));
 
             //We calculate the height by multiplying width to height ratio
-            _buttonHeight = (int)(_buttonWidth * widthToHeight);
-        }
+            ButtonHeight = (int)(buttonWidthTemp * widthToHeight);
 
+            //Now we do not need the buttonWidthTemp with precision, so we typecast the double to an int
+            ButtonWidth = (int)buttonWidthTemp;
+        }
+        
         /// <summary>
         /// Initialises and draws a hexagon button, 
         /// and adds a click event calculates a new route when an HexButton is clicked.
@@ -111,7 +117,7 @@ namespace P2SeriousGame
         /// <param name="map"></param>
         public void DrawButton(HexagonButton button, Map map)
         {
-            button.Size = new Size((int)(ConvertPointToPixel(_buttonHeight)), (int)(ConvertPointToPixel(_buttonWidth)));
+            button.Size = new Size((int)(ConvertPointToPixel(ButtonHeight)), (int)(ConvertPointToPixel(ButtonWidth)));
             button.TabStop = false;
             button.FlatStyle = FlatStyle.Flat;
             button.FlatAppearance.BorderSize = 0;
@@ -119,14 +125,17 @@ namespace P2SeriousGame
             button.Paint += ButtonPainter;
             button.MouseClick += button.HexClicked;
             button.MouseClick += HexClickedColor;
-			button.MouseClick += map.HexClicked;
+			button.MouseClick += map.MousePositioner;
             this.Controls.Add(button);
         }
+
+        private float _hexClickedRound;
 
         public void HexClickedColor(object sender, MouseEventArgs e)
         {
             HexagonButton sender_Button = sender as HexagonButton;
             sender_Button.BackColor = Color.FromArgb(255, 105, 180);
+            _hexClickedRound += 1;
         }
 
         /// <summary>
@@ -136,7 +145,7 @@ namespace P2SeriousGame
         public void PlaceHexagonButton(HexagonButton button)
         { 
             //For at farve midten før man har klikket på skærmen.
-            if(button.XCoordinate == 6 && button.YCoordinate == 4)
+            if(button.XCoordinate == Map.TotalHexagonColumns/2 && button.YCoordinate == Map.TotalHexagonRows/2)
             {
                 button.BackColor = System.Drawing.Color.Aqua;
                 button.Enabled = false;
@@ -144,7 +153,6 @@ namespace P2SeriousGame
                                              
 			    button.Left = CalculateButtonWidthOffset(button.XCoordinate, button.YCoordinate);
 			    button.Top = CalculateButtonHeightOffset(button.YCoordinate);
-            
         }
 
         /// <summary>
@@ -159,10 +167,10 @@ namespace P2SeriousGame
             Button hexagonButton = sender as Button;
 
             System.Drawing.Rectangle newRectangle = hexagonButton.ClientRectangle;
-            e.Graphics.DrawPolygon(Pens.Black, Math.GetPoints(_buttonHeight, _buttonWidth));
+            e.Graphics.DrawPolygon(Pens.Black, Math.GetPoints(ButtonHeight, ButtonWidth));
 
             // Create a hexagon within the new rectangle.
-            buttonPath.AddPolygon(Math.GetPoints(_buttonHeight, _buttonWidth));
+            buttonPath.AddPolygon(Math.GetPoints(ButtonHeight, ButtonWidth));
             // Hexagon region.
             hexagonButton.Region = new System.Drawing.Region(buttonPath);
         }
@@ -191,6 +199,7 @@ namespace P2SeriousGame
             ResetButton.FlatAppearance.BorderSize = 0;
             ResetButton.BackColor = Color.Red;
             ResetButton.Location = new Point(this.Bounds.Right - ResetButton.Width - 20, this.Bounds.Top + 60);
+            ResetButton.MouseClick += TryCountDataCollector;
             ResetButton.MouseClick += ResetButtonClick;
             ResetButton.Text = "Reset Game";
             ResetButton.TextAlign = ContentAlignment.MiddleCenter;
@@ -217,11 +226,11 @@ namespace P2SeriousGame
 		private int CalculateButtonWidthOffset(int xCoordinate, int yCoordinate)
 		{
 			int width = WidthStart;
-			width += (xCoordinate * _buttonWidth);			
+			width += (xCoordinate * ButtonWidth);			
 			//Gives every second button an offset to make the grid
 			if(yCoordinate % 2 == 1)
 			{
-				width += _buttonWidth / 2;
+				width += ButtonWidth / 2;
 			}
 			return width;
 		}
@@ -239,22 +248,134 @@ namespace P2SeriousGame
 
 			return height;
 		}
-        
-		public void ExitButtonClick(object sender, MouseEventArgs e)
-		{
-			Close();
-		}
 
+        public void ExitButtonClick(object sender, MouseEventArgs e)
+        {
+            SendToDatabase();
+            Close();
+        }
 
         private void ResetButtonClick(object sender, MouseEventArgs e)
         {
-            Application.Restart();                   
+            foreach (HexagonButton hex in Map.hexMap)
+            {
+                hex.Visited = false;
+                hex.Passable = true;
+                hex.Enabled = true;
+                hex.BackColor = System.Drawing.Color.LightGray;
+                PlaceHexagonButton(hex);
+            }
+            Map.ResetMouse();
         }
 
         //We assume that there is 72 points per inch and 96 pixels per inch
         private double ConvertPointToPixel(double point)
         {
             return point * 96 / 72;
+        }
+
+        private float _secondsTotal;
+        private float _clickedTotal;
+        private int _roundWin;
+        private int _roundLoss;
+
+        public void SendToDatabase()
+        {
+            _watchRound.Stop(); // Stops the time for the round
+            var elapsedSec = _watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
+            float secondsRound = unchecked(elapsedSec);
+
+            _secondsTotal += secondsRound;
+            _clickedTotal += _hexClickedRound;
+
+            if (Pathfinding.gameRoundWin)
+            {
+                _roundWin = 1;
+                _roundLoss = 0;
+            }
+            else if (!Pathfinding.gameRoundWin)
+            {
+                _roundWin = 0;
+                _roundLoss = 1;
+            }
+
+            using (var context = new Entities())
+            {
+                context.TestParameters.Add(new TestParameters // adds a row to the TestParameters table in the SQL database
+                {
+                    Clicks = _clickedTotal, 
+                    AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
+                    Rounds = _resetCounter + 1,
+                    Wins = Pathfinding.gameTotalWins,
+                    Losses = _totalLoss,
+                    Time_Used = _secondsTotal
+                });
+
+                context.Rounds.Add(new Rounds // adds a row to the Rounds table in the SQL database
+                {
+                    Clicks = _hexClickedRound,
+                    AVG_Clicks = AverageClick(_hexClickedRound, secondsRound),
+                    Win = _roundWin,
+                    Loss = _roundLoss,
+                    Time_Used = secondsRound
+                });
+
+                context.SaveChanges();
+            }
+        }
+
+        private long elapsedSec;
+        private float _secondsRound;
+        private static int _totalLoss;
+
+        private void TryCountDataCollector(object sender, MouseEventArgs e)
+        {
+            _watchRound.Stop(); // Stops the time for the round
+            elapsedSec = _watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
+            _secondsRound = unchecked(elapsedSec);
+
+            _secondsTotal += _secondsRound;
+            _clickedTotal += _hexClickedRound;
+
+            _totalLoss += 1; 
+        
+            // Testing parameters
+            string testFirstName = "Foo";
+            string testLastName = "Bar";
+
+            ResetCounter();
+
+            using (var context = new Entities())
+            {
+                context.Rounds.Add(new Rounds // adds a row to the Rounds table in the SQL database
+                {
+                    Clicks = _hexClickedRound,
+                    AVG_Clicks = AverageClick(_hexClickedRound, _secondsRound),
+                    Win = _roundWin,
+                    Loss = _roundLoss,
+                    Time_Used = _secondsRound
+                });
+
+                context.Person.Add(new Person // adds a row to the Person table in the SQL database
+                {
+                    First_Name = testFirstName,
+                    Last_Name = testLastName
+                });
+
+                context.SaveChanges();
+            }
+        }
+
+        private int _resetCounter;
+
+        private void ResetCounter()
+        {
+            _resetCounter += 1;
+        }
+
+        private float AverageClick(float hexClicked, float seconds)
+        {
+            return hexClicked / seconds;
         }
     }
 }

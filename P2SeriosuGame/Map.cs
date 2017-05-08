@@ -16,22 +16,37 @@ namespace P2SeriousGame
         public static int TotalHexagonRows
         {
             get { return _totalHexagonRows; }
-            set { _totalHexagonRows = value; }
         }
 
-        private static int _totalHexagonColoumns = 0;
+        private static int _totalHexagonColumns = 0;
         public static int TotalHexagonColumns
         {
-            get { return _totalHexagonColoumns; }
-            set { _totalHexagonColoumns = value; }
+            get { return _totalHexagonColumns; }
         }
 
-
-        public HexagonButton[,] hexMap;
+        static public HexagonButton[,] hexMap;
 		Pathfinding path = new Pathfinding();
-		private HexagonButton currentMousePosition;
-        private int xValue = 6;
-        private int yValue = 4;
+
+        static public bool newGame = true;
+
+        private int StartMouseXCoordinate => TotalHexagonColumns / 2;
+        private int StartMouseYCoordinate => TotalHexagonRows / 2;
+
+
+        private int mouseXCoordinate;
+        public int MouseXCoordinate
+        {
+            get { return mouseXCoordinate; }
+            set { mouseXCoordinate = value; }
+        }
+
+        private int mouseYCoordinate;
+        public int MouseYCoordinate
+        {
+            get { return mouseYCoordinate; }
+            set { mouseYCoordinate = value; }
+        }
+
 
         /// <summary>
         /// Creates a HexagonButton grid in xSize * ySize, needs a reference to the handler window.
@@ -42,12 +57,12 @@ namespace P2SeriousGame
         public Map(Handler handler, int xSize, int ySize)
         {
             _totalHexagonRows = ySize;
-            _totalHexagonColoumns = xSize;
-            hexMap = new HexagonButton[_totalHexagonColoumns, _totalHexagonRows];
+            _totalHexagonColumns = xSize;
+            hexMap = new HexagonButton[TotalHexagonColumns, TotalHexagonRows];
             CreateMap(handler);     
-            IniNeighbours();
+            FindNeighbours();
         }
-        
+
         /// <summary>
         /// Initialises the HexagonButton grid. Flags edge buttons.
         /// </summary>
@@ -55,12 +70,12 @@ namespace P2SeriousGame
         public void CreateMap(Handler handler)
         {
             handler.CalculateButtonDimension();
-            for (int i = 0; i < _totalHexagonColoumns; i++)
+            for (int i = 0; i < _totalHexagonColumns; i++)
             {
                 for (int j = 0; j < _totalHexagonRows; j++)
                 {
                     bool isEdge = false;
-                    if (i == 0 || i == _totalHexagonColoumns - 1 || j == 0 || j == _totalHexagonRows - 1)
+                    if (i == 0 || i == _totalHexagonColumns - 1 || j == 0 || j == _totalHexagonRows - 1)
                     {
                         isEdge = true;
                     }
@@ -76,27 +91,36 @@ namespace P2SeriousGame
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void HexClicked(object sender, MouseEventArgs e)
+        public void MousePositioner(object sender, MouseEventArgs e)
         {
-            //Når der bliver klikket bliver tidliger punkt farvet gråt, så bliver der beregnet ny vej og koordinaterne til næste knap bliver assignet til xValue og yValue og knappen med disse koordinater farves Aqua.
+            //Når der bliver klikket bliver tidligere punkt farvet gråt, så bliver der beregnet ny vej og koordinaterne til næste knap bliver assignet til xValue og yValue og knappen med disse koordinater farves Aqua.
             //næste to linjer er det som skal ske for den knap musen stop på i det tidligere trin.
-            hexMap[xValue, yValue].BackColor = System.Drawing.Color.LightGray;
-            hexMap[xValue, yValue].Enabled = true;
-
+            if (newGame)
+            {
+                hexMap[StartMouseXCoordinate, StartMouseYCoordinate].BackColor = System.Drawing.Color.LightGray;
+                hexMap[StartMouseXCoordinate, StartMouseYCoordinate].Enabled = true;
+                path.CalculateRoutes(hexMap, hexMap[StartMouseXCoordinate, StartMouseYCoordinate]);
+                newGame = false;
+            }
+            else if (!newGame)
+            {
+                hexMap[MouseXCoordinate, MouseYCoordinate].BackColor = System.Drawing.Color.LightGray;
+                hexMap[MouseXCoordinate, MouseYCoordinate].Enabled = true;
+                path.CalculateRoutes(hexMap, hexMap[MouseXCoordinate, MouseYCoordinate]);
+            }
             //Nye position.
-            path.CalculateRoutes(hexMap, hexMap[xValue, yValue]);
-            xValue = path.FirstButtonInPath.XCoordinate;
-            yValue = path.FirstButtonInPath.YCoordinate;
-            hexMap[xValue, yValue].BackColor = System.Drawing.Color.Aqua;
-            hexMap[xValue, yValue].Enabled = false;       
+            MouseXCoordinate = path.FirstButtonInPath.XCoordinate;
+            MouseYCoordinate = path.FirstButtonInPath.YCoordinate;
+            hexMap[MouseXCoordinate, MouseYCoordinate].BackColor = System.Drawing.Color.Aqua;
+            hexMap[MouseXCoordinate, MouseYCoordinate].Enabled = false;       
         }
 
         /// <summary>
         /// Finds the neighbours for each HexagonButton in Map.cs (except of the edge buttons).
         /// </summary>
-		public void IniNeighbours()
+		public void FindNeighbours()
         {
-            for (int i = 0; i < _totalHexagonColoumns; i++)
+            for (int i = 0; i < _totalHexagonColumns; i++)
             {
                 for (int j = 0; j < _totalHexagonRows; j++)
                 {
@@ -121,6 +145,11 @@ namespace P2SeriousGame
                     }
                 }
             }
+        }
+        
+        static public void ResetMouse()
+        {
+            newGame = true;
         }  
 	}
 }
