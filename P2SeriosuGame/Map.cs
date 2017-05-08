@@ -36,15 +36,15 @@ namespace P2SeriousGame
         /// <summary>
         /// Creates a HexagonButton grid in xSize * ySize, needs a reference to the handler window.
         /// </summary>
-        /// <param name="handler"></param>
+        /// <param name="game"></param>
         /// <param name="xSize"></param>
         /// <param name="ySize"></param>
-        public Map(Handler handler, int xSize, int ySize)
+        public Map(GameWindow game, int xSize, int ySize)
         {
             _totalHexagonRows = ySize;
             _totalHexagonColoumns = xSize;
             hexMap = new HexagonButton[_totalHexagonColoumns, _totalHexagonRows];
-            CreateMap(handler);     
+            CreateMap(game);     
             IniNeighbours();
         }
         
@@ -52,7 +52,7 @@ namespace P2SeriousGame
         /// Initialises the HexagonButton grid. Flags edge buttons.
         /// </summary>
         /// <param name="handler"></param>
-        public void CreateMap(Handler handler)
+        public void CreateMap(GameWindow handler)
         {
             handler.CalculateButtonDimension();
             for (int i = 0; i < _totalHexagonColoumns; i++)
