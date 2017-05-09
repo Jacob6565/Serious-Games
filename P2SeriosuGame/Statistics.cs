@@ -8,17 +8,20 @@ namespace P2SeriousGame
 {
     public class Statistics
     {
-        IFetchData fetch;
-        public Statistics(IFetchData fetch)
+        IFetchData fetch;        
+        private int SessionID { get; set; }
+        public Statistics(IFetchData fetch, Session session)
         {
+            this.SessionID = session.SessionID;
             this.fetch = fetch;
         }
 
-        public Array GetDataArray(int sessionID)
+        public Array GetDataArray()
         {
-            Session session = fetch.GetSessionData(sessionID);
-            return new int[10];
+            Session session = fetch.GetSessionData(SessionID);
+            //session.Rounds[0].IsWin;
+            int[] a = new int[2];
+            return a;
         }
-
     }
 }

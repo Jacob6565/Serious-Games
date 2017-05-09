@@ -9,6 +9,6 @@ namespace P2SeriousGame
     public class Session
     {
         public int SessionID {get; set;}
-        List<Round> Rounds = new List<Round>();       
+        public List<Round> Rounds = new List<Round>();       
 	}
 }
