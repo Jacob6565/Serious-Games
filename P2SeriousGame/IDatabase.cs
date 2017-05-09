@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace P2SeriousGame
 {
-    class MainMenu
-    {
-    }
+	public interface IDatabase
+	{
+		Session GetSessionData(int SessionID);
+	}
 }

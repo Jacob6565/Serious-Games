@@ -54,10 +54,10 @@ namespace P2SeriousGame
         /// <summary>
         /// Creates a HexagonButton grid in xSize * ySize, needs a reference to the handler window.
         /// </summary>
-        /// <param name="game"></param>
+        /// <param name="handler"></param>
         /// <param name="xSize"></param>
         /// <param name="ySize"></param>
-        public Map(GameWindow game, int xSize, int ySize)
+        public Map(GameWindow game, int xSize, int ySize, IPathfinding path)
         {
             _totalHexagonRows = ySize;
             _totalHexagonColumns = xSize;

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace P2SeriousGame
 {
-	public interface IFetchData
+	interface IStatistic
 	{
-		Session GetSessionData(int SessionID);
+		void CreateStackChart(string chartName, int chartHeight, int chartWidth);
+		
 	}
 }
