@@ -27,6 +27,7 @@ namespace P2SeriousGame
 
         FlowLayoutPanel menuPanel = new FlowLayoutPanel();
         Panel gamePanel = new Panel();
+        Panel administratorPanel = new Panel();
 
         private int ButtonWidth;
         private int ButtonHeight;
@@ -190,8 +191,8 @@ namespace P2SeriousGame
             ExitButton.BackColor = Color.LightGray;
             ExitButton.Location = new Point(this.Bounds.Right - ExitButton.Width - 20, this.Bounds.Top + 20);
             //ExitButton.MouseClick += ExitButtonClick;
-            ExitButton.MouseClick += SwitchVisiblePanel;
-            ExitButton.Text = "Close application";
+            ExitButton.MouseClick += SwitchToMenu;
+            ExitButton.Text = "Return to menu";
             ExitButton.TextAlign = ContentAlignment.MiddleCenter;
             panel.Controls.Add(ExitButton);
         }
@@ -223,16 +224,22 @@ namespace P2SeriousGame
         {
             this.Controls.Add(menuPanel);
             this.Controls.Add(gamePanel);
+            this.Controls.Add(administratorPanel);
             gamePanel.Width = ScreenWidth;
             gamePanel.Height = ScreenHeight;
+            gamePanel.Visible = false;
             menuPanel.Width = ScreenWidth;
             menuPanel.Height = ScreenHeight;
+            administratorPanel.Width = ScreenWidth;
+            administratorPanel.Height = ScreenHeight;
+            administratorPanel.Visible = false;
             menuPanel.BackColor = Color.BlanchedAlmond;
             menuPanel.FlowDirection = FlowDirection.TopDown;
             menuPanel.Padding = new Padding(Size.Width / 2 - 150, 25, Size.Width / 2 + 150, 25);
             AddExitButton(gamePanel);
             AddResetButton(gamePanel);
             StartGameButton(menuPanel);
+            StartAdministratorMenuButton(menuPanel);
             CloseMenuButton(menuPanel);
         }
 
@@ -245,10 +252,25 @@ namespace P2SeriousGame
             btnStartGame.FlatAppearance.BorderSize = 0;
             btnStartGame.BackColor = Color.Azure;
             btnStartGame.Location = new Point(this.Bounds.Right / 2 - btnStartGame.Width / 2, this.Bounds.Top + 60);
-            btnStartGame.MouseClick += SwitchVisiblePanel;
+            btnStartGame.MouseClick += SwitchToGame;
             btnStartGame.Text = "Start Game";
             btnStartGame.TextAlign = ContentAlignment.MiddleCenter;
             panel.Controls.Add(btnStartGame);
+        }
+
+        private void StartAdministratorMenuButton(Panel panel)
+        {
+            Button btnStartAdministrator = new Button();
+            btnStartAdministrator.Size = new Size(300, 100);
+            btnStartAdministrator.TabStop = false;
+            btnStartAdministrator.FlatStyle = FlatStyle.Flat;
+            btnStartAdministrator.FlatAppearance.BorderSize = 0;
+            btnStartAdministrator.BackColor = Color.Azure;
+            btnStartAdministrator.Location = new Point(this.Bounds.Right / 2 - btnStartAdministrator.Width / 2, this.Bounds.Top + 60);
+            btnStartAdministrator.MouseClick += SwitchToAdministration;
+            btnStartAdministrator.Text = "Administrator";
+            btnStartAdministrator.TextAlign = ContentAlignment.MiddleCenter;
+            panel.Controls.Add(btnStartAdministrator);
         }
 
         private void CloseMenuButton(Panel panel)
@@ -266,17 +288,23 @@ namespace P2SeriousGame
             panel.Controls.Add(btnCloseGame);
         }
 
-        private void SwitchVisiblePanel(object sender, MouseEventArgs e)
+        private void SwitchToGame(object sender, MouseEventArgs e)
         {
-            if (menuPanel.Visible)
-            {
-                menuPanel.Visible = false;
-            }
-            else
-            {
-                menuPanel.Visible = true;
+            gamePanel.Visible = true;
+            menuPanel.Visible = false;
+        }
 
-            }
+        private void SwitchToMenu(object sender, MouseEventArgs e)
+        {
+            menuPanel.Visible = true;
+            gamePanel.Visible = false;
+            administratorPanel.Visible = false;
+        }
+
+        private void SwitchToAdministration(object sender, MouseEventArgs e)
+        {
+            administratorPanel.Visible = true;
+            menuPanel.Visible = false;
         }
 
         /// <summary>
