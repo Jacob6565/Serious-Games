@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace P2SeriousGame
 {
-	public interface IFetchData
+	public interface IDatabase
 	{
 		Session GetSessionData(int SessionID);
 	}
