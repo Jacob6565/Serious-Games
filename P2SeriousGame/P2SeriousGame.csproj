@@ -77,15 +77,21 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Database.cs" />
-    <Compile Include="GameWindow.cs" />
+    <Compile Include="GameWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GameWindow.Designer.cs">
       <DependentUpon>GameWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Graph.cs" />
+    <Compile Include="Graph.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Graph.Designer.cs">
       <DependentUpon>Graph.cs</DependentUpon>
     </Compile>
-    <Compile Include="HexagonButton.cs" />
+    <Compile Include="HexagonButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="IFetchData.cs" />
     <Compile Include="IPathFinding.cs" />
     <Compile Include="MainMenu.cs" />
