@@ -45,7 +45,7 @@ namespace P2SeriosuGame
             _elapsedSec = ElapsedSeconds(); 
             _secondsRound = unchecked(_elapsedSec);
             StopStopwatch();
-            StartStopwatch();
+            StartStopwatch(); // make restart function
 
             _secondsTotal += _secondsRound;
             _clickedTotal += GameWindow.hexClickedRound;
@@ -58,7 +58,6 @@ namespace P2SeriosuGame
             AddRoundsToDatabase();
 
             ResetCounter();
-            StartStopwatch();
         }
 
         // Unique to WinMethod
