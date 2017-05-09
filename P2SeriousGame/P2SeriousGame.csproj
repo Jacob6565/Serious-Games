@@ -81,6 +81,9 @@
     <Compile Include="GameWindow.Designer.cs">
       <DependentUpon>GameWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameWindow.Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="HexagonButton.cs">
       <SubType>Component</SubType>
     </Compile>
