@@ -49,6 +49,6 @@ C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\EntityFramewo
 C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.csprojResolveAssemblyReference.cache
 C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.GameWindow.resources
-C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriosuGame.Graph.resources
 C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.Properties.Resources.resources
 C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.csproj.GenerateResource.Cache
+C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.Graph.resources

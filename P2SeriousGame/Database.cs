@@ -8,10 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using P2SeriosuGame.SQL;
+using P2SeriousGame.SQL;
 using P2SeriousGame;
 
-namespace P2SeriosuGame
+namespace P2SeriousGame
 {
     class Database
     {
