@@ -11,7 +11,7 @@ namespace P2SeriousGame
     /// <summary>
     /// Class for calculating a route out of a HexagonButton grid from Mad.cs.
     /// </summary>
-	public class Pathfinding : IPathFinding
+	public class Pathfinding : IPathfinding
 	{
 		private List<HexagonButton> _queue = new List<HexagonButton>();
 		private List<HexagonButton> _pathsToEdge = new List<HexagonButton>();
@@ -24,7 +24,7 @@ namespace P2SeriousGame
         /// </summary>
         /// <param name="hexMap"></param>
         /// <param name="startingHex"></param>
-		public void CalculateRoutes(HexagonButton[,] hexMap, HexagonButton startingHex)
+		public HexagonButton CalculateRoutes(HexagonButton[,] hexMap, HexagonButton startingHex)
 		{
 			Stopwatch stopWatch = new Stopwatch();
 			stopWatch.Start();
@@ -59,7 +59,7 @@ namespace P2SeriousGame
 				}
 			}
 
-            FirstButtonInPath = FindTheRoute(_pathsToEdge, _reachableHexList);
+            //FirstButtonInPath = FindTheRoute(_pathsToEdge, _reachableHexList);
 
 			stopWatch.Stop();
 			// Get the elapsed time as a TimeSpan value.
@@ -68,7 +68,9 @@ namespace P2SeriousGame
 			// Format and display the TimeSpan value.
 			string elapsedTime = ts.TotalMilliseconds.ToString();
 			Console.WriteLine("RunTime " + elapsedTime);
-		}
+
+            return FindTheRoute(_pathsToEdge, _reachableHexList);
+        }
 
         public static int gameTotalWins;
         public static bool gameRoundWin;
