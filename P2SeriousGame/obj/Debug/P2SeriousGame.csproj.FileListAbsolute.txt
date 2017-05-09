@@ -10,3 +10,4 @@ C:\Users\kristoffer\Desktop\Git igen\P2SeriousGame\obj\Debug\P2SeriousGame.Prope
 C:\Users\kristoffer\Desktop\Git igen\P2SeriousGame\obj\Debug\P2SeriousGame.csproj.GenerateResource.Cache
 C:\Users\kristoffer\Desktop\Git igen\P2SeriousGame\obj\Debug\P2SeriousGame.exe
 C:\Users\kristoffer\Desktop\Git igen\P2SeriousGame\obj\Debug\P2SeriousGame.pdb
+C:\Users\kristoffer\Desktop\Git igen\P2SeriousGame\obj\Debug\P2SeriousGame.csprojResolveAssemblyReference.cache

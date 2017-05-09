@@ -87,7 +87,6 @@
     <Compile Include="HexagonButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="IFetchData.cs" />
     <Compile Include="IPathFinding.cs" />
     <Compile Include="MainMenu.cs" />
     <Compile Include="Map.cs" />

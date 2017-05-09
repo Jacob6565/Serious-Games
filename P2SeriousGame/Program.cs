@@ -15,15 +15,15 @@ namespace P2SeriousGame
 		[STAThread]
         static void Main()
         {
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-			//GameWindow FirstLevelHandler = new GameWindow();
-            //IPathfinding path = new Pathfinding();
-			//Map FirstLevel = new Map(FirstLevelHandler, 11, 11, path);
-			//Application.Run(FirstLevelHandler);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            GameWindow FirstLevelHandler = new GameWindow();
+            IPathfinding path = new Pathfinding();
+            Map FirstLevel = new Map(FirstLevelHandler, 11, 11, path);
+            Application.Run(FirstLevelHandler);
 
-			Graph FirstLevelHandler = new Graph();
-			Application.Run(FirstLevelHandler);
-		}
-	}
+            //Graph FirstLevelHandler = new Graph();
+            //Application.Run(FirstLevelHandler);
+        }
+    }
 }
