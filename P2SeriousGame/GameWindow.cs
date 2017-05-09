@@ -134,13 +134,13 @@ namespace P2SeriousGame
             gamePanel.Controls.Add(button);
         }
 
-        private float _hexClickedRound;
+        public static float hexClickedRound;
 
         public void HexClickedColor(object sender, MouseEventArgs e)
         {
             HexagonButton sender_Button = sender as HexagonButton;
             sender_Button.BackColor = Color.FromArgb(255, 105, 180);
-            _hexClickedRound += 1;
+            hexClickedRound += 1;
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace P2SeriousGame
             ResetButton.FlatAppearance.BorderSize = 0;
             ResetButton.BackColor = Color.Red;
             ResetButton.Location = new Point(this.Bounds.Right - ResetButton.Width - 20, this.Bounds.Top + 60);
-            ResetButton.MouseClick += SQL.RoundDataCollector;
+            ResetButton.MouseClick += SQL.ResetGameToDatabase;
             ResetButton.MouseClick += ResetButtonClick;
             ResetButton.Text = "Reset Game";
             ResetButton.TextAlign = ContentAlignment.MiddleCenter;
@@ -275,7 +275,6 @@ namespace P2SeriousGame
             else
             {
                 menuPanel.Visible = true;
-
             }
         }
 
@@ -313,7 +312,7 @@ namespace P2SeriousGame
 
         public void ExitButtonClick(object sender, MouseEventArgs e)
         {
-            SQL.SendToDatabase();
+            SQL.ExitGameToDatabase();
             Close();
         }
 

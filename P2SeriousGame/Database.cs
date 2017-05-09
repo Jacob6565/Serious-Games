@@ -17,27 +17,22 @@ namespace P2SeriosuGame
     {
         public Database() { }
 
-        public Stopwatch watchRound;
-        private float _hexClickedRound;
-
-        // trygetcollector...
-        private long elapsedSec;
+        private long _elapsedSec;
         private float _secondsRound;
-        private static int _totalLoss;
-
-        // Send to database
         private float _secondsTotal;
         private float _clickedTotal;
-        private int _roundWin;
-        private int _roundLoss;
 
-        public void SendToDatabase()
+        // Unique to ResetGameToDatabase
+        private static int _totalLoss;
+
+        public void ExitGameToDatabase() // Former SendToDatabase()
         {
-            var elapsedSec = watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
-            float secondsRound = unchecked(elapsedSec);
+            _elapsedSec = ElapsedSeconds(); // Converts the time to seconds
+            _secondsRound = unchecked(_elapsedSec); // Succesfully converts the long to float, ready for the database.
+            StopStopwatch();
 
-            _secondsTotal += secondsRound;
-            _clickedTotal += _hexClickedRound;
+            _secondsTotal += _secondsRound;
+            _clickedTotal += GameWindow.hexClickedRound;
 
             WinMethod();
 
@@ -45,14 +40,14 @@ namespace P2SeriosuGame
             AddRoundsToDatabase();
         }
 
-        public void RoundDataCollector(object sender, MouseEventArgs e)
+        public void ResetGameToDatabase(object sender, MouseEventArgs e)
         {
-            watchRound.Stop(); // Stops the time for the round
-            elapsedSec = watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
-            _secondsRound = unchecked(elapsedSec);
+            _elapsedSec = ElapsedSeconds(); 
+            _secondsRound = unchecked(_elapsedSec);
+            RestartStopwatch();
 
             _secondsTotal += _secondsRound;
-            _clickedTotal += _hexClickedRound;
+            _clickedTotal += GameWindow.hexClickedRound;
 
             _totalLoss += 1;
 
@@ -64,17 +59,9 @@ namespace P2SeriosuGame
             ResetCounter();
         }
 
-        private float AverageClick(float hexClicked, float seconds)
-        {
-            return hexClicked / seconds;
-        }
-
-        private int _resetCounter;
-
-        private void ResetCounter()
-        {
-            _resetCounter += 1;
-        }
+        // Unique to WinMethod
+        private int _roundWin;
+        private int _roundLoss;
 
         public void WinMethod() //Name in progress...
         {
@@ -110,12 +97,13 @@ namespace P2SeriosuGame
 
         public void AddRoundsToDatabase()
         {
+            _secondsRound = ElapsedSeconds();
             using (var context = new Entities())
             {
                 context.Rounds.Add(new Rounds // adds a row to the Rounds table in the SQL database
                 {
-                    Clicks = _hexClickedRound,
-                    AVG_Clicks = AverageClick(_hexClickedRound, _secondsRound),
+                    Clicks = GameWindow.hexClickedRound,
+                    AVG_Clicks = AverageClick(GameWindow.hexClickedRound, _secondsRound),
                     Win = _roundWin,
                     Loss = _roundLoss,
                     Time_Used = _secondsRound
@@ -143,5 +131,38 @@ namespace P2SeriosuGame
             }
         }
 
+        private float AverageClick(float hexClicked, float seconds)
+        {
+            return hexClicked / seconds;
+        }
+
+        private int _resetCounter;
+
+        private void ResetCounter()
+        {
+            _resetCounter += 1;
+        }
+
+        public static Stopwatch stopwatchRound = new Stopwatch();
+
+        public static void StartStopwatch()
+        {
+            stopwatchRound.Start();
+        }
+
+        public static void StopStopwatch()
+        {
+            stopwatchRound.Stop();
+        }
+
+        public static void RestartStopwatch()
+        {
+            stopwatchRound.Restart();
+        }
+
+        public long ElapsedSeconds()
+        {
+            return stopwatchRound.ElapsedMilliseconds / 1000;
+        }
     }
 }
