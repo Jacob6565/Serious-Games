@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using P2SeriosuGame.SQL;
+using P2SeriousGame.SQL;
 using P2SeriousGame;
 
 namespace P2SeriosuGame
@@ -27,16 +27,16 @@ namespace P2SeriosuGame
 
         public void ExitGameToDatabase() // Former SendToDatabase()
         {
+            StopStopwatch();
             _elapsedSec = ElapsedSeconds(); // Converts the time to seconds
             _secondsRound = unchecked(_elapsedSec); // Succesfully converts the long to float, ready for the database.
-            StopStopwatch();
 
             _secondsTotal += _secondsRound;
             _clickedTotal += GameWindow.hexClickedRound;
 
             WinMethod();
 
-            AddTestParametersToDatabase();
+            AddSessionToDatabase();
             AddRoundsToDatabase();
         }
 
@@ -44,7 +44,8 @@ namespace P2SeriosuGame
         {
             _elapsedSec = ElapsedSeconds(); 
             _secondsRound = unchecked(_elapsedSec);
-            RestartStopwatch();
+            StopStopwatch();
+            StartStopwatch();
 
             _secondsTotal += _secondsRound;
             _clickedTotal += GameWindow.hexClickedRound;
@@ -57,6 +58,7 @@ namespace P2SeriosuGame
             AddRoundsToDatabase();
 
             ResetCounter();
+            StartStopwatch();
         }
 
         // Unique to WinMethod
@@ -113,11 +115,11 @@ namespace P2SeriosuGame
             }
         }
 
-        public void AddTestParametersToDatabase()
+        public void AddSessionToDatabase()
         {
             using (var context = new Entities())
             {
-                context.TestParameters.Add(new TestParameters // adds a row to the TestParameters table in the SQL database
+                context.Session.Add(new P2SeriousGame.SQL.Session // adds a row to the TestParameters table in the SQL database
                 {
                     Clicks = _clickedTotal,
                     AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
@@ -143,19 +145,19 @@ namespace P2SeriosuGame
             _resetCounter += 1;
         }
 
-        public static Stopwatch stopwatchRound = new Stopwatch();
+        Stopwatch stopwatchRound = new Stopwatch();
 
-        public static void StartStopwatch()
+        public void StartStopwatch()
         {
             stopwatchRound.Start();
         }
 
-        public static void StopStopwatch()
+        public void StopStopwatch()
         {
             stopwatchRound.Stop();
         }
 
-        public static void RestartStopwatch()
+        public void RestartStopWatch()
         {
             stopwatchRound.Restart();
         }

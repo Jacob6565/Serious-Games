@@ -24,11 +24,11 @@
           <Property Name="Loss" Type="int" />
           <Property Name="Time Used" Type="float" />
         </EntityType>
-        <EntityType Name="TestParameters">
+        <EntityType Name="Session">
           <Key>
-            <PropertyRef Name="IdTestParameters" />
+            <PropertyRef Name="IdSession" />
           </Key>
-          <Property Name="IdTestParameters" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdSession" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Clicks" Type="float" />
           <Property Name="AVG Clicks" Type="float" />
           <Property Name="Rounds" Type="int" />
@@ -39,7 +39,7 @@
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rounds" EntityType="Self.Rounds" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TestParameters" EntityType="Self.TestParameters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Session" EntityType="Self.Session" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -65,11 +65,11 @@
           <Property Name="Loss" Type="Int32" />
           <Property Name="Time_Used" Type="Double" />
         </EntityType>
-        <EntityType Name="TestParameters">
+        <EntityType Name="Session">
           <Key>
-            <PropertyRef Name="IdTestParameters" />
+            <PropertyRef Name="IdSession" />
           </Key>
-          <Property Name="IdTestParameters" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdSession" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Clicks" Type="Double" />
           <Property Name="AVG_Clicks" Type="Double" />
           <Property Name="Rounds" Type="Int32" />
@@ -80,7 +80,7 @@
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Person" EntityType="Self.Person" />
           <EntitySet Name="Rounds" EntityType="Self.Rounds" />
-          <EntitySet Name="TestParameters" EntityType="Self.TestParameters" />
+          <EntitySet Name="Session" EntityType="Self.Session" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -109,10 +109,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TestParameters">
-            <EntityTypeMapping TypeName="Model.TestParameters">
-              <MappingFragment StoreEntitySet="TestParameters">
-                <ScalarProperty Name="IdTestParameters" ColumnName="IdTestParameters" />
+          <EntitySetMapping Name="Session">
+            <EntityTypeMapping TypeName="Model.Session">
+              <MappingFragment StoreEntitySet="Session">
+                <ScalarProperty Name="IdSession" ColumnName="IdSession" />
                 <ScalarProperty Name="Clicks" ColumnName="Clicks" />
                 <ScalarProperty Name="AVG_Clicks" ColumnName="AVG Clicks" />
                 <ScalarProperty Name="Rounds" ColumnName="Rounds" />

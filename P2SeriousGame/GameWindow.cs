@@ -8,25 +8,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using P2SeriosuGame.SQL;
+using P2SeriousGame.SQL;
 using P2SeriosuGame;
 
 namespace P2SeriousGame
 {
     public partial class GameWindow : Form
     {
-
         Database SQL = new Database();
-
+        FlowLayoutPanel menuPanel = new FlowLayoutPanel();
+        Panel gamePanel = new Panel();
 
         public GameWindow()
         {
             InitializeComponent();
-
+            SQL.StartStopwatch();
         }
-
-        FlowLayoutPanel menuPanel = new FlowLayoutPanel();
-        Panel gamePanel = new Panel();
 
         private int ButtonWidth;
         private int ButtonHeight;
@@ -89,7 +86,6 @@ namespace P2SeriousGame
                 rowHeight = ((hexagonRows - 1) / 4) + ((hexagonRows + 1) / 2);
                 ButtonHeight = (int)(_gameScreenHeight / rowHeight);
             }
-
             //We calculate the width by multiplying height to width ratio
             ButtonWidth = (int)((ButtonHeight * heightToWidth));
         }
