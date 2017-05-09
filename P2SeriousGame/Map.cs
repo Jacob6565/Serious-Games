@@ -57,23 +57,23 @@ namespace P2SeriousGame
         /// <param name="handler"></param>
         /// <param name="xSize"></param>
         /// <param name="ySize"></param>
-        public Map(GameWindow game, int xSize, int ySize)
+        public Map(GameWindow game, int xSize, int ySize, IPathfinding path)
         {
             _totalHexagonRows = ySize;
             _totalHexagonColumns = xSize;
             this.path = path;
             hexMap = new HexagonButton[TotalHexagonColumns, TotalHexagonRows];
-            CreateMap(handler);     
+            CreateMap(game);     
             FindNeighbours();
         }
 
         /// <summary>
         /// Initialises the HexagonButton grid. Flags edge buttons.
         /// </summary>
-        /// <param name="handler"></param>
-        public void CreateMap(Handler handler)
+        /// <param name="game"></param>
+        public void CreateMap(GameWindow game)
         {
-            handler.CalculateButtonDimension();
+            game.CalculateButtonDimension();
             for (int i = 0; i < _totalHexagonColumns; i++)
             {
                 for (int j = 0; j < _totalHexagonRows; j++)
@@ -84,8 +84,8 @@ namespace P2SeriousGame
                         isEdge = true;
                     }
                     hexMap[i, j] = new HexagonButton(i, j, isEdge);
-                    handler.DrawButton(hexMap[i, j], this);
-                    handler.PlaceHexagonButton(hexMap[i, j]);
+                    game.DrawButton(hexMap[i, j], this);
+                    game.PlaceHexagonButton(hexMap[i, j]);
                 }
             }
         }

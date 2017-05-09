@@ -24,3 +24,17 @@ C:\Users\kristoffer\Desktop\Git igen\P2SeriousGame\obj\Debug\P2SeriousGame.cspro
 C:\Users\kristoffer\Desktop\Git igen\P2SeriousGame\obj\Debug\P2SeriousGame.GameWindow.resources
 C:\Users\kristoffer\Desktop\Git igen\P2SeriousGame\obj\Debug\P2SeriousGame.Properties.Resources.resources
 C:\Users\kristoffer\Desktop\Git igen\P2SeriousGame\obj\Debug\P2SeriousGame.csproj.GenerateResource.Cache
+C:\Users\tuant\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.csprojResolveAssemblyReference.cache
+C:\Users\tuant\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.GameWindow.resources
+C:\Users\tuant\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriosuGame.Graph.resources
+C:\Users\tuant\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.Properties.Resources.resources
+C:\Users\tuant\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.csproj.GenerateResource.Cache
+C:\Users\tuant\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.exe
+C:\Users\tuant\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.pdb
+C:\Users\tuant\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\P2SeriousGame.exe.config
+C:\Users\tuant\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\P2SeriousGame.exe
+C:\Users\tuant\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\P2SeriousGame.pdb
+C:\Users\tuant\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\EntityFramework.dll
+C:\Users\tuant\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\tuant\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\EntityFramework.xml
+C:\Users\tuant\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\EntityFramework.SqlServer.xml
