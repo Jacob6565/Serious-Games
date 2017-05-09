@@ -2,9 +2,8 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/WindowsFormsApplication4/obj/Debug/
-
 /P2SeriosuGame/bin/Debug
 /P2SeriosuGame/obj/Debug
 /P2SeriosuGame/obj/Debug
 /P2SeriosuGame/bin/Debug
+/.vs
