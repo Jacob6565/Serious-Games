@@ -111,7 +111,6 @@ namespace P2SeriosuGame
                 });
 
                 context.SaveChanges();
-
             }
         }
 
