@@ -22,10 +22,9 @@ namespace P2SeriousGame
         public GameWindow()
         {
             InitializeComponent();
-            SQL.watchRound.Start();
+
         }
 
-        private Stopwatch _watchRound;
         FlowLayoutPanel menuPanel = new FlowLayoutPanel();
         Panel gamePanel = new Panel();
 
@@ -271,7 +270,6 @@ namespace P2SeriousGame
         {
             if (menuPanel.Visible)
             {
-                _watchRound = Stopwatch.StartNew();
                 menuPanel.Visible = false;
             }
             else
