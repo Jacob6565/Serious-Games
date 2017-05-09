@@ -57,7 +57,7 @@ namespace P2SeriousGame
         /// <param name="handler"></param>
         /// <param name="xSize"></param>
         /// <param name="ySize"></param>
-        public Map(Handler handler, int xSize, int ySize, IPathfinding path)
+        public Map(GameWindow game, int xSize, int ySize)
         {
             _totalHexagonRows = ySize;
             _totalHexagonColumns = xSize;

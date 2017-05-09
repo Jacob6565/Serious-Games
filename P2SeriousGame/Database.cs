@@ -33,7 +33,6 @@ namespace P2SeriosuGame
 
         public void SendToDatabase()
         {
-            watchRound.Stop(); // Stops the time for the round
             var elapsedSec = watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
             float secondsRound = unchecked(elapsedSec);
 
