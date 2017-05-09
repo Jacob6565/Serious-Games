@@ -52,3 +52,6 @@ C:\Users\Casper-Bærbarpc\Desktop\GitHub\P2SeriousGame\obj\Debug\P2SeriousGame.G
 C:\Users\Casper-Bærbarpc\Desktop\GitHub\P2SeriousGame\obj\Debug\P2SeriosuGame.Graph.resources
 C:\Users\Casper-Bærbarpc\Desktop\GitHub\P2SeriousGame\obj\Debug\P2SeriousGame.Properties.Resources.resources
 C:\Users\Casper-Bærbarpc\Desktop\GitHub\P2SeriousGame\obj\Debug\P2SeriousGame.csproj.GenerateResource.Cache
+C:\Users\Jacob\Desktop\NY\P2SeriousGame\bin\Debug\P2SeriousGame.exe.config
+C:\Users\Jacob\Desktop\NY\P2SeriousGame\obj\Debug\P2SeriousGame.exe
+C:\Users\Jacob\Desktop\NY\P2SeriousGame\obj\Debug\P2SeriousGame.pdb
