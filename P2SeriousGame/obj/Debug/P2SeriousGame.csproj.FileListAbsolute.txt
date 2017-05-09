@@ -38,3 +38,17 @@ C:\Users\tuant\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\EntityFramewor
 C:\Users\tuant\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\tuant\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\EntityFramework.xml
 C:\Users\tuant\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Casper-Bærbarpc\Desktop\GitHub\P2SeriousGame\bin\Debug\P2SeriousGame.exe.config
+C:\Users\Casper-Bærbarpc\Desktop\GitHub\P2SeriousGame\obj\Debug\P2SeriousGame.exe
+C:\Users\Casper-Bærbarpc\Desktop\GitHub\P2SeriousGame\obj\Debug\P2SeriousGame.pdb
+C:\Users\Casper-Bærbarpc\Desktop\GitHub\P2SeriousGame\bin\Debug\P2SeriousGame.exe
+C:\Users\Casper-Bærbarpc\Desktop\GitHub\P2SeriousGame\bin\Debug\P2SeriousGame.pdb
+C:\Users\Casper-Bærbarpc\Desktop\GitHub\P2SeriousGame\bin\Debug\EntityFramework.dll
+C:\Users\Casper-Bærbarpc\Desktop\GitHub\P2SeriousGame\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Casper-Bærbarpc\Desktop\GitHub\P2SeriousGame\bin\Debug\EntityFramework.xml
+C:\Users\Casper-Bærbarpc\Desktop\GitHub\P2SeriousGame\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Casper-Bærbarpc\Desktop\GitHub\P2SeriousGame\obj\Debug\P2SeriousGame.csprojResolveAssemblyReference.cache
+C:\Users\Casper-Bærbarpc\Desktop\GitHub\P2SeriousGame\obj\Debug\P2SeriousGame.GameWindow.resources
+C:\Users\Casper-Bærbarpc\Desktop\GitHub\P2SeriousGame\obj\Debug\P2SeriosuGame.Graph.resources
+C:\Users\Casper-Bærbarpc\Desktop\GitHub\P2SeriousGame\obj\Debug\P2SeriousGame.Properties.Resources.resources
+C:\Users\Casper-Bærbarpc\Desktop\GitHub\P2SeriousGame\obj\Debug\P2SeriousGame.csproj.GenerateResource.Cache
