@@ -40,40 +40,10 @@ namespace P2SeriosuGame
             _secondsTotal += secondsRound;
             _clickedTotal += _hexClickedRound;
 
-            if (Pathfinding.gameRoundWin)
-            {
-                _roundWin = 1;
-                _roundLoss = 0;
-            }
-            else if (!Pathfinding.gameRoundWin)
-            {
-                _roundWin = 0;
-                _roundLoss = 1;
-            }
+            WinMethod();
 
-            using (var context = new Entities())
-            {
-                context.TestParameters.Add(new TestParameters // adds a row to the TestParameters table in the SQL database
-                {
-                    Clicks = _clickedTotal,
-                    AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
-                    Rounds = _resetCounter + 1,
-                    Wins = Pathfinding.gameTotalWins,
-                    Losses = _totalLoss,
-                    Time_Used = _secondsTotal
-                });
-
-                context.Rounds.Add(new Rounds // adds a row to the Rounds table in the SQL database
-                {
-                    Clicks = _hexClickedRound,
-                    AVG_Clicks = AverageClick(_hexClickedRound, secondsRound),
-                    Win = _roundWin,
-                    Loss = _roundLoss,
-                    Time_Used = secondsRound
-                });
-
-                context.SaveChanges();
-            }
+            AddTestParametersToDatabase();
+            AddRoundsToDatabase();
         }
 
         public void RoundDataCollector(object sender, MouseEventArgs e)
@@ -87,9 +57,10 @@ namespace P2SeriosuGame
 
             _totalLoss += 1;
 
-            // Testing parameters
-            string testFirstName = "Foo";
-            string testLastName = "Bar";
+            WinMethod();
+
+            AddPersonToDatabase();
+            AddRoundsToDatabase();
 
             ResetCounter();
         }
@@ -106,8 +77,26 @@ namespace P2SeriosuGame
             _resetCounter += 1;
         }
 
+        public void WinMethod() //Name in progress...
+        {
+            if (Pathfinding.gameRoundWin)
+            {
+                _roundWin = 1;
+                _roundLoss = 0;
+            }
+            else if (!Pathfinding.gameRoundWin)
+            {
+                _roundWin = 0;
+                _roundLoss = 1;
+            }
+        }
+
         public void AddPersonToDatabase()
         {
+            // Testing parameters
+            string testFirstName = "Foo";
+            string testLastName = "Bar";
+
             using (var context = new Entities())
             {
                 context.Person.Add(new Person // adds a row to the Person table in the SQL database
@@ -137,6 +126,23 @@ namespace P2SeriosuGame
             }
         }
 
+        public void AddTestParametersToDatabase()
+        {
+            using (var context = new Entities())
+            {
+                context.TestParameters.Add(new TestParameters // adds a row to the TestParameters table in the SQL database
+                {
+                    Clicks = _clickedTotal,
+                    AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
+                    Rounds = _resetCounter + 1,
+                    Wins = Pathfinding.gameTotalWins,
+                    Losses = _totalLoss,
+                    Time_Used = _secondsTotal
+                });
+
+                context.SaveChanges();
+            }
+        }
 
     }
 }
