@@ -34,7 +34,7 @@ namespace P2SeriosuGame
             _secondsTotal += _secondsRound;
             _clickedTotal += GameWindow.hexClickedRound;
 
-            WinMethod();
+            WinOrLose();
 
             AddSessionToDatabase();
             AddRoundsToDatabase();
@@ -45,14 +45,14 @@ namespace P2SeriosuGame
             _elapsedSec = ElapsedSeconds(); 
             _secondsRound = unchecked(_elapsedSec);
             StopStopwatch();
-            StartStopwatch(); // make restart function
+            StartStopwatch(); // programmet laver fejl, hvis man restarter/resetter stopuret.
 
             _secondsTotal += _secondsRound;
             _clickedTotal += GameWindow.hexClickedRound;
 
             _totalLoss += 1;
 
-            WinMethod();
+            WinOrLose();
 
             AddPersonToDatabase();
             AddRoundsToDatabase();
@@ -64,7 +64,7 @@ namespace P2SeriosuGame
         private int _roundWin;
         private int _roundLoss;
 
-        public void WinMethod() //Name in progress...
+        public void WinOrLose()
         {
             if (Pathfinding.gameRoundWin)
             {
