@@ -37,59 +37,84 @@ namespace P2SeriosuGame
             WinOrLose();
 
             AddSessionToDatabase();
-            AddRoundsToDatabase();
+
+            // AddRoundsToDatabase();
+            Round round = new Round(GameWindow.hexClickedRound, AverageClick(GameWindow.hexClickedRound, _secondsRound), WinOrLose(), _secondsRound);
+            roundList.Add(round);
         }
+
+        public List<Round> roundList = new List<Round>();
+        public List<P2SeriousGame.Person> personList = new List<P2SeriousGame.Person>();
 
         public void ResetGameToDatabase(object sender, MouseEventArgs e)
         {
+            // Testing parameters
+            string testFirstName = "Foo";
+            string testLastName = "Bar";
+
             _elapsedSec = ElapsedSeconds(); 
             _secondsRound = unchecked(_elapsedSec);
-            StopStopwatch();
-            StartStopwatch(); // programmet laver fejl, hvis man restarter/resetter stopuret.
 
             _secondsTotal += _secondsRound;
             _clickedTotal += GameWindow.hexClickedRound;
 
             _totalLoss += 1;
 
-            WinOrLose();
+            P2SeriousGame.Person person = new P2SeriousGame.Person(testFirstName, testLastName);
+            personList.Add(person);
+            // AddPersonToDatabase(); old shit
 
-            AddPersonToDatabase();
-            AddRoundsToDatabase();
+            Round round = new Round(GameWindow.hexClickedRound, AverageClick(GameWindow.hexClickedRound, _secondsRound), WinOrLose(), _secondsRound);
+            roundList.Add(round);
+            // AddRoundsToDatabase(); old shit
 
-            ResetCounter();
+            GameWindow.hexClickedRound = 0;
+            RestartStopwatch(); // Starts the stopwatch from 0
+            ResetCounter(); // Increments the reset counter
         }
 
         // Unique to WinMethod
         private int _roundWin;
         private int _roundLoss;
 
-        public void WinOrLose()
+        public int WinOrLose()
         {
             if (Pathfinding.gameRoundWin)
             {
-                _roundWin = 1;
                 _roundLoss = 0;
+                _roundWin = 1;
+                return 1;
             }
-            else if (!Pathfinding.gameRoundWin)
+            else
             {
-                _roundWin = 0;
                 _roundLoss = 1;
+                _roundWin = 0;
+                return 0;
             }
         }
 
+        //public void WinOrLose()
+        //{
+        //    if (Pathfinding.gameRoundWin)
+        //    {
+        //        _roundWin = 1;
+        //        _roundLoss = 0;
+        //    }
+        //    else if (!Pathfinding.gameRoundWin)
+        //    {
+        //        _roundWin = 0;
+        //        _roundLoss = 1;
+        //    }
+        //}
+
         public void AddPersonToDatabase()
         {
-            // Testing parameters
-            string testFirstName = "Foo";
-            string testLastName = "Bar";
-
             using (var context = new Entities())
             {
-                context.Person.Add(new Person // adds a row to the Person table in the SQL database
+                context.Person.Add(new P2SeriousGame.SQL.Person // adds a row to the Person table in the SQL database
                 {
-                    First_Name = testFirstName,
-                    Last_Name = testLastName
+                    First_Name = "Poo",
+                    Last_Name = "The rapist"
                 });
 
                 context.SaveChanges();
@@ -98,17 +123,34 @@ namespace P2SeriosuGame
 
         public void AddRoundsToDatabase()
         {
-            _secondsRound = ElapsedSeconds();
             using (var context = new Entities())
             {
-                context.Rounds.Add(new Rounds // adds a row to the Rounds table in the SQL database
+                try
                 {
-                    Clicks = GameWindow.hexClickedRound,
-                    AVG_Clicks = AverageClick(GameWindow.hexClickedRound, _secondsRound),
-                    Win = _roundWin,
-                    Loss = _roundLoss,
-                    Time_Used = _secondsRound
-                });
+                    foreach(var row in roundList)
+                    {
+                        context.Rounds.Add(new Rounds
+                        {
+                            Clicks = row.NumberOfClicks,
+                            AVG_Clicks = row.ClicksPerMinute,
+                            Win = row.Win,
+                            Loss = row.Loss,
+                            Time_Used = row.TimeUsed
+                        });
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                //context.Rounds.Add(new Rounds // adds a row to the Rounds table in the SQL database
+                //{
+                //    Clicks = GameWindow.hexClickedRound,
+                //    AVG_Clicks = AverageClick(GameWindow.hexClickedRound, _secondsRound),
+                //    Win = _roundWin,
+                //    Loss = _roundLoss,
+                //    Time_Used = _secondsRound
+                //});
 
                 context.SaveChanges();
             }
@@ -151,14 +193,14 @@ namespace P2SeriosuGame
             stopwatchRound.Start();
         }
 
+        public void RestartStopwatch()
+        {
+            stopwatchRound.Restart();
+        }
+
         public void StopStopwatch()
         {
             stopwatchRound.Stop();
-        }
-
-        public void RestartStopWatch()
-        {
-            stopwatchRound.Restart();
         }
 
         public long ElapsedSeconds()
