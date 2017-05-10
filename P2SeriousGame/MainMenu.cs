@@ -13,8 +13,6 @@ namespace P2SeriousGame
 {
     public partial class MainMenu : Form
     {
-        private List<Form> menues = new List<Form>();
-
         private FlowLayoutPanel menuPanel = new FlowLayoutPanel();
 
         private Database SQL = new Database();
@@ -52,7 +50,7 @@ namespace P2SeriousGame
 
         private void InitializeMenues()
         {
-            menues.Add(new GameWindow());
+
             MenuPanel();
             //menues.Add(new AdministratorMenu());
         }
@@ -124,8 +122,9 @@ namespace P2SeriousGame
 
         private void SwitchToGame(object sender, MouseEventArgs e)
         {
-            //gamePanel.Visible = true;
-            menuPanel.Visible = false;
+            
+            Form gameWindow = new GameForm();
+            gameWindow.Show();
         }
 
         private void SwitchToMenu(object sender, MouseEventArgs e)

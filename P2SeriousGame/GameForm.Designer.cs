@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Text = "GameForm";
+            this.Load += new System.EventHandler(this.DrawWindow);
+            this.ResumeLayout(false);
         }
 
         #endregion

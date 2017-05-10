@@ -100,6 +100,7 @@
     <Compile Include="MainMenu.Designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="MapTest.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Pathfinding.cs" />
     <Compile Include="Math.cs" />
