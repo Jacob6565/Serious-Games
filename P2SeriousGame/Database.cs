@@ -33,7 +33,7 @@ namespace P2SeriousGame
 
         public void SendToDatabase()
         {
-            var elapsedSec = watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
+            //var elapsedSec = watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
             float secondsRound = unchecked(elapsedSec);
 
             _secondsTotal += secondsRound;
@@ -47,7 +47,7 @@ namespace P2SeriousGame
 
         public void RoundDataCollector(object sender, MouseEventArgs e)
         {
-            watchRound.Stop(); // Stops the time for the round
+            //watchRound.Stop(); // Stops the time for the round
             elapsedSec = watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
             _secondsRound = unchecked(elapsedSec);
 
@@ -121,7 +121,7 @@ namespace P2SeriousGame
                     Time_Used = _secondsRound
                 });
 
-                context.SaveChanges();
+                //context.SaveChanges();
             }
         }
 
@@ -139,7 +139,7 @@ namespace P2SeriousGame
                     Time_Used = _secondsTotal
                 });
 
-                context.SaveChanges();
+                //context.SaveChanges();
             }
         }
 
