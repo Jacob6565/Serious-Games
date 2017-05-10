@@ -7,17 +7,17 @@
       <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Person">
           <Key>
-            <PropertyRef Name="IdPerson" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="IdPerson" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="First Name" Type="nchar" MaxLength="50" />
           <Property Name="Last Name" Type="nchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Rounds">
           <Key>
-            <PropertyRef Name="IdRounds" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="IdRounds" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Clicks" Type="float" />
           <Property Name="AVG Clicks" Type="float" />
           <Property Name="Win" Type="int" />
@@ -26,9 +26,9 @@
         </EntityType>
         <EntityType Name="Session">
           <Key>
-            <PropertyRef Name="IdSession" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="IdSession" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Clicks" Type="float" />
           <Property Name="AVG Clicks" Type="float" />
           <Property Name="Rounds" Type="int" />
@@ -48,17 +48,17 @@
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Person">
           <Key>
-            <PropertyRef Name="IdPerson" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="IdPerson" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="First_Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Last_Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="Rounds">
           <Key>
-            <PropertyRef Name="IdRounds" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="IdRounds" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Clicks" Type="Double" />
           <Property Name="AVG_Clicks" Type="Double" />
           <Property Name="Win" Type="Int32" />
@@ -67,9 +67,9 @@
         </EntityType>
         <EntityType Name="Session">
           <Key>
-            <PropertyRef Name="IdSession" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="IdSession" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Clicks" Type="Double" />
           <Property Name="AVG_Clicks" Type="Double" />
           <Property Name="Rounds" Type="Int32" />
@@ -91,7 +91,7 @@
           <EntitySetMapping Name="Person">
             <EntityTypeMapping TypeName="Model.Person">
               <MappingFragment StoreEntitySet="Person">
-                <ScalarProperty Name="IdPerson" ColumnName="IdPerson" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="First_Name" ColumnName="First Name" />
                 <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
               </MappingFragment>
@@ -100,7 +100,7 @@
           <EntitySetMapping Name="Rounds">
             <EntityTypeMapping TypeName="Model.Rounds">
               <MappingFragment StoreEntitySet="Rounds">
-                <ScalarProperty Name="IdRounds" ColumnName="IdRounds" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Clicks" ColumnName="Clicks" />
                 <ScalarProperty Name="AVG_Clicks" ColumnName="AVG Clicks" />
                 <ScalarProperty Name="Win" ColumnName="Win" />
@@ -112,7 +112,7 @@
           <EntitySetMapping Name="Session">
             <EntityTypeMapping TypeName="Model.Session">
               <MappingFragment StoreEntitySet="Session">
-                <ScalarProperty Name="IdSession" ColumnName="IdSession" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Clicks" ColumnName="Clicks" />
                 <ScalarProperty Name="AVG_Clicks" ColumnName="AVG Clicks" />
                 <ScalarProperty Name="Rounds" ColumnName="Rounds" />

@@ -4,7 +4,7 @@
     <EntitySetMapping Name="Person">
       <EntityTypeMapping TypeName="Model.Person">
         <MappingFragment StoreEntitySet="Person">
-          <ScalarProperty Name="IdPerson" ColumnName="IdPerson" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="First_Name" ColumnName="First Name" />
           <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
         </MappingFragment>
@@ -13,7 +13,7 @@
     <EntitySetMapping Name="Rounds">
       <EntityTypeMapping TypeName="Model.Rounds">
         <MappingFragment StoreEntitySet="Rounds">
-          <ScalarProperty Name="IdRounds" ColumnName="IdRounds" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Clicks" ColumnName="Clicks" />
           <ScalarProperty Name="AVG_Clicks" ColumnName="AVG Clicks" />
           <ScalarProperty Name="Win" ColumnName="Win" />
@@ -22,10 +22,10 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="TestParameters">
-      <EntityTypeMapping TypeName="Model.TestParameters">
-        <MappingFragment StoreEntitySet="TestParameters">
-          <ScalarProperty Name="IdTestParameters" ColumnName="IdTestParameters" />
+    <EntitySetMapping Name="Session">
+      <EntityTypeMapping TypeName="Model.Session">
+        <MappingFragment StoreEntitySet="Session">
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Clicks" ColumnName="Clicks" />
           <ScalarProperty Name="AVG_Clicks" ColumnName="AVG Clicks" />
           <ScalarProperty Name="Rounds" ColumnName="Rounds" />

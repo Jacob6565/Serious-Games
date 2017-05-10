@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace P2SeriousGame
 {
-    public class Person
+    public class Persons
     {
         public string firstname { get; set; }
         public string lastname { get; set; }
 
-        public Person (string firstname, string lastname)
+        public Persons (string firstname, string lastname)
         {
             this.firstname = firstname;
             this.lastname = lastname;

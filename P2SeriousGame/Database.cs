@@ -27,6 +27,10 @@ namespace P2SeriosuGame
 
         public void ExitGameToDatabase() // Former SendToDatabase()
         {
+            // Testing parameters
+            string testFirstName = "Foo";
+            string testLastName = "Bar";
+
             StopStopwatch();
             _elapsedSec = ElapsedSeconds(); // Converts the time to seconds
             _secondsRound = unchecked(_elapsedSec); // Succesfully converts the long to float, ready for the database.
@@ -36,21 +40,25 @@ namespace P2SeriosuGame
 
             WinOrLose();
 
-            AddSessionToDatabase();
+            P2SeriousGame.Persons person = new P2SeriousGame.Persons(testFirstName, testLastName);
+            personList.Add(person);
 
-            // AddRoundsToDatabase();
             Round round = new Round(GameWindow.hexClickedRound, AverageClick(GameWindow.hexClickedRound, _secondsRound), WinOrLose(), _secondsRound);
             roundList.Add(round);
+
+            AddPersonToDatabase();
+            AddSessionToDatabase();
+            AddRoundsToDatabase();
         }
 
         public List<Round> roundList = new List<Round>();
-        public List<P2SeriousGame.Person> personList = new List<P2SeriousGame.Person>();
+        public List<P2SeriousGame.Persons> personList = new List<P2SeriousGame.Persons>();
 
         public void ResetGameToDatabase(object sender, MouseEventArgs e)
         {
             // Testing parameters
-            string testFirstName = "Foo";
-            string testLastName = "Bar";
+            string testFirstName = "Poo";
+            string testLastName = "The rapist";
 
             _elapsedSec = ElapsedSeconds(); 
             _secondsRound = unchecked(_elapsedSec);
@@ -60,13 +68,11 @@ namespace P2SeriosuGame
 
             _totalLoss += 1;
 
-            P2SeriousGame.Person person = new P2SeriousGame.Person(testFirstName, testLastName);
+            P2SeriousGame.Persons person = new P2SeriousGame.Persons(testFirstName, testLastName);
             personList.Add(person);
-            // AddPersonToDatabase(); old shit
 
             Round round = new Round(GameWindow.hexClickedRound, AverageClick(GameWindow.hexClickedRound, _secondsRound), WinOrLose(), _secondsRound);
             roundList.Add(round);
-            // AddRoundsToDatabase(); old shit
 
             GameWindow.hexClickedRound = 0;
             RestartStopwatch(); // Starts the stopwatch from 0
@@ -93,30 +99,25 @@ namespace P2SeriosuGame
             }
         }
 
-        //public void WinOrLose()
-        //{
-        //    if (Pathfinding.gameRoundWin)
-        //    {
-        //        _roundWin = 1;
-        //        _roundLoss = 0;
-        //    }
-        //    else if (!Pathfinding.gameRoundWin)
-        //    {
-        //        _roundWin = 0;
-        //        _roundLoss = 1;
-        //    }
-        //}
-
         public void AddPersonToDatabase()
         {
             using (var context = new Entities())
             {
-                context.Person.Add(new P2SeriousGame.SQL.Person // adds a row to the Person table in the SQL database
+                try
                 {
-                    First_Name = "Poo",
-                    Last_Name = "The rapist"
-                });
-
+                    foreach(var row in personList)
+                    {
+                        context.Person.Add(new Person
+                        {
+                            First_Name = row.firstname,
+                            Last_Name = row.lastname
+                        });
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
                 context.SaveChanges();
             }
         }
@@ -143,15 +144,6 @@ namespace P2SeriosuGame
                 {
                     Console.WriteLine(ex.Message);
                 }
-                //context.Rounds.Add(new Rounds // adds a row to the Rounds table in the SQL database
-                //{
-                //    Clicks = GameWindow.hexClickedRound,
-                //    AVG_Clicks = AverageClick(GameWindow.hexClickedRound, _secondsRound),
-                //    Win = _roundWin,
-                //    Loss = _roundLoss,
-                //    Time_Used = _secondsRound
-                //});
-
                 context.SaveChanges();
             }
         }
@@ -160,7 +152,7 @@ namespace P2SeriosuGame
         {
             using (var context = new Entities())
             {
-                context.Session.Add(new P2SeriousGame.SQL.Session // adds a row to the TestParameters table in the SQL database
+                context.Session.Add(new Session // adds a row to the TestParameters table in the SQL database
                 {
                     Clicks = _clickedTotal,
                     AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
@@ -169,7 +161,6 @@ namespace P2SeriosuGame
                     Losses = _totalLoss,
                     Time_Used = _secondsTotal
                 });
-
                 context.SaveChanges();
             }
         }

@@ -10,7 +10,7 @@ namespace P2SeriousGame
     {
         IFetchData fetch;        
         private int SessionID { get; set; }
-        public Statistics(IFetchData fetch, Session session)
+        public Statistics(IFetchData fetch, Sessions session)
         {
             this.SessionID = session.SessionID;
             this.fetch = fetch;
@@ -18,7 +18,7 @@ namespace P2SeriousGame
 
         public Array GetDataArray()
         {
-            Session session = fetch.GetSessionData(SessionID);
+            Sessions session = fetch.GetSessionData(SessionID);
             //session.Rounds[0].IsWin;
             int[] a = new int[2];
             return a;

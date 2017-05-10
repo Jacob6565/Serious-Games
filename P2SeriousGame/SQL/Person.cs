@@ -14,7 +14,7 @@ namespace P2SeriousGame.SQL
     
     public partial class Person
     {
-        public int IdPerson { get; set; }
+        public int Id { get; set; }
         public string First_Name { get; set; }
         public string Last_Name { get; set; }
     }

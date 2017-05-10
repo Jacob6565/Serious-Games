@@ -14,7 +14,7 @@ namespace P2SeriousGame.SQL
     
     public partial class Session
     {
-        public int IdSession { get; set; }
+        public int Id { get; set; }
         public Nullable<double> Clicks { get; set; }
         public Nullable<double> AVG_Clicks { get; set; }
         public Nullable<int> Rounds { get; set; }

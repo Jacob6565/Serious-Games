@@ -2,28 +2,28 @@
 <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="Person">
     <Key>
-      <PropertyRef Name="IdPerson" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="IdPerson" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="First_Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
     <Property Name="Last_Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
   </EntityType>
   <EntityType Name="Rounds">
     <Key>
-      <PropertyRef Name="IdRounds" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="IdRounds" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Clicks" Type="Double" />
     <Property Name="AVG_Clicks" Type="Double" />
     <Property Name="Win" Type="Int32" />
     <Property Name="Loss" Type="Int32" />
     <Property Name="Time_Used" Type="Double" />
   </EntityType>
-  <EntityType Name="TestParameters">
+  <EntityType Name="Session">
     <Key>
-      <PropertyRef Name="IdTestParameters" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="IdTestParameters" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Clicks" Type="Double" />
     <Property Name="AVG_Clicks" Type="Double" />
     <Property Name="Rounds" Type="Int32" />
@@ -34,6 +34,6 @@
   <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Person" EntityType="Self.Person" />
     <EntitySet Name="Rounds" EntityType="Self.Rounds" />
-    <EntitySet Name="TestParameters" EntityType="Self.TestParameters" />
+    <EntitySet Name="Session" EntityType="Self.Session" />
   </EntityContainer>
 </Schema>
