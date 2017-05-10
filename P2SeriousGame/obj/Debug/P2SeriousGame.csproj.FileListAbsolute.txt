@@ -11,3 +11,6 @@ C:\Users\kristoffer\Desktop\Git igen\P2SeriousGame\obj\Debug\P2SeriousGame.cspro
 C:\Users\kristoffer\Desktop\Git igen\P2SeriousGame\obj\Debug\P2SeriousGame.exe
 C:\Users\kristoffer\Desktop\Git igen\P2SeriousGame\obj\Debug\P2SeriousGame.pdb
 C:\Users\kristoffer\Desktop\Git igen\P2SeriousGame\obj\Debug\P2SeriousGame.csprojResolveAssemblyReference.cache
+C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\P2SeriousGame.exe.config
+C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.exe
+C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.pdb
