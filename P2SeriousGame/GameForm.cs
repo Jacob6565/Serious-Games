@@ -24,6 +24,7 @@ namespace P2SeriousGame
             FirstLevel = new MapTest(this, 11, 11, path);
         }
 
+        #region formatting
         private int ButtonWidth;
         private int ButtonHeight;
         private int ButtonHeightOffset => (3 * (ButtonHeight / 4));
@@ -47,6 +48,7 @@ namespace P2SeriousGame
         //WidthStart and heightStart sets the starting place for the hexagonmap
         private int WidthStart => (int)((_leftWidthReserved * Screen.PrimaryScreen.Bounds.Width) + WidthCentering);
         private int _heightStart = (int)(_topHeightReserved * Screen.PrimaryScreen.Bounds.Height);
+        #endregion
 
         private void InitializePanels()
         {

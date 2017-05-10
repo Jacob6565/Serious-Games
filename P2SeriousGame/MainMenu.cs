@@ -15,34 +15,11 @@ namespace P2SeriousGame
     {
         private FlowLayoutPanel menuPanel = new FlowLayoutPanel();
 
+
         private Database SQL = new Database();
 
-        #region constant vars
+        Formatting formatting = new Formatting();
 
-        private int ButtonWidth;
-        private int ButtonHeight;
-        private int ButtonHeightOffset => (3 * (ButtonHeight / 4));
-
-        int ScreenWidth = Screen.PrimaryScreen.Bounds.Width;
-        int ScreenHeight = Screen.PrimaryScreen.Bounds.Height;
-
-        //These constants declare the amount of reserved space or margins, where 0.05 equals 5%
-        private const double _leftWidthReserved = 0.05;
-        private const double _endWidthReserved = 0.12;
-        private const double _topHeightReserved = 0.05;
-        private const double _bottomHeightReserved = 0.03;
-
-        //The gamescreen variables sets the height and width of the area on the screen where hexagonbutton can be drawn
-        private double _gameScreenWidth = Screen.PrimaryScreen.Bounds.Width * (1 - (_leftWidthReserved + _endWidthReserved));
-        private double _gameScreenHeight = Screen.PrimaryScreen.Bounds.Height * (1 - (_topHeightReserved + _bottomHeightReserved));
-
-        //Centers the hexagonmap starting placement, if the hexagonmap doesnt fill out the entire gamescreen width
-        private double WidthCentering => (_gameScreenWidth - (ButtonWidth * Map.TotalHexagonColumns)) / 2;
-
-        //WidthStart and heightStart sets the starting place for the hexagonmap
-        private int WidthStart => (int)((_leftWidthReserved * Screen.PrimaryScreen.Bounds.Width) + WidthCentering);
-        private int _heightStart = (int)(_topHeightReserved * Screen.PrimaryScreen.Bounds.Height);
-        #endregion
         public MainMenu()
         {
             InitializeComponent();
@@ -65,8 +42,8 @@ namespace P2SeriousGame
         private void MenuPanel()
         {
             this.Controls.Add(menuPanel);
-            menuPanel.Width = ScreenWidth;
-            menuPanel.Height = ScreenHeight;
+            menuPanel.Width = formatting.ScreenWidth;
+            menuPanel.Height = formatting.ScreenHeight;
             menuPanel.BackColor = Color.BlanchedAlmond;
             menuPanel.FlowDirection = FlowDirection.TopDown;
             menuPanel.Padding = new Padding(Size.Width / 2 - 150, 25, Size.Width / 2 + 150, 25);
@@ -136,8 +113,8 @@ namespace P2SeriousGame
 
         private void SwitchToAdministration(object sender, MouseEventArgs e)
         {
-            //administratorPanel.Visible = true;
-            menuPanel.Visible = false;
+            Form gameWindow = new AdministratorForm();
+            gameWindow.Show();
         }
 
         private void AddExitButton(Panel panel)
@@ -212,12 +189,12 @@ namespace P2SeriousGame
         /// <returns></returns>
         private int CalculateButtonWidthOffset(int xCoordinate, int yCoordinate)
         {
-            int width = WidthStart;
-            width += (xCoordinate * ButtonWidth);
+            int width = formatting.WidthStart;
+            width += (xCoordinate * formatting.ButtonWidth);
             //Gives every second button an offset to make the grid
             if (yCoordinate % 2 == 1)
             {
-                width += ButtonWidth / 2;
+                width += formatting.ButtonWidth / 2;
             }
             return width;
         }
@@ -229,9 +206,9 @@ namespace P2SeriousGame
         /// <returns></returns>
 		private int CalculateButtonHeightOffset(int yCoordinate)
         {
-            int height = _heightStart;
+            int height = formatting._heightStart;
 
-            height += (yCoordinate * ButtonHeightOffset);
+            height += (yCoordinate * formatting.ButtonHeightOffset);
 
             return height;
         }
