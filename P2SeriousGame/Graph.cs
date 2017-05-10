@@ -20,30 +20,55 @@ namespace P2SeriousGame
 
 		private void Graph_Load(object sender, EventArgs e)
 		{
-			List<Round> dataset = new List<Round>();
+			Chart chart1 = new Chart();
+			
 
-			for (int i = 0; i < 10; i++)
+			Axis xAxis = new Axis
 			{
-				Round round = new Round();
-				round.RoundID = i;
-				round.ClicksPerMinute = 10 + i;
-				dataset.Add(round);
+				Interval = 1
+			};
+
+			Axis yAxis = new Axis
+			{
+				Minimum = 0,
+				Maximum = 110,
+				Title = "Some title"
+			};
+
+			ChartArea chartArea = new ChartArea
+			{
+				AxisX = xAxis,
+				AxisY = yAxis
+			};
+
+			Title title = new Title
+			{
+				Name = "Some title",
+				Text = "Some text",
+				Visible = true
+			};
+
+			chart1.Titles.Add(title);
+			chart1.ChartAreas.Add(chartArea);
+
+			Series series = new Series
+			{
+				Name = "Some name",
+				Color = System.Drawing.Color.Red,
+				BorderWidth = 5,
+				IsVisibleInLegend = true,
+				IsXValueIndexed = true,
+				ChartType = SeriesChartType.Line
+			};
+
+			for (int i = 0; i < 11; i++)
+			{
+				int yValue = i * i * 2;
+				series.Points.AddXY(i, yValue);
 			}
 
-			AddGraphData(chart1, "Series1", dataset);
+			chart1.Series.Add(series);
 
-			chart1.Series["Series1"].ChartType = SeriesChartType.FastLine;
-			chart1.Series["Series1"].Color = Color.Red;
-			chart1.Size = new Size(500, 500);
 		}
-
-		public void AddGraphData(Chart chart, string seriesName, List<Round> dataset)
-		{
-			foreach (var round in dataset)
-			{
-				chart.Series[seriesName].Points.AddXY(round.RoundID, round.ClicksPerMinute);
-			}
-		}
-
 	}
 }
