@@ -29,7 +29,7 @@ namespace P2SeriousGame
         private float _secondsTotal;
         private float _clickedTotal;
         private int _roundWin;
-        private int _roundLoss;
+        private int _roundLoss;//
 
         public void SendToDatabase()
         {
