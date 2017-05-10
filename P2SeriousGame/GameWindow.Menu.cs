@@ -137,5 +137,10 @@ namespace P2SeriousGame
             administratorPanel.Visible = true;
             menuPanel.Visible = false;
         }
-    }
+
+		private void GameWindow_Load(object sender, EventArgs e)
+		{
+
+		}
+	}
 }
