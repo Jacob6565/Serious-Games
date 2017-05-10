@@ -25,6 +25,7 @@ namespace P2SeriousGame
             WindowState = FormWindowState.Maximized;
             InitializePanels();
         }
+        //Tobias
 
         private void InitializePanels()
         {
