@@ -28,22 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-			this.panel1 = new System.Windows.Forms.Panel();
 			this.SuspendLayout();
-			// 
-			// panel1
-			// 
-			this.panel1.Location = new System.Drawing.Point(12, 12);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(1194, 505);
-			this.panel1.TabIndex = 0;
 			// 
 			// Graph
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1218, 529);
-			this.Controls.Add(this.panel1);
+			this.ClientSize = new System.Drawing.Size(281, 255);
 			this.Name = "Graph";
 			this.Text = "Graph";
 			this.Load += new System.EventHandler(this.Graph_Load);
@@ -52,7 +43,5 @@
         }
 
 		#endregion
-
-		private System.Windows.Forms.Panel panel1;
 	}
 }

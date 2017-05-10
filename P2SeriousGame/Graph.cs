@@ -31,7 +31,7 @@ namespace P2SeriousGame
 			Axis yAxis = new Axis
 			{
 				Minimum = 0,
-				Maximum = 110,
+				Maximum = 250,
 				Title = "Some title"
 			};
 
@@ -69,6 +69,7 @@ namespace P2SeriousGame
 
 			chart1.Series.Add(series);
 
+			this.Controls.Add(chart1);
 		}
 	}
 }
