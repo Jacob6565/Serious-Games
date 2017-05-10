@@ -177,7 +177,7 @@ namespace P2SeriousGame
             hexagonButton.Region = new System.Drawing.Region(buttonPath);
         }
 
-        private void AddExitButton(Panel panel)
+        private void AddReturnMenu(Panel panel)
         {
             Button ExitButton = new Button();
             ExitButton.Size = new Size(100, 25);
