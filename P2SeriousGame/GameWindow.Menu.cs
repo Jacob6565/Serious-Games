@@ -42,11 +42,35 @@ namespace P2SeriousGame
             menuPanel.BackColor = Color.BlanchedAlmond;
             menuPanel.FlowDirection = FlowDirection.TopDown;
             menuPanel.Padding = new Padding(Size.Width / 2 - 150, 25, Size.Width / 2 + 150, 25);
-            AddExitButton(gamePanel);
+            AddReturnMenu(gamePanel);
             AddResetButton(gamePanel);
-            StartGameButton(menuPanel);
-            StartAdministratorMenuButton(menuPanel);
-            CloseMenuButton(menuPanel);
+
+            MakingButtonsbabe();
+        }
+
+        private void MakingButtonsbabe()
+        {
+            //MakeMenuButton(gamePanel, "Return to Menu", SwitchToMenu);
+            //MakeMenuButton(gamePanel, "Reset", ResetButtonClick);
+            MakeMenuButton(menuPanel, "Start Game", SwitchToGame);
+            MakeMenuButton(menuPanel, "Administrator", SwitchToAdministration);
+            MakeMenuButton(menuPanel, "Exit", ExitButtonClick);          
+
+        }
+
+        private void MakeMenuButton(Panel panel, string text, MouseEventHandler method)
+        {
+            Button btn = new Button();
+            btn.Size = new Size(300, 100);
+            btn.TabStop = false;
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.FlatAppearance.BorderSize = 0;
+            btn.BackColor = Color.Azure;
+            btn.Location = new Point(this.Bounds.Right / 2 - btn.Width / 2, this.Bounds.Top + 60);
+            btn.MouseClick += method;
+            btn.Text = text;
+            btn.TextAlign = ContentAlignment.MiddleCenter;
+            panel.Controls.Add(btn);
         }
 
         private void StartGameButton(Panel panel)
@@ -87,10 +111,11 @@ namespace P2SeriousGame
             btnCloseGame.FlatStyle = FlatStyle.Flat;
             btnCloseGame.FlatAppearance.BorderSize = 0;
             btnCloseGame.BackColor = Color.Azure;
-            btnCloseGame.Text = "Exit Game";
-            btnCloseGame.TextAlign = ContentAlignment.MiddleCenter;
             btnCloseGame.Location = new Point(this.Bounds.Right / 2 - btnCloseGame.Width / 2, this.Bounds.Top + 60);
             btnCloseGame.MouseClick += ExitButtonClick;
+            btnCloseGame.Text = "Exit Game";
+            btnCloseGame.TextAlign = ContentAlignment.MiddleCenter;
+
             panel.Controls.Add(btnCloseGame);
         }
 
