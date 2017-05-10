@@ -109,9 +109,20 @@ namespace P2SeriosuGame
                     Loss = _roundLoss,
                     Time_Used = _secondsRound
                 });
-
                 context.SaveChanges();
             }
+        }
+
+        public void Testboi()
+        {
+
+            using (var context = new Entities())
+            {
+                var table = context.Person.Find(1);
+
+
+            }
+
         }
 
         public void AddSessionToDatabase()
@@ -127,10 +138,12 @@ namespace P2SeriosuGame
                     Losses = _totalLoss,
                     Time_Used = _secondsTotal
                 });
-
+                
                 context.SaveChanges();
             }
         }
+
+        
 
         private float AverageClick(float hexClicked, float seconds)
         {
@@ -160,7 +173,7 @@ namespace P2SeriosuGame
         {
             stopwatchRound.Restart();
         }
-
+    
         public long ElapsedSeconds()
         {
             return stopwatchRound.ElapsedMilliseconds / 1000;
