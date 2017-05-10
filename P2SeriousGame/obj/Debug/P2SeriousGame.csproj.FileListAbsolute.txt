@@ -11,3 +11,16 @@ C:\Users\kristoffer\Desktop\Git igen\P2SeriousGame\obj\Debug\P2SeriousGame.cspro
 C:\Users\kristoffer\Desktop\Git igen\P2SeriousGame\obj\Debug\P2SeriousGame.exe
 C:\Users\kristoffer\Desktop\Git igen\P2SeriousGame\obj\Debug\P2SeriousGame.pdb
 C:\Users\kristoffer\Desktop\Git igen\P2SeriousGame\obj\Debug\P2SeriousGame.csprojResolveAssemblyReference.cache
+C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\P2SeriousGame.exe.config
+C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.pdb
+C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\P2SeriousGame.exe
+C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\P2SeriousGame.pdb
+C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\EntityFramework.dll
+C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\EntityFramework.xml
+C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.csprojResolveAssemblyReference.cache
+C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.GameWindow.resources
+C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.Properties.Resources.resources
+C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.csproj.GenerateResource.Cache
+C:\Users\Tobias\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.exe
