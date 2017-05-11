@@ -14,7 +14,10 @@ namespace P2SeriousGame.Tests
 		[Test()]
 		public void AddGraphDataTest()
 		{
-			Assert.Fail();
+			Graph graph = new Graph();
+			
+
+
 		}
 
 

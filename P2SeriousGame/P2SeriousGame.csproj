@@ -109,7 +109,9 @@
     <Compile Include="HexagonButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="IDatabase.cs" />
     <Compile Include="IPathFinding.cs" />
+    <Compile Include="IStatistic.cs" />
     <Compile Include="MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>

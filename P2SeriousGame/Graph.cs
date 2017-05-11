@@ -16,23 +16,37 @@ namespace P2SeriousGame
 		public Graph()
 		{
 			InitializeComponent();
+			chart = new Chart();
 		}
+
+		private Chart chart { get; set; }
+		public SeriesChartType ChartType { get; set; }
+		public int XAxisInterval { get; set; }
+		public int YAxisMin { get; set; }
+		public int YAxisMax { get; set; }
+
+		public string XAxisTitle { get; set; }
+		public string YAxisTitle { get; set; }
+		public string GraphTitle { get; set; }
 
 		private void Graph_Load(object sender, EventArgs e)
 		{
-			Chart chart1 = new Chart();
 			
+		}
 
+		public void UpdateChartLook()
+		{
 			Axis xAxis = new Axis
 			{
-				Interval = 1
+				Interval = XAxisInterval,
+				Title = XAxisTitle
 			};
 
 			Axis yAxis = new Axis
 			{
-				Minimum = 0,
-				Maximum = 250,
-				Title = "Some title"
+				Minimum = YAxisMin,
+				Maximum = YAxisMax,
+				Title = YAxisTitle
 			};
 
 			ChartArea chartArea = new ChartArea
@@ -43,33 +57,37 @@ namespace P2SeriousGame
 
 			Title title = new Title
 			{
-				Name = "Some title",
-				Text = "Some text",
+				Text = GraphTitle,
 				Visible = true
 			};
 
-			chart1.Titles.Add(title);
-			chart1.ChartAreas.Add(chartArea);
+			chart.ChartAreas.Add(chartArea);
+			chart.Titles.Add(title);
 
+			Controls.Add(chart);
+		}
+
+		public void AddSeriesToGraph(List<Round> roundList)
+		{
 			Series series = new Series
 			{
-				Name = "Some name",
+				//Name = "Some name",
 				Color = System.Drawing.Color.Red,
 				BorderWidth = 5,
 				IsVisibleInLegend = true,
 				IsXValueIndexed = true,
-				ChartType = SeriesChartType.Line
+				ChartType = this.ChartType
 			};
 
-			for (int i = 0; i < 11; i++)
+			foreach (Round round in roundList)
 			{
-				int yValue = i * i * 2;
-				series.Points.AddXY(i, yValue);
+				Console.WriteLine(round.ClicksPerMinute);
+				int xValue = round.RoundID;
+				double yValue = round.ClicksPerMinute;
+				series.Points.AddXY(xValue, yValue);
 			}
 
-			chart1.Series.Add(series);
-
-			this.Controls.Add(chart1);
+			chart.Series.Add(series);
 		}
 	}
 }
