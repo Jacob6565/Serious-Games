@@ -32,18 +32,22 @@ namespace P2SeriousGame
 
         public void ResetGameToList(object sender, MouseEventArgs e)
         {
-            ConvertSeconds();
-            AddToTotal();
+            //ConvertSeconds();
+            //AddToTotal();
 
-            int win = WinOrLose();
-            float average = AverageClick(GameForm.hexClickedRound, _secondsRound);
+            _elapsedSec = ElapsedSeconds(); // Converts the time to seconds
+            _secondsRound = unchecked(_elapsedSec); // Succesfully converts the long to float, ready for the database.
+            _secondsTotal += _secondsRound;
+            _clickedTotal += GameForm.hexClickedRound;
+
+            RoundVariables();
 
             _totalLoss += 1;
 
             Persons person = new Persons(testFirstName, testLastName);
             personList.Add(person);
 
-            Round round = new Round(GameForm.hexClickedRound, average, win, _secondsRound);
+            Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
             roundList.Add(round);
 
             GameForm.hexClickedRound = 0; // Resets the amount of hex clicked
@@ -53,17 +57,21 @@ namespace P2SeriousGame
 
         public void ExitGameToDatabase()
         {
-            stopwatchRound.Stop();
-            ConvertSeconds();
-            AddToTotal();
+            //stopwatchRound.Stop();
+            //ConvertSeconds();
+            //AddToTotal();
+            _elapsedSec = ElapsedSeconds(); // Converts the time to seconds
+            _secondsRound = unchecked(_elapsedSec); // Succesfully converts the long to float, ready for the database.
 
-            int win = WinOrLose();
-            float average = AverageClick(GameForm.hexClickedRound, _secondsRound);
+            _secondsTotal += _secondsRound;
+            _clickedTotal += GameForm.hexClickedRound;
+
+            RoundVariables();
 
             Persons person = new Persons(testFirstName, testLastName);
             personList.Add(person);
 
-            Round round = new Round(GameForm.hexClickedRound, average, win, _secondsRound);
+            Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
             roundList.Add(round);
 
             AddPersonToDatabase();
@@ -101,6 +109,15 @@ namespace P2SeriousGame
                 _roundWin = 0;
                 return 0;
             }
+        }
+
+        public int roundResult;
+        public float roundAverage;
+
+        public void RoundVariables()
+        {
+            roundResult = WinOrLose();
+            roundAverage = AverageClick(GameForm.hexClickedRound, _secondsRound);
         }
 
         public void AddPersonToDatabase()
@@ -154,17 +171,30 @@ namespace P2SeriousGame
 
         public void AddSessionToDatabase()
         {
+            Console.WriteLine(_clickedTotal);
+            Console.WriteLine(AverageClick(_clickedTotal, _secondsTotal));
+            Console.WriteLine(_resetCounter + 1);
+            Console.WriteLine(Pathfinding.gameTotalWins);
+            Console.WriteLine(_totalLoss);
+            Console.WriteLine(_secondsTotal);
             using (var context = new Entities())
             {
-                context.Session.Add(new Session // adds a row to the TestParameters table in the SQL database
+                try
                 {
-                    Clicks = _clickedTotal,
-                    AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
-                    Rounds = _resetCounter + 1,
-                    Wins = Pathfinding.gameTotalWins,
-                    Losses = _totalLoss,
-                    Time_Used = _secondsTotal
-                });
+                    context.Session.Add(new Session // adds a row to the Session table in the SQL database
+                    {
+                        Clicks = _clickedTotal,
+                        AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
+                        Rounds = _resetCounter + 1,
+                        Wins = Pathfinding.gameTotalWins,
+                        Losses = _totalLoss,
+                        Time_Used = _secondsTotal
+                    });
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
                 context.SaveChanges();
             }
         }
