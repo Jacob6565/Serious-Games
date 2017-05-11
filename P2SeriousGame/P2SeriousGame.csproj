@@ -96,6 +96,7 @@
     <Compile Include="IPathFinding.cs" />
     <Compile Include="MainMenu.cs" />
     <Compile Include="Map.cs" />
+    <Compile Include="MapDimensionsMustBeOdd.cs" />
     <Compile Include="Pathfinding.cs" />
     <Compile Include="Math.cs" />
     <Compile Include="Program.cs" />
