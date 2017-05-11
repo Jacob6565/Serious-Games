@@ -160,6 +160,23 @@ namespace P2SeriosuGame
             }
         }
 
+        public void PrintData()
+        {
+            using (var context = new Entities())
+            {
+                foreach (var item in context.Rounds)
+                {
+                    Console.WriteLine(item.Id);
+                    Console.WriteLine(item.Clicks);
+                    Console.WriteLine(item.AVG_Clicks);
+                    Console.WriteLine(item.Win);
+                    Console.WriteLine(item.Loss);
+                    Console.WriteLine(item.Time_Used);
+                }
+            }
+
+        }
+
         private float AverageClick(float hexClicked, float seconds)
         {
             return hexClicked / seconds;
