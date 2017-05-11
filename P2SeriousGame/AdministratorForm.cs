@@ -31,8 +31,34 @@ namespace P2SeriousGame
         {
             this.Controls.Add(administratorPanel);
             administratorPanel.Width = formatting.ScreenWidth;
-            administratorPanel.Height = formatting.ScreenHeight; 
-            CloseMenuButton(administratorPanel);
+            administratorPanel.Height = formatting.ScreenHeight;
+
+			GraphPanel firstGraph = new GraphPanel
+			{
+				XAxisInterval = 1,
+				YAxisMin = 0,
+				YAxisMax = 10,
+				YAxisTitle = "Title",
+				XAxisTitle = "Title",
+				GraphTitle = "YET ANOTHER TITLE",
+				ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
+			};
+
+			List<Round> roundList = new List<Round>();
+			Random rand = new Random();
+
+			firstGraph.UpdateChartLook();
+
+			for (int i = 0; i < 10; i++)
+			{
+				roundList.Add(new Round());
+				roundList[i].ClicksPerMinute = rand.Next(0, 10);
+				roundList[i].RoundID = i;
+			}
+
+			firstGraph.AddSeriesToGraph(roundList);
+
+			CloseMenuButton(administratorPanel);
         }
 
         private void CloseMenuButton(Panel panel)

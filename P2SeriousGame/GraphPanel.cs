@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,12 +11,17 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace P2SeriousGame
 {
-	public partial class Graph : Form
+	public partial class GraphPanel : UserControl
 	{
-		public Graph()
+		public GraphPanel()
 		{
 			InitializeComponent();
 			chart = new Chart();
+		}
+
+		private void GraphPanel_Load(object sender, EventArgs e)
+		{
+
 		}
 
 		private Chart chart { get; set; }
@@ -31,7 +36,7 @@ namespace P2SeriousGame
 
 		private void Graph_Load(object sender, EventArgs e)
 		{
-			
+
 		}
 
 		public void UpdateChartLook()

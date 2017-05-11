@@ -100,11 +100,11 @@
     <Compile Include="GameWindow.Menu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Graph.cs">
-      <SubType>Form</SubType>
+    <Compile Include="GraphPanel.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Graph.Designer.cs">
-      <DependentUpon>Graph.cs</DependentUpon>
+    <Compile Include="GraphPanel.Designer.cs">
+      <DependentUpon>GraphPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="HexagonButton.cs">
       <SubType>Component</SubType>
@@ -156,8 +156,8 @@
     <EmbeddedResource Include="GameWindow.resx">
       <DependentUpon>GameWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Graph.resx">
-      <DependentUpon>Graph.cs</DependentUpon>
+    <EmbeddedResource Include="GraphPanel.resx">
+      <DependentUpon>GraphPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
