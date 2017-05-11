@@ -23,6 +23,7 @@ namespace P2SeriousGame
             //Map FirstLevel = new Map(mainMenu, 11, 11, path);
             Application.Run(mainMenu);
 
+
             //Graph FirstLevelHandler = new Graph();
             //Application.Run(FirstLevelHandler);
         }
