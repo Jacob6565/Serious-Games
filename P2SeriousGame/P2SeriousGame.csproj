@@ -150,6 +150,9 @@
     <Compile Include="SQL\TestParameters.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AdministratorForm.resx">
+      <DependentUpon>AdministratorForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GameWindow.resx">
       <DependentUpon>GameWindow.cs</DependentUpon>
     </EmbeddedResource>
