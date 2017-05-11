@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using P2SeriousGame.SQL;
 using P2SeriousGame;
 
-namespace P2SeriosuGame
+namespace P2SeriousGame
 {
     class Database
     {
@@ -25,7 +25,7 @@ namespace P2SeriosuGame
         private static int _totalLoss;
 
         public List<Round> roundList = new List<Round>();
-        public List<P2SeriousGame.Persons> personList = new List<P2SeriousGame.Persons>();
+        public List<Persons> personList = new List<Persons>();
 
         public string testFirstName = "Poo";
         public string testLastName = "The rapist";
@@ -36,17 +36,17 @@ namespace P2SeriosuGame
             AddToTotal();
 
             int win = WinOrLose();
-            float average = AverageClick(GameWindow.hexClickedRound, _secondsRound);
+            float average = AverageClick(GameForm.hexClickedRound, _secondsRound);
 
             _totalLoss += 1;
 
             Persons person = new Persons(testFirstName, testLastName);
             personList.Add(person);
 
-            Round round = new Round(GameWindow.hexClickedRound, average, win, _secondsRound);
+            Round round = new Round(GameForm.hexClickedRound, average, win, _secondsRound);
             roundList.Add(round);
 
-            GameWindow.hexClickedRound = 0; // Resets the amount of hex clicked
+            GameForm.hexClickedRound = 0; // Resets the amount of hex clicked
             stopwatchRound.Restart(); // Starts the stopwatch from 0
             ResetCounter(); // Increments the reset counter
         }
@@ -58,12 +58,12 @@ namespace P2SeriosuGame
             AddToTotal();
 
             int win = WinOrLose();
-            float average = AverageClick(GameWindow.hexClickedRound, _secondsRound);
+            float average = AverageClick(GameForm.hexClickedRound, _secondsRound);
 
             Persons person = new Persons(testFirstName, testLastName);
             personList.Add(person);
 
-            Round round = new Round(GameWindow.hexClickedRound, average, win, _secondsRound);
+            Round round = new Round(GameForm.hexClickedRound, average, win, _secondsRound);
             roundList.Add(round);
 
             AddPersonToDatabase();
@@ -80,7 +80,7 @@ namespace P2SeriosuGame
         public void AddToTotal()
         {
             _secondsTotal += _secondsRound;
-            _clickedTotal += GameWindow.hexClickedRound;
+            _clickedTotal += GameForm.hexClickedRound;
         }
 
         // Unique to WinOrLose

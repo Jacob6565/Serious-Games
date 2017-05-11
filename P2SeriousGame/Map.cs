@@ -85,7 +85,7 @@ namespace P2SeriousGame
         /// <param name="handler"></param>
         /// <param name="xSize"></param>
         /// <param name="ySize"></param>
-        public Map(GameWindow game, int xSize, int ySize, IPathfinding path)
+        public Map(GameForm game, int xSize, int ySize, IPathfinding path)
         {
             try
             {
@@ -106,7 +106,7 @@ namespace P2SeriousGame
         /// Initialises the HexagonButton grid. Flags edge buttons.
         /// </summary>
         /// <param name="game"></param>
-        public void CreateMap(GameWindow game)
+        public void CreateMap(GameForm game)
         {
             game.CalculateButtonDimension();
             for (int i = 0; i < _totalHexagonColumns; i++)

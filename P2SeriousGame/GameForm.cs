@@ -22,6 +22,7 @@ namespace P2SeriousGame
             InitializeComponent();
             InitializePanels();
             FirstLevel = new MapTest(this, 11, 11, path);
+			SQL.StartStopwatch();
         }
 
         #region formatting
@@ -47,7 +48,10 @@ namespace P2SeriousGame
 
         //WidthStart and heightStart sets the starting place for the hexagonmap
         private int WidthStart => (int)((_leftWidthReserved * Screen.PrimaryScreen.Bounds.Width) + WidthCentering);
-        private int _heightStart = (int)(_topHeightReserved * Screen.PrimaryScreen.Bounds.Height);
+
+		
+
+		private int _heightStart = (int)(_topHeightReserved * Screen.PrimaryScreen.Bounds.Height);
         #endregion
 
         private void InitializePanels()
@@ -148,13 +152,14 @@ namespace P2SeriousGame
             gamePanel.Controls.Add(button);
         }
 
-        private float _hexClickedRound;
+		public static float hexClickedRound;
+
 
         public void HexClickedColor(object sender, MouseEventArgs e)
         {
             HexagonButton sender_Button = sender as HexagonButton;
             sender_Button.BackColor = Color.FromArgb(255, 105, 180);
-            _hexClickedRound += 1;
+            hexClickedRound += 1;
         }
 
         /// <summary>
@@ -203,7 +208,7 @@ namespace P2SeriousGame
             ResetButton.FlatAppearance.BorderSize = 0;
             ResetButton.BackColor = Color.Red;
             ResetButton.Location = new Point(this.Bounds.Right - ResetButton.Width - 20, this.Bounds.Top + 60);
-            ResetButton.MouseClick += SQL.RoundDataCollector;
+            ResetButton.MouseClick += SQL.ResetGameToList;
             ResetButton.MouseClick += ResetButtonClick;
             ResetButton.Text = "Reset Game";
             ResetButton.TextAlign = ContentAlignment.MiddleCenter;
@@ -260,7 +265,7 @@ namespace P2SeriousGame
 
         public void ExitButtonClick(object sender, MouseEventArgs e)
         {
-            SQL.SendToDatabase();
+            SQL.ExitGameToDatabase();
             Close();
         }
 
@@ -275,7 +280,6 @@ namespace P2SeriousGame
                 PlaceHexagonButton(hex);
             }
             MapTest.ResetMouse();
-            SQL.SendToDatabase();
         }
 
         //We assume that there is 72 points per inch and 96 pixels per inch
@@ -286,7 +290,6 @@ namespace P2SeriousGame
 
         private void ReturnToMainMenu(object sender, MouseEventArgs e)
         {
-            SQL.SendToDatabase();
             Close();
         }
     }

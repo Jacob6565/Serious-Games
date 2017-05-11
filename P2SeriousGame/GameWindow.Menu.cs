@@ -8,8 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using P2SeriousGame.SQL;
-using P2SeriousGame;
 
 namespace P2SeriousGame
 {
@@ -18,6 +16,7 @@ namespace P2SeriousGame
         FlowLayoutPanel menuPanel = new FlowLayoutPanel();
         Panel gamePanel = new Panel();
         Panel administratorPanel = new Panel();
+		Formatting formatting = new Formatting();
 
         public void DrawWindow(object sender, EventArgs e)
         {
@@ -31,13 +30,13 @@ namespace P2SeriousGame
             this.Controls.Add(menuPanel);
             this.Controls.Add(gamePanel);
             this.Controls.Add(administratorPanel);
-            gamePanel.Width = ScreenWidth;
-            gamePanel.Height = ScreenHeight;
+            gamePanel.Width = formatting.ScreenWidth;
+            gamePanel.Height = formatting.ScreenHeight;
             gamePanel.Visible = false;
-            menuPanel.Width = ScreenWidth;
-            menuPanel.Height = ScreenHeight;
-            administratorPanel.Width = ScreenWidth;
-            administratorPanel.Height = ScreenHeight;
+            menuPanel.Width = formatting.ScreenWidth;
+            menuPanel.Height = formatting.ScreenHeight;
+            administratorPanel.Width = formatting.ScreenWidth;
+            administratorPanel.Height = formatting.ScreenHeight;
             administratorPanel.Visible = false;
             menuPanel.BackColor = Color.BlanchedAlmond;
             menuPanel.FlowDirection = FlowDirection.TopDown;
@@ -127,6 +126,24 @@ namespace P2SeriousGame
 		//}
 
 		private void GameWindow_Load(object sender, EventArgs e)
+		{
+
+		}
+
+		private void InitializeComponent()
+		{
+			this.SuspendLayout();
+			// 
+			// GameForm
+			// 
+			this.ClientSize = new System.Drawing.Size(282, 253);
+			this.Name = "GameForm";
+			this.Load += new System.EventHandler(this.GameForm_Load);
+			this.ResumeLayout(false);
+
+		}
+
+		private void GameForm_Load(object sender, EventArgs e)
 		{
 
 		}
