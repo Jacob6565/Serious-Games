@@ -21,16 +21,17 @@ namespace P2SeriosuGame
         private float _secondsRound;
         private float _secondsTotal;
         private float _clickedTotal;
-
-        // Unique to ResetGameToDatabase
+        
         private static int _totalLoss;
 
-        public void ExitGameToDatabase() // Former SendToDatabase()
-        {
-            // Testing parameters
-            string testFirstName = "Foo";
-            string testLastName = "Bar";
+        public List<Round> roundList = new List<Round>();
+        public List<P2SeriousGame.Persons> personList = new List<P2SeriousGame.Persons>();
 
+        public string testFirstName = "Poo";
+        public string testLastName = "The rapist";
+
+        public void ExitGameToDatabase()
+        {
             StopStopwatch();
             _elapsedSec = ElapsedSeconds(); // Converts the time to seconds
             _secondsRound = unchecked(_elapsedSec); // Succesfully converts the long to float, ready for the database.
@@ -51,15 +52,9 @@ namespace P2SeriosuGame
             AddRoundsToDatabase();
         }
 
-        public List<Round> roundList = new List<Round>();
-        public List<P2SeriousGame.Persons> personList = new List<P2SeriousGame.Persons>();
 
-        public void ResetGameToDatabase(object sender, MouseEventArgs e)
+        public void ResetGameToList(object sender, MouseEventArgs e)
         {
-            // Testing parameters
-            string testFirstName = "Poo";
-            string testLastName = "The rapist";
-
             _elapsedSec = ElapsedSeconds(); 
             _secondsRound = unchecked(_elapsedSec);
 
@@ -74,12 +69,12 @@ namespace P2SeriosuGame
             Round round = new Round(GameWindow.hexClickedRound, AverageClick(GameWindow.hexClickedRound, _secondsRound), WinOrLose(), _secondsRound);
             roundList.Add(round);
 
-            GameWindow.hexClickedRound = 0;
+            GameWindow.hexClickedRound = 0; // Resets the parameter, so it's ready for next round
             RestartStopwatch(); // Starts the stopwatch from 0
             ResetCounter(); // Increments the reset counter
         }
 
-        // Unique to WinMethod
+        // Unique to WinOrLose
         private int _roundWin;
         private int _roundLoss;
 
