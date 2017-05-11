@@ -206,6 +206,8 @@ namespace P2SeriousGame
             ResetButton.Text = "Reset Game";
             ResetButton.TextAlign = ContentAlignment.MiddleCenter;
             panel.Controls.Add(ResetButton);
+
+            SQL.PrintData();
         }
 
         public void DrawWindow(object sender, EventArgs e)
