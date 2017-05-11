@@ -38,7 +38,7 @@ namespace P2SeriosuGame
             ConvertSeconds();
             AddToTotal();
 
-            RoundVaruables();
+            RoundVariables();
 
             _totalLoss += 1;
 
@@ -61,6 +61,8 @@ namespace P2SeriosuGame
             stopwatchRound.Stop();
             ConvertSeconds();
             AddToTotal();
+
+            RoundVariables();
 
             Persons person = new Persons(testFirstName, testLastName);
             personList.Add(person);
@@ -102,7 +104,7 @@ namespace P2SeriosuGame
             }
         }
 
-        public void RoundVaruables()
+        public void RoundVariables()
         {
             roundResult = WinOrLose();
             roundAverage = AverageClick(GameWindow.hexClickedRound, _secondsRound);
