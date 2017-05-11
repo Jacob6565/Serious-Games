@@ -96,8 +96,16 @@ namespace P2SeriousGame
                 gameRoundWin = true;
                 throw new NotImplementedException();
             }
-            List<HexagonButton> bestRouteByRand = ChooseRouteByRand(bestRoutes);
-            return bestRouteByRand.First();
+            try
+            {
+                List<HexagonButton> bestRouteByRand = ChooseRouteByRand(bestRoutes);
+                return bestRouteByRand.First();
+            }
+            catch(NullReferenceException)
+            {
+                throw new EndOfMapException("Mouse reached end of map");
+            }
+            
         }
 
         //Reachable hexes that are not edges of the map. Used for finding the longest route when mouse is trapped

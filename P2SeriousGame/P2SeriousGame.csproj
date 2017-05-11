@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="EndOfMapException.cs" />
     <Compile Include="GameWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,9 +93,8 @@
     <Compile Include="HexagonButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="IDatabase.cs" />
+    <Compile Include="IFetchData.cs" />
     <Compile Include="IPathFinding.cs" />
-    <Compile Include="IStatistic.cs" />
     <Compile Include="MainMenu.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapDimensionsMustBeOdd.cs" />
