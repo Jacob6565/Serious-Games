@@ -24,6 +24,9 @@ namespace P2SeriosuGame
         
         private static int _totalLoss;
 
+        private int _roundWin;
+        private int _roundLoss;
+
         public List<Round> roundList = new List<Round>();
         public List<P2SeriousGame.Persons> personList = new List<P2SeriousGame.Persons>();
 
@@ -35,15 +38,14 @@ namespace P2SeriosuGame
             ConvertSeconds();
             AddToTotal();
 
-            int win = WinOrLose();
-            float average = AverageClick(GameWindow.hexClickedRound, _secondsRound);
+            RoundVaruables();
 
             _totalLoss += 1;
 
             Persons person = new Persons(testFirstName, testLastName);
             personList.Add(person);
 
-            Round round = new Round(GameWindow.hexClickedRound, average, win, _secondsRound);
+            Round round = new Round(GameWindow.hexClickedRound, roundAverage, roundResult, _secondsRound);
             roundList.Add(round);
 
             GameWindow.hexClickedRound = 0; // Resets the amount of hex clicked
@@ -51,25 +53,26 @@ namespace P2SeriosuGame
             ResetCounter(); // Increments the reset counter
         }
 
+        public int roundResult;
+        public float roundAverage;
+
         public void ExitGameToDatabase()
         {
             stopwatchRound.Stop();
             ConvertSeconds();
             AddToTotal();
 
-            int win = WinOrLose();
-            float average = AverageClick(GameWindow.hexClickedRound, _secondsRound);
-
             Persons person = new Persons(testFirstName, testLastName);
             personList.Add(person);
 
-            Round round = new Round(GameWindow.hexClickedRound, average, win, _secondsRound);
+            Round round = new Round(GameWindow.hexClickedRound, roundAverage, roundResult, _secondsRound);
             roundList.Add(round);
 
             AddPersonToDatabase();
             AddSessionToDatabase();
             AddRoundsToDatabase();
         }
+
 
         public void ConvertSeconds()
         {
@@ -82,10 +85,6 @@ namespace P2SeriosuGame
             _secondsTotal += _secondsRound;
             _clickedTotal += GameWindow.hexClickedRound;
         }
-
-        // Unique to WinOrLose
-        private int _roundWin;
-        private int _roundLoss;
 
         public int WinOrLose()
         {
@@ -101,6 +100,12 @@ namespace P2SeriosuGame
                 _roundWin = 0;
                 return 0;
             }
+        }
+
+        public void RoundVaruables()
+        {
+            roundResult = WinOrLose();
+            roundAverage = AverageClick(GameWindow.hexClickedRound, _secondsRound);
         }
 
         public void AddPersonToDatabase()
