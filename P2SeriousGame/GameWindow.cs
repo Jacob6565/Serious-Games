@@ -18,11 +18,9 @@ namespace P2SeriousGame
 
         Database SQL = new Database();
 
-
         public GameWindow()
         {
             InitializeComponent();
-
         }
 
         private int ButtonWidth;

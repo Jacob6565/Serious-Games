@@ -25,7 +25,6 @@ namespace P2SeriousGame
             WindowState = FormWindowState.Maximized;
             InitializePanels();
         }
-        //Tobias
 
         private void InitializePanels()
         {
@@ -113,5 +112,23 @@ namespace P2SeriousGame
             administratorPanel.Visible = true;
             menuPanel.Visible = false;
         }
-    }
+
+		//private void InitializeComponent()
+		//{
+		//	this.SuspendLayout();
+		//	// 
+		//	// GameWindow
+		//	// 
+		//	this.ClientSize = new System.Drawing.Size(282, 253);
+		//	this.Name = "GameWindow";
+		//	this.Load += new System.EventHandler(this.GameWindow_Load);
+		//	this.ResumeLayout(false);
+
+		//}
+
+		private void GameWindow_Load(object sender, EventArgs e)
+		{
+
+		}
+	}
 }
