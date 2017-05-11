@@ -12,9 +12,9 @@ namespace P2SeriousGame.SQL
     using System;
     using System.Collections.Generic;
     
-    public partial class TestParameters
+    public partial class Session
     {
-        public int IdTestParameters { get; set; }
+        public int Id { get; set; }
         public Nullable<double> Clicks { get; set; }
         public Nullable<double> AVG_Clicks { get; set; }
         public Nullable<int> Rounds { get; set; }

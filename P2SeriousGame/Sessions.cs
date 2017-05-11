@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace P2SeriousGame
 {
-    class Class1
+    public class Sessions
     {
-    }
+        public int SessionID {get; set;}
+        public List<Round> Rounds = new List<Round>();       
+	}
 }

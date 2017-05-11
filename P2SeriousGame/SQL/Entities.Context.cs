@@ -27,6 +27,6 @@ namespace P2SeriousGame.SQL
     
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<Rounds> Rounds { get; set; }
-        public virtual DbSet<TestParameters> TestParameters { get; set; }
+        public virtual DbSet<Session> Session { get; set; }
     }
 }

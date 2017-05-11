@@ -11,57 +11,179 @@ using System.Windows.Forms;
 using P2SeriousGame.SQL;
 using P2SeriousGame;
 
-namespace P2SeriousGame
+namespace P2SeriosuGame
 {
     class Database
     {
         public Database() { }
 
-        public Stopwatch watchRound;
-        private float _hexClickedRound;
-
-        // trygetcollector...
-        private long elapsedSec;
+        private long _elapsedSec;
         private float _secondsRound;
-        private static int _totalLoss;
-
-        // Send to database
         private float _secondsTotal;
         private float _clickedTotal;
-        private int _roundWin;
-        private int _roundLoss;
+        
+        private static int _totalLoss;
 
-        public void SendToDatabase()
+        public List<Round> roundList = new List<Round>();
+        public List<P2SeriousGame.Persons> personList = new List<P2SeriousGame.Persons>();
+
+        public string testFirstName = "Poo";
+        public string testLastName = "The rapist";
+
+        public void ResetGameToList(object sender, MouseEventArgs e)
         {
-            //var elapsedSec = watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
-            float secondsRound = unchecked(elapsedSec);
+            ConvertSeconds();
+            AddToTotal();
 
-            _secondsTotal += secondsRound;
-            _clickedTotal += _hexClickedRound;
-
-            WinMethod();
-
-            AddTestParametersToDatabase();
-            AddRoundsToDatabase();
-        }
-
-        public void RoundDataCollector(object sender, MouseEventArgs e)
-        {
-            //watchRound.Stop(); // Stops the time for the round
-            elapsedSec = watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
-            _secondsRound = unchecked(elapsedSec);
-
-            _secondsTotal += _secondsRound;
-            _clickedTotal += _hexClickedRound;
+            int win = WinOrLose();
+            float average = AverageClick(GameWindow.hexClickedRound, _secondsRound);
 
             _totalLoss += 1;
 
-            WinMethod();
+            Persons person = new Persons(testFirstName, testLastName);
+            personList.Add(person);
+
+            Round round = new Round(GameWindow.hexClickedRound, average, win, _secondsRound);
+            roundList.Add(round);
+
+            GameWindow.hexClickedRound = 0; // Resets the amount of hex clicked
+            stopwatchRound.Restart(); // Starts the stopwatch from 0
+            ResetCounter(); // Increments the reset counter
+        }
+
+        public void ExitGameToDatabase()
+        {
+            stopwatchRound.Stop();
+            ConvertSeconds();
+            AddToTotal();
+
+            int win = WinOrLose();
+            float average = AverageClick(GameWindow.hexClickedRound, _secondsRound);
+
+            Persons person = new Persons(testFirstName, testLastName);
+            personList.Add(person);
+
+            Round round = new Round(GameWindow.hexClickedRound, average, win, _secondsRound);
+            roundList.Add(round);
 
             AddPersonToDatabase();
+            AddSessionToDatabase();
             AddRoundsToDatabase();
+        }
 
-            ResetCounter();
+        public void ConvertSeconds()
+        {
+            _elapsedSec = ElapsedSeconds(); // Converts the time to seconds
+            _secondsRound = unchecked(_elapsedSec); // Succesfully converts the long to float, ready for the database.
+        }
+
+        public void AddToTotal()
+        {
+            _secondsTotal += _secondsRound;
+            _clickedTotal += GameWindow.hexClickedRound;
+        }
+
+        // Unique to WinOrLose
+        private int _roundWin;
+        private int _roundLoss;
+
+        public int WinOrLose()
+        {
+            if (Pathfinding.gameRoundWin)
+            {
+                _roundLoss = 0;
+                _roundWin = 1;
+                return 1;
+            }
+            else
+            {
+                _roundLoss = 1;
+                _roundWin = 0;
+                return 0;
+            }
+        }
+
+        public void AddPersonToDatabase()
+        {
+            using (var context = new Entities())
+            {
+                try
+                {
+                    foreach(var row in personList)
+                    {
+                        context.Person.Add(new Person
+                        {
+                            First_Name = row.firstname,
+                            Last_Name = row.lastname
+                        });
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                context.SaveChanges();
+            }
+        }
+
+        public void AddRoundsToDatabase()
+        {
+            using (var context = new Entities())
+            {
+                try
+                {
+                    foreach(var row in roundList)
+                    {
+                        context.Rounds.Add(new Rounds
+                        {
+                            Clicks = row.NumberOfClicks,
+                            AVG_Clicks = row.ClicksPerMinute,
+                            Win = row.Win,
+                            Loss = row.Loss,
+                            Time_Used = row.TimeUsed
+                        });
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                context.SaveChanges();
+            }
+        }
+
+        public void AddSessionToDatabase()
+        {
+            using (var context = new Entities())
+            {
+                context.Session.Add(new Session // adds a row to the TestParameters table in the SQL database
+                {
+                    Clicks = _clickedTotal,
+                    AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
+                    Rounds = _resetCounter + 1,
+                    Wins = Pathfinding.gameTotalWins,
+                    Losses = _totalLoss,
+                    Time_Used = _secondsTotal
+                });
+                context.SaveChanges();
+            }
+        }
+
+        public void PrintData()
+        {
+            using (var context = new Entities())
+            {
+                foreach (var item in context.Rounds)
+                {
+                    Console.WriteLine(item.Id);
+                    Console.WriteLine(item.Clicks);
+                    Console.WriteLine(item.AVG_Clicks);
+                    Console.WriteLine(item.Win);
+                    Console.WriteLine(item.Loss);
+                    Console.WriteLine(item.Time_Used);
+                }
+            }
+
         }
 
         private float AverageClick(float hexClicked, float seconds)
@@ -76,72 +198,16 @@ namespace P2SeriousGame
             _resetCounter += 1;
         }
 
-        public void WinMethod() //Name in progress...
+        Stopwatch stopwatchRound = new Stopwatch();
+
+        public void StartStopwatch()
         {
-            if (Pathfinding.gameRoundWin)
-            {
-                _roundWin = 1;
-                _roundLoss = 0;
-            }
-            else if (!Pathfinding.gameRoundWin)
-            {
-                _roundWin = 0;
-                _roundLoss = 1;
-            }
+            stopwatchRound.Start();
         }
 
-        public void AddPersonToDatabase()
+        public long ElapsedSeconds()
         {
-            // Testing parameters
-            string testFirstName = "Foo";
-            string testLastName = "Bar";
-
-            using (var context = new Entities())
-            {
-                context.Person.Add(new Person // adds a row to the Person table in the SQL database
-                {
-                    First_Name = testFirstName,
-                    Last_Name = testLastName
-                });
-
-                context.SaveChanges();
-            }
+            return stopwatchRound.ElapsedMilliseconds / 1000;
         }
-
-        public void AddRoundsToDatabase()
-        {
-            using (var context = new Entities())
-            {
-                context.Rounds.Add(new Rounds // adds a row to the Rounds table in the SQL database
-                {
-                    Clicks = _hexClickedRound,
-                    AVG_Clicks = AverageClick(_hexClickedRound, _secondsRound),
-                    Win = _roundWin,
-                    Loss = _roundLoss,
-                    Time_Used = _secondsRound
-                });
-
-                //context.SaveChanges();
-            }
-        }
-
-        public void AddTestParametersToDatabase()
-        {
-            using (var context = new Entities())
-            {
-                context.TestParameters.Add(new TestParameters // adds a row to the TestParameters table in the SQL database
-                {
-                    Clicks = _clickedTotal,
-                    AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
-                    Rounds = _resetCounter + 1,
-                    Wins = Pathfinding.gameTotalWins,
-                    Losses = _totalLoss,
-                    Time_Used = _secondsTotal
-                });
-
-                //context.SaveChanges();
-            }
-        }
-
     }
 }

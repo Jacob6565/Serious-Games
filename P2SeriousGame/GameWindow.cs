@@ -15,12 +15,14 @@ namespace P2SeriousGame
 {
     public partial class GameWindow : Form
     {
-
         Database SQL = new Database();
+        FlowLayoutPanel menuPanel = new FlowLayoutPanel();
+        Panel gamePanel = new Panel();
 
         public GameWindow()
         {
             InitializeComponent();
+            SQL.StartStopwatch();
         }
 
         private int ButtonWidth;
@@ -84,7 +86,6 @@ namespace P2SeriousGame
                 rowHeight = ((hexagonRows - 1) / 4) + ((hexagonRows + 1) / 2);
                 ButtonHeight = (int)(_gameScreenHeight / rowHeight);
             }
-
             //We calculate the width by multiplying height to width ratio
             ButtonWidth = (int)((ButtonHeight * heightToWidth));
         }
@@ -129,13 +130,13 @@ namespace P2SeriousGame
             gamePanel.Controls.Add(button);
         }
 
-        private float _hexClickedRound;
+        public static float hexClickedRound;
 
         public void HexClickedColor(object sender, MouseEventArgs e)
         {
             HexagonButton sender_Button = sender as HexagonButton;
             sender_Button.BackColor = Color.FromArgb(255, 105, 180);
-            _hexClickedRound += 1;
+            hexClickedRound += 1;
         }
 
         /// <summary>
@@ -200,11 +201,13 @@ namespace P2SeriousGame
             ResetButton.FlatAppearance.BorderSize = 0;
             ResetButton.BackColor = Color.Red;
             ResetButton.Location = new Point(this.Bounds.Right - ResetButton.Width - 20, this.Bounds.Top + 60);
-            ResetButton.MouseClick += SQL.RoundDataCollector;
+            ResetButton.MouseClick += SQL.ResetGameToList;
             ResetButton.MouseClick += ResetButtonClick;
             ResetButton.Text = "Reset Game";
             ResetButton.TextAlign = ContentAlignment.MiddleCenter;
             panel.Controls.Add(ResetButton);
+
+            SQL.PrintData();
         }
 
         /// <summary>
@@ -241,7 +244,7 @@ namespace P2SeriousGame
 
         public void ExitButtonClick(object sender, MouseEventArgs e)
         {
-            SQL.SendToDatabase();
+            SQL.ExitGameToDatabase();
             Close();
         }
 
