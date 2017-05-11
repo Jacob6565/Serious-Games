@@ -180,6 +180,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SQL\ClearAllQuery.sql" />
     <Content Include="SQL\Entities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Entities.edmx</DependentUpon>

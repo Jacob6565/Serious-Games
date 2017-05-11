@@ -30,21 +30,40 @@ namespace P2SeriosuGame
         public string testFirstName = "Poo";
         public string testLastName = "The rapist";
 
-        public void ExitGameToDatabase()
+        public void ResetGameToList(object sender, MouseEventArgs e)
         {
-            StopStopwatch();
-            _elapsedSec = ElapsedSeconds(); // Converts the time to seconds
-            _secondsRound = unchecked(_elapsedSec); // Succesfully converts the long to float, ready for the database.
+            ConvertSeconds();
+            AddToTotal();
 
-            _secondsTotal += _secondsRound;
-            _clickedTotal += GameWindow.hexClickedRound;
+            int win = WinOrLose();
+            float average = AverageClick(GameWindow.hexClickedRound, _secondsRound);
 
-            WinOrLose();
+            _totalLoss += 1;
 
-            P2SeriousGame.Persons person = new P2SeriousGame.Persons(testFirstName, testLastName);
+            Persons person = new Persons(testFirstName, testLastName);
             personList.Add(person);
 
-            Round round = new Round(GameWindow.hexClickedRound, AverageClick(GameWindow.hexClickedRound, _secondsRound), WinOrLose(), _secondsRound);
+            Round round = new Round(GameWindow.hexClickedRound, average, win, _secondsRound);
+            roundList.Add(round);
+
+            GameWindow.hexClickedRound = 0; // Resets the amount of hex clicked
+            stopwatchRound.Restart(); // Starts the stopwatch from 0
+            ResetCounter(); // Increments the reset counter
+        }
+
+        public void ExitGameToDatabase()
+        {
+            stopwatchRound.Stop();
+            ConvertSeconds();
+            AddToTotal();
+
+            int win = WinOrLose();
+            float average = AverageClick(GameWindow.hexClickedRound, _secondsRound);
+
+            Persons person = new Persons(testFirstName, testLastName);
+            personList.Add(person);
+
+            Round round = new Round(GameWindow.hexClickedRound, average, win, _secondsRound);
             roundList.Add(round);
 
             AddPersonToDatabase();
@@ -52,26 +71,16 @@ namespace P2SeriosuGame
             AddRoundsToDatabase();
         }
 
-
-        public void ResetGameToList(object sender, MouseEventArgs e)
+        public void ConvertSeconds()
         {
-            _elapsedSec = ElapsedSeconds(); 
-            _secondsRound = unchecked(_elapsedSec);
+            _elapsedSec = ElapsedSeconds(); // Converts the time to seconds
+            _secondsRound = unchecked(_elapsedSec); // Succesfully converts the long to float, ready for the database.
+        }
 
+        public void AddToTotal()
+        {
             _secondsTotal += _secondsRound;
             _clickedTotal += GameWindow.hexClickedRound;
-
-            _totalLoss += 1;
-
-            P2SeriousGame.Persons person = new P2SeriousGame.Persons(testFirstName, testLastName);
-            personList.Add(person);
-
-            Round round = new Round(GameWindow.hexClickedRound, AverageClick(GameWindow.hexClickedRound, _secondsRound), WinOrLose(), _secondsRound);
-            roundList.Add(round);
-
-            GameWindow.hexClickedRound = 0; // Resets the parameter, so it's ready for next round
-            RestartStopwatch(); // Starts the stopwatch from 0
-            ResetCounter(); // Increments the reset counter
         }
 
         // Unique to WinOrLose
@@ -177,16 +186,6 @@ namespace P2SeriosuGame
         public void StartStopwatch()
         {
             stopwatchRound.Start();
-        }
-
-        public void RestartStopwatch()
-        {
-            stopwatchRound.Restart();
-        }
-
-        public void StopStopwatch()
-        {
-            stopwatchRound.Stop();
         }
 
         public long ElapsedSeconds()
