@@ -81,7 +81,7 @@ namespace P2SeriousGame
             btnCloseGame.BackColor = Color.Azure;
             btnCloseGame.Text = "Return to menu";
             btnCloseGame.TextAlign = ContentAlignment.MiddleCenter;
-            btnCloseGame.Location = new Point(this.Bounds.Right / 2 - btnCloseGame.Width / 2, this.Bounds.Top + 60);
+            btnCloseGame.Location = new Point(panel.Right / 2 - btnCloseGame.Width / 2, panel.Top + 60);
             btnCloseGame.MouseClick += ReturnToMainMenu;
             panel.Controls.Add(btnCloseGame);
         }
@@ -114,6 +114,11 @@ namespace P2SeriousGame
         {
             Close();
         }
+
+		private void LoadGraphs(object sender, MouseEventArgs e)
+		{
+
+		}
 
 		private void AdministratorForm_Load(object sender, EventArgs e)
 		{
