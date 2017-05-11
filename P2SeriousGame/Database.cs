@@ -47,21 +47,21 @@ namespace P2SeriousGame
 
         public void RoundDataCollector(object sender, MouseEventArgs e)
         {
-            //watchRound.Stop(); // Stops the time for the round
-            elapsedSec = watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
-            _secondsRound = unchecked(elapsedSec);
+            ////watchRound.Stop(); // Stops the time for the round
+            //elapsedSec = watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
+            //_secondsRound = unchecked(elapsedSec);
 
-            _secondsTotal += _secondsRound;
-            _clickedTotal += _hexClickedRound;
+            //_secondsTotal += _secondsRound;
+            //_clickedTotal += _hexClickedRound;
 
-            _totalLoss += 1;
+            //_totalLoss += 1;
 
-            WinMethod();
+            //WinMethod();
 
-            AddPersonToDatabase();
-            AddRoundsToDatabase();
+            //AddPersonToDatabase();
+            //AddRoundsToDatabase();
 
-            ResetCounter();
+            //ResetCounter();
         }
 
         private float AverageClick(float hexClicked, float seconds)

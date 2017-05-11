@@ -17,9 +17,9 @@ namespace P2SeriousGame
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            GameWindow FirstLevelHandler = new GameWindow();
+            //GameWindow FirstLevelHandler = new GameWindow();
             //IPathfinding path = new Pathfinding();           
-            Form mainMenu = new MainMenu();
+            Form mainMenu = new MainMenu(15);
             //Map FirstLevel = new Map(mainMenu, 11, 11, path);
             Application.Run(mainMenu);
 

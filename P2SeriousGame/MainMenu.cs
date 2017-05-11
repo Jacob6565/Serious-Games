@@ -14,22 +14,19 @@ namespace P2SeriousGame
     public partial class MainMenu : Form
     {
         private FlowLayoutPanel menuPanel = new FlowLayoutPanel();
-
-
         private Database SQL = new Database();
-
         Formatting formatting = new Formatting();
+        int mapSize;
 
-        public MainMenu()
+        public MainMenu(int mapSize)
         {
             InitializeComponent();
+            this.mapSize = mapSize;
         }
 
         private void InitializeMenues()
         {
-
             MenuPanel();
-            //menues.Add(new AdministratorMenu());
         }
 
         public void DrawWindow(object sender, EventArgs e)
@@ -100,7 +97,7 @@ namespace P2SeriousGame
         private void SwitchToGame(object sender, MouseEventArgs e)
         {
             
-            Form gameWindow = new GameForm();
+            Form gameWindow = new GameForm(mapSize);
             gameWindow.Show();
         }
 

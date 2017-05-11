@@ -57,10 +57,10 @@ namespace P2SeriousGame
         /// <param name="handler"></param>
         /// <param name="xSize"></param>
         /// <param name="ySize"></param>
-        public MapTest(GameForm game, int xSize, int ySize, IPathfinding path)
+        public MapTest(GameForm game, int size, IPathfinding path)
         {
-            _totalHexagonRows = ySize;
-            _totalHexagonColumns = xSize;
+            _totalHexagonRows = size;
+            _totalHexagonColumns = size;
             this.path = path;
             hexMap = new HexagonButton[TotalHexagonColumns, TotalHexagonRows];
             CreateMap(game);
