@@ -25,6 +25,7 @@ namespace P2SeriousGame.SQL
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<ForeignKeys> ForeignKeys { get; set; }
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<Rounds> Rounds { get; set; }
         public virtual DbSet<Session> Session { get; set; }

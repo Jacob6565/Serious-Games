@@ -91,9 +91,6 @@
     <Compile Include="GameForm.Designer.cs">
       <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameWindow.Menu.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="GraphPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -137,20 +134,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Entities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="SQL\ForeignKeys.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="SQL\Person.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="SQL\Rounds.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
-    <Compile Include="SQL\TestParameters.cs">
+    <Compile Include="SQL\Session.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AdministratorForm.resx">
       <DependentUpon>AdministratorForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GameWindow.Menu.resx">
-      <DependentUpon>GameWindow.Menu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GraphPanel.resx">
       <DependentUpon>GraphPanel.cs</DependentUpon>
@@ -201,7 +198,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="SQL\Entities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

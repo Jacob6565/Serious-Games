@@ -142,7 +142,7 @@ namespace P2SeriousGame
             ResetButton.FlatAppearance.BorderSize = 0;
             ResetButton.BackColor = Color.Red;
             ResetButton.Location = new Point(this.Bounds.Right - ResetButton.Width - 20, this.Bounds.Top + 60);
-            ResetButton.MouseClick += SQL.RoundDataCollector;
+            ResetButton.MouseClick += SQL.ResetGameToList;
             ResetButton.MouseClick += ResetButtonClick;
             ResetButton.Text = "Reset Game";
             ResetButton.TextAlign = ContentAlignment.MiddleCenter;
@@ -151,13 +151,13 @@ namespace P2SeriousGame
 
         public void ExitButtonClick(object sender, MouseEventArgs e)
         {
-            SQL.SendToDatabase();
+            SQL.ExitGameToDatabase();
             Close();
         }
 
         private void ResetButtonClick(object sender, MouseEventArgs e)
         {
-            foreach (HexagonButton hex in Map.hexMap)
+            foreach (HexagonButton hex in MapTest.hexMap)
             {
                 hex.Visited = false;
                 hex.Passable = true;
@@ -165,13 +165,13 @@ namespace P2SeriousGame
                 hex.BackColor = System.Drawing.Color.LightGray;
                 PlaceHexagonButton(hex);
             }
-            Map.ResetMouse();
+            MapTest.ResetMouse();
         }
 
         public void PlaceHexagonButton(HexagonButton button)
         {
             //For at farve midten før man har klikket på skærmen.
-            if (button.XCoordinate == Map.TotalHexagonColumns / 2 && button.YCoordinate == Map.TotalHexagonRows / 2)
+            if (button.XCoordinate == MapTest.TotalHexagonColumns / 2 && button.YCoordinate == MapTest.TotalHexagonRows / 2)
             {
                 button.BackColor = System.Drawing.Color.Aqua;
                 button.Enabled = false;
