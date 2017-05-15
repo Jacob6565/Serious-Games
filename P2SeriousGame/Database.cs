@@ -32,13 +32,8 @@ namespace P2SeriousGame
 
         public void ResetGameToList(object sender, MouseEventArgs e)
         {
-            //ConvertSeconds();
-            //AddToTotal();
-
-            _elapsedSec = ElapsedSeconds(); // Converts the time to seconds
-            _secondsRound = unchecked(_elapsedSec); // Succesfully converts the long to float, ready for the database.
-            _secondsTotal += _secondsRound;
-            _clickedTotal += GameForm.hexClickedRound;
+            ConvertSeconds();
+            AddToTotal();
 
             RoundVariables();
 
@@ -57,14 +52,9 @@ namespace P2SeriousGame
 
         public void ExitGameToDatabase()
         {
-            //stopwatchRound.Stop();
-            //ConvertSeconds();
-            //AddToTotal();
-            _elapsedSec = ElapsedSeconds(); // Converts the time to seconds
-            _secondsRound = unchecked(_elapsedSec); // Succesfully converts the long to float, ready for the database.
-
-            _secondsTotal += _secondsRound;
-            _clickedTotal += GameForm.hexClickedRound;
+            stopwatchRound.Stop();
+            ConvertSeconds();
+            AddToTotal();
 
             RoundVariables();
 
@@ -73,6 +63,8 @@ namespace P2SeriousGame
 
             Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
             roundList.Add(round);
+
+            Console.WriteLine(round);
 
             AddPersonToDatabase();
             AddSessionToDatabase();
@@ -87,7 +79,7 @@ namespace P2SeriousGame
 
         public void AddToTotal()
         {
-            _secondsTotal += _secondsRound;
+            _secondsTotal += _secondsRound; // float
             _clickedTotal += GameForm.hexClickedRound;
         }
 

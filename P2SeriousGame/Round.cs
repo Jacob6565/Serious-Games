@@ -36,7 +36,12 @@ namespace P2SeriousGame
                 Loss = 1;
             }
         }
-        
+
+        public override string ToString()
+        {
+            return "ID: " + RoundID + " " + NumberOfClicks + " " + ClicksPerMinute + " " + Win + " " + Loss + " " + TimeUsed + ".";
+        }
+
         //private DateTime[] timeBetweenClicks = new DateTime[50];
         //public DateTime[] TimeBetweenClicks
         //{

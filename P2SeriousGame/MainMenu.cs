@@ -102,6 +102,7 @@ namespace P2SeriousGame
             
             Form gameWindow = new GameForm();
             gameWindow.Show();
+            SQL.StartStopwatch();
         }
 
         private void SwitchToMenu(object sender, MouseEventArgs e)

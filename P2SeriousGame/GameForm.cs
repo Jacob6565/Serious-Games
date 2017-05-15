@@ -22,7 +22,7 @@ namespace P2SeriousGame
             InitializeComponent();
             InitializePanels();
             FirstLevel = new MapTest(this, 11, 11, path);
-            SQL.StartStopwatch();
+            //SQL.StartStopwatch();
         }
 
         #region formatting
@@ -153,7 +153,6 @@ namespace P2SeriousGame
         }
 
 		public static float hexClickedRound;
-
 
         public void HexClickedColor(object sender, MouseEventArgs e)
         {
