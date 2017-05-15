@@ -64,11 +64,11 @@ namespace P2SeriousGame
             Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
             roundList.Add(round);
 
-            Console.WriteLine(round);
+            Console.WriteLine(roundList.Count); 
 
             AddPersonToDatabase();
-            AddSessionToDatabase();
             AddRoundsToDatabase();
+            AddSessionToDatabase();
         }
 
         public void ConvertSeconds()
@@ -116,29 +116,15 @@ namespace P2SeriousGame
         {
             using (var context = new Entities())
             {
-                try
+                foreach(var row in personList)
                 {
-                    foreach(var row in personList)
+                    context.Person.Add(new Person
                     {
-                        context.Person.Add(new Person
-                        {
-                            First_Name = row.firstname,
-                            Last_Name = row.lastname
-                        });
-                    }
+                        First_Name = row.firstname,
+                        Last_Name = row.lastname
+                    });
+				    context.SaveChanges();
                 }
-                catch(Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-				try
-				{
-					context.SaveChanges();
-				}
-				catch (Exception ex)
-				{
-					while (ex != null) { Console.WriteLine(ex.Message); ex = ex.InnerException; }
-				}
             }
         }
 
@@ -146,69 +132,35 @@ namespace P2SeriousGame
         {
             using (var context = new Entities())
             {
-                try
+                foreach(var row in roundList)
                 {
-                    foreach(var row in roundList)
+                    context.Rounds.Add(new Rounds
                     {
-                        context.Rounds.Add(new Rounds
-                        {
-                            Clicks = row.NumberOfClicks,
-                            AVG_Clicks = row.ClicksPerMinute,
-                            Win = row.Win,
-                            Loss = row.Loss,
-                            Time_Used = row.TimeUsed
-                        });
-                    }
+                        Clicks = row.NumberOfClicks,
+                        AVG_Clicks = row.ClicksPerMinute,
+                        Win = row.Win,
+                        Loss = row.Loss,
+                        Time_Used = row.TimeUsed
+                    });
+				    context.SaveChanges();
                 }
-                catch(Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-				try
-				{
-					context.SaveChanges();
-				}
-				catch (Exception ex)
-				{
-					while (ex != null) { Console.WriteLine(ex.Message); ex = ex.InnerException; }
-				}
             }
         }
 
         public void AddSessionToDatabase()
         {
-            Console.WriteLine(_clickedTotal);
-            Console.WriteLine(AverageClick(_clickedTotal, _secondsTotal));
-            Console.WriteLine(_resetCounter + 1);
-            Console.WriteLine(Pathfinding.gameTotalWins);
-            Console.WriteLine(_totalLoss);
-            Console.WriteLine(_secondsTotal);
             using (var context = new Entities())
             {
-                try
+                context.Session.Add(new Session // adds a row to the Session table in the SQL database
                 {
-                    context.Session.Add(new Session // adds a row to the Session table in the SQL database
-                    {
-                        Clicks = _clickedTotal,
-                        AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
-                        Rounds = _resetCounter + 1,
-                        Wins = Pathfinding.gameTotalWins,
-                        Losses = _totalLoss,
-                        Time_Used = _secondsTotal
-                    });
-                }
-                catch(Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-				try
-				{
-					context.SaveChanges();
-				}
-				catch (Exception ex)
-				{
-					while (ex != null) { Console.WriteLine(ex.Message); ex = ex.InnerException; }
-				}
+                    Clicks = _clickedTotal,
+                    AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
+                    Rounds = _resetCounter + 1,
+                    Wins = Pathfinding.gameTotalWins,
+                    Losses = _totalLoss,
+                    Time_Used = _secondsTotal
+                });
+				context.SaveChanges();
             }
         }
 
