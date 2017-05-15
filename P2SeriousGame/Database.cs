@@ -30,7 +30,7 @@ namespace P2SeriousGame
         public string testFirstName = "Poo";
         public string testLastName = "The rapist";
 
-        public void ResetGameToList(object sender, MouseEventArgs e)
+        public void ResetGameToList()
         {
             ConvertSeconds();
             AddToTotal();
@@ -64,7 +64,10 @@ namespace P2SeriousGame
             Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
             roundList.Add(round);
 
-            Console.WriteLine(roundList.Count); 
+            foreach(var item in roundList)
+            {
+                Console.WriteLine(item);
+            }
 
             AddPersonToDatabase();
             AddRoundsToDatabase();
@@ -123,8 +126,8 @@ namespace P2SeriousGame
                         First_Name = row.firstname,
                         Last_Name = row.lastname
                     });
-				    context.SaveChanges();
                 }
+				context.SaveChanges();
             }
         }
 
@@ -142,8 +145,8 @@ namespace P2SeriousGame
                         Loss = row.Loss,
                         Time_Used = row.TimeUsed
                     });
-				    context.SaveChanges();
                 }
+				context.SaveChanges();
             }
         }
 
@@ -160,7 +163,7 @@ namespace P2SeriousGame
                     Losses = _totalLoss,
                     Time_Used = _secondsTotal
                 });
-				context.SaveChanges();
+                context.SaveChanges();
             }
         }
 
@@ -178,7 +181,6 @@ namespace P2SeriousGame
                     Console.WriteLine(item.Time_Used);
                 }
             }
-
         }
 
         private float AverageClick(float hexClicked, float seconds)
