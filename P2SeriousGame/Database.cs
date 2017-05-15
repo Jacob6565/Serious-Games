@@ -139,7 +139,14 @@ namespace P2SeriousGame
                 {
                     Console.WriteLine(ex.Message);
                 }
-                context.SaveChanges();
+				try
+				{
+					context.SaveChanges();
+				}
+				catch (Exception ex)
+				{
+					while (ex != null) { Console.WriteLine(ex.Message); ex = ex.InnerException; }
+				}
             }
         }
 
@@ -165,7 +172,14 @@ namespace P2SeriousGame
                 {
                     Console.WriteLine(ex.Message);
                 }
-                context.SaveChanges();
+				try
+				{
+					context.SaveChanges();
+				}
+				catch (Exception ex)
+				{
+					while (ex != null) { Console.WriteLine(ex.Message); ex = ex.InnerException; }
+				}
             }
         }
 
@@ -195,7 +209,14 @@ namespace P2SeriousGame
                 {
                     Console.WriteLine(ex.Message);
                 }
-                context.SaveChanges();
+				try
+				{
+					context.SaveChanges();
+				}
+				catch (Exception ex)
+				{
+					while (ex != null) { Console.WriteLine(ex.Message); ex = ex.InnerException; }
+				}
             }
         }
 

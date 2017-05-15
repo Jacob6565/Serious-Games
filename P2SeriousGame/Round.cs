@@ -13,7 +13,7 @@ namespace P2SeriousGame
         public int Win { get; set; }
         public int Loss { get; set; }
         public float TimeUsed { get; set; }
-		public int RoundID { get; }
+		public int RoundID { get; set; }
 
         public Round(float clicks, float clicksAVG, int win, float TimeUsed)
         {

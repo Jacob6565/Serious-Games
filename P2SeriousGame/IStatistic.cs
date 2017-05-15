@@ -9,7 +9,7 @@ namespace P2SeriousGame
 {
 	interface IStatistic
 	{
-		void setClassVariables(string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval, int yAxisMin, int yAxisMax, SeriesChartType chartType);
-		void setClassVariables(string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval = 1, int yAxisMin = 0, SeriesChartType chartType = SeriesChartType.Line);
+		void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval, int yAxisMin, int yAxisMax, SeriesChartType chartType);
+		void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval = 1, int yAxisMin = 0, SeriesChartType chartType = SeriesChartType.Line);
 	}
 }

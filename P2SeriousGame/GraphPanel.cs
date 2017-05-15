@@ -72,7 +72,7 @@ namespace P2SeriousGame
 			Controls.Add(chart);
 		}
 
-		public void AddSeriesToGraph(List<Round> roundList)
+		public void AddSeriesToGraph(IEnumerable<float> roundList)
 		{
 			Series series = new Series
 			{
@@ -84,12 +84,15 @@ namespace P2SeriousGame
 				ChartType = this.ChartType
 			};
 
-			foreach (Round round in roundList)
+			int index = 0;
+			foreach (float value in roundList)
 			{
-				Console.WriteLine(round.ClicksPerMinute);
-				int xValue = round.RoundID;
-				double yValue = round.ClicksPerMinute;
+				Console.WriteLine(value);
+				float xValue = index;
+				float yValue = value;
 				series.Points.AddXY(xValue, yValue);
+
+				index++;
 			}
 
 			chart.Series.Add(series);

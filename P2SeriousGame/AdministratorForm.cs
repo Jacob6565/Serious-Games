@@ -7,14 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace P2SeriousGame
 {
-    public partial class AdministratorForm : Form
+    public partial class AdministratorForm : Form, IStatistic
     {
         Formatting formatting = new Formatting();
         Panel administratorPanel = new Panel();
-		GraphPanel firstGraph = new GraphPanel();
+		GraphPanel[] graphList = new GraphPanel[4];
 
         public AdministratorForm()
         {
@@ -34,44 +35,26 @@ namespace P2SeriousGame
             administratorPanel.Width = formatting.ScreenWidth;
             administratorPanel.Height = formatting.ScreenHeight;
 
-			//firstGraph.XAxisInterval = 1;
-			//firstGraph.YAxisMin = 0;
-			//firstGraph.YAxisMax = 10;
-			//firstGraph.YAxisTitle = "Title";
-			//firstGraph.XAxisTitle = "Title";
-			//firstGraph.GraphTitle = "YET ANOTHER TITLE";
-			//firstGraph.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+			AddSearchSession();
 
-			//List<Round> roundList = new List<Round>();
-			//Random rand = new Random();
-
-			//firstGraph.UpdateChartLook();
-
-			//for (int i = 0; i < 10; i++)
-			//{
-			//	roundList.Add(new Round());
-			//	roundList[i].ClicksPerMinute = rand.Next(0, 10);
-			//	roundList[i].RoundID = i;
-			//}
-
-			//InitializeGraph();
-
-			AddSearchSession(administratorPanel);
-
-			CloseMenuButton(administratorPanel);
+			CloseMenuButton();
         }
 
-		private void InitializeGraph(List<Round> roundList)
+		private double InitializeGraph(List<float> valueList, int graphNumber)
 		{
-			firstGraph.AddSeriesToGraph(roundList);
+			GraphPanel graph = graphList[graphNumber];
+			graph.AddSeriesToGraph(valueList);
 
-			firstGraph.Size = new Size(400, 400);
-			firstGraph.Location = new Point(500, this.Bounds.Top + 60);
+			graph.Size = new Size(300, 400);
+			graph.Location = new Point((administratorPanel.Right / 4 - graph.Width / 2) * graphNumber, this.Bounds.Top + 180);
 
-			administratorPanel.Controls.Add(firstGraph);
+			administratorPanel.Controls.Add(graph);
+
+			return (valueList.Max() * 1.05);
 		}
 
-        private void CloseMenuButton(Panel panel)
+
+		private void CloseMenuButton()
         {
             Button btnCloseGame = new Button();
             btnCloseGame.Size = new Size(300, 100);
@@ -81,20 +64,20 @@ namespace P2SeriousGame
             btnCloseGame.BackColor = Color.Azure;
             btnCloseGame.Text = "Return to menu";
             btnCloseGame.TextAlign = ContentAlignment.MiddleCenter;
-            btnCloseGame.Location = new Point(panel.Right / 2 - btnCloseGame.Width / 2, panel.Top + 60);
+            btnCloseGame.Location = new Point(administratorPanel.Right / 2 - btnCloseGame.Width / 2, administratorPanel.Top + 60);
             btnCloseGame.MouseClick += ReturnToMainMenu;
-            panel.Controls.Add(btnCloseGame);
+            administratorPanel.Controls.Add(btnCloseGame);
         }
 
-		private void AddSearchSession(Panel panel)
+		private void AddSearchSession()
 		{
-			int screenMidPoint = panel.Width / 2;
+			int screenMidPoint = administratorPanel.Width / 2;
 
 			NumericUpDown sessionInput = new NumericUpDown();
 			sessionInput.AutoSize = false;
 			sessionInput.Size = new Size(150, 100);
 			sessionInput.Location = new Point(screenMidPoint - (250 / 2), Bounds.Top + 20);
-			panel.Controls.Add(sessionInput);
+			administratorPanel.Controls.Add(sessionInput);
 
 			Button btnCloseGame = new Button();
 			btnCloseGame.Size = new Size(75, 30);
@@ -106,7 +89,7 @@ namespace P2SeriousGame
 			btnCloseGame.TextAlign = ContentAlignment.MiddleCenter;
 			btnCloseGame.Location = new Point(screenMidPoint + 75 / 2, this.Bounds.Top + 15);
 			btnCloseGame.MouseClick += ReturnToMainMenu;
-			panel.Controls.Add(btnCloseGame);
+			administratorPanel.Controls.Add(btnCloseGame);
 		}
 
 
@@ -123,6 +106,31 @@ namespace P2SeriousGame
 		private void AdministratorForm_Load(object sender, EventArgs e)
 		{
 
+		}
+
+		public void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval, int yAxisMin, int yAxisMax, SeriesChartType chartType)
+		{
+			graphList[graphList.Length] = new GraphPanel
+			{
+				XAxisTitle = xAxisTitle,
+				YAxisTitle = yAxisTitle,
+				GraphTitle = graphTitle,
+				XAxisInterval = xAxisInterval,
+				YAxisMin = yAxisMin,
+				YAxisMax = yAxisMax,
+				ChartType = chartType,
+			};
+			GraphPanel newGraph = graphList[graphList.Length];
+
+			newGraph.UpdateChartLook();
+			InitializeGraph(valueList, graphList.Length);
+		}
+
+		public void drawGraph(List<float> valueList, string xAxisTitle, string yAxisTitle, string graphTitle, int xAxisInterval, int yAxisMin, SeriesChartType chartType)
+		{
+			double yMaxDouble = valueList.Max() * 1.05;
+			int yMax = Int32.Parse(yMaxDouble.ToString());
+			drawGraph(valueList, xAxisTitle, yAxisTitle, graphTitle, xAxisInterval, yAxisMin, yMax, chartType);
 		}
 	}
 }
