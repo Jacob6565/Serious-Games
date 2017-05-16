@@ -8,6 +8,6 @@ namespace P2SeriousGame
 {
 	public interface IDatabase
 	{
-		Session GetSessionData(int SessionID);
+		Sessions GetSessionData(int SessionID);
 	}
 }
