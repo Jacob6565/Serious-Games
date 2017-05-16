@@ -81,6 +81,7 @@
     <Compile Include="AdministratorForm.Designer.cs">
       <DependentUpon>AdministratorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BreadthFirst.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="EndOfMapException.cs" />
     <Compile Include="Formatting.cs">
