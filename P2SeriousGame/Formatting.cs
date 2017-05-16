@@ -1,15 +1,27 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace P2SeriousGame
 {
-    public class Formatting
+    public class Formatting : Form
     {
         #region constant vars
+
+        Control control;
+
+        public Formatting(Control control)
+        {
+            this.control = control;
+        }
 
         public int ButtonWidth;
         public int ButtonHeight;
         public int ButtonHeightOffset => (3 * (ButtonHeight / 4));
+
+        public int SmallBtnSpacing = 30;
+        public int LargeBtnSpacing = 60;
+        public int BtnCount = 1;
 
         public int ScreenWidth = Screen.PrimaryScreen.Bounds.Width;
         public int ScreenHeight = Screen.PrimaryScreen.Bounds.Height;
@@ -33,5 +45,31 @@ namespace P2SeriousGame
 
         public int _heightStart = (int)(_topHeightReserved * Screen.PrimaryScreen.Bounds.Height);
         #endregion
+
+        public void BtnRightFormat(Button btn, string BtnText, Color color)
+        {
+            btn.Size = new Size(100, 25);
+            btn.TabStop = false;
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.FlatAppearance.BorderSize = 0;
+            btn.BackColor = color;
+            btn.Location = new Point(control.Bounds.Right - btn.Width - SmallBtnSpacing, control.Bounds.Top + BtnCount * SmallBtnSpacing);
+            btn.Text = BtnText;
+            btn.TextAlign = ContentAlignment.MiddleCenter;
+            BtnCount++;
+        }
+
+        public void BtnCenterFormat(Button btn, string BtnText, Color color)
+        {
+            btn.Size = new Size(300, 100);
+            btn.TabStop = false;
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.FlatAppearance.BorderSize = 0;
+            btn.BackColor = color;
+            btn.Location = new Point(this.Bounds.Right / 2 - btn.Width / 2, this.Bounds.Top + BtnCount * LargeBtnSpacing);
+            btn.Text = BtnText;
+            btn.TextAlign = ContentAlignment.MiddleCenter;
+            BtnCount++;
+        }
     }
 }

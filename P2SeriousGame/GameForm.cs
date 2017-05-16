@@ -17,12 +17,13 @@ namespace P2SeriousGame
         MapTest FirstLevel;
         IPathfinding path = new Pathfinding();
 
-        Formatting formatting = new Formatting();
+        Formatting formatting;
 
         public GameForm(int mapSize)
         {
-            InitializeComponent();
+            formatting = new Formatting(this);
             FirstLevel = new MapTest(this, mapSize, path);
+            InitializeComponent();
         }
 
         private void InitializePanels()
@@ -173,32 +174,17 @@ namespace P2SeriousGame
         private void AddResetButton(Panel panel)
         {
             Button ResetButton = new Button();
-            ResetButton.Size = new Size(100, 25);
-            ResetButton.TabStop = false;
-            ResetButton.FlatStyle = FlatStyle.Flat;
-            ResetButton.FlatAppearance.BorderSize = 0;
-            ResetButton.BackColor = Color.Red;
-            ResetButton.Location = new Point(this.Bounds.Right - ResetButton.Width - 20, this.Bounds.Top + 60);
+            formatting.BtnRightFormat(ResetButton, "Reset Game", Color.Red);
             ResetButton.MouseClick += SQL.RoundDataCollector;
-            ResetButton.MouseClick += ResetButtonClick;
-            ResetButton.Text = "Reset Game";
-            ResetButton.TextAlign = ContentAlignment.MiddleCenter;
+            ResetButton.MouseClick += ResetButtonClick;            
             panel.Controls.Add(ResetButton);
         }
-
         private void AddExitButton(Panel panel)
         {
             Button ExitButton = new Button();
-            ExitButton.Size = new Size(100, 25);
-            ExitButton.TabStop = false;
-            ExitButton.FlatStyle = FlatStyle.Flat;
-            ExitButton.FlatAppearance.BorderSize = 0;
-            ExitButton.BackColor = Color.LightGray;
-            ExitButton.Location = new Point(this.Bounds.Right - ExitButton.Width - 20, this.Bounds.Top + 20);
+            formatting.BtnRightFormat(ExitButton, "Return to menu", Color.LightGray);
             ExitButton.MouseClick += ResetButtonClick;
             ExitButton.MouseClick += ReturnToMainMenu;
-            ExitButton.Text = "Return to menu";
-            ExitButton.TextAlign = ContentAlignment.MiddleCenter;
             panel.Controls.Add(ExitButton);
         }
 

@@ -12,11 +12,12 @@ namespace P2SeriousGame
 {
     public partial class AdministratorForm : Form
     {
-        Formatting formatting = new Formatting();
+        Formatting formatting;
         Panel administratorPanel = new Panel();
 
         public AdministratorForm()
         {
+            formatting = new Formatting(this);
             InitializeComponent();
             InitializePanels();
         }
