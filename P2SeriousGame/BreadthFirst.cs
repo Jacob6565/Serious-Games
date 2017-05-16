@@ -80,8 +80,7 @@ namespace P2SeriousGame
             //return bestRouteByRand.First();
             return bestRoutes;
         }
-
-
+        
         //Reachable hexes that are not edges of the map. Used for finding the longest route when mouse is trapped
         public List<HexagonButton> FindLongestRoutes()
         {
@@ -109,12 +108,12 @@ namespace P2SeriousGame
                     longestRoutes.Add(hex);
             }
 
-            foreach (HexagonButton hex in longestRoutes)
-            {
-                Console.WriteLine("Cost:" + hex.CostToStart);
-                Console.WriteLine("Count:" + longestRoutes.Count);
-                Console.WriteLine(hex.Coordinates);
-            }
+            //foreach (HexagonButton hex in longestRoutes)
+            //{
+            //    Console.WriteLine("Cost:" + hex.CostToStart);
+            //    Console.WriteLine("Count:" + longestRoutes.Count);
+            //    Console.WriteLine(hex.Coordinates);
+            //}
             return longestRoutes;
         }
 
@@ -149,12 +148,12 @@ namespace P2SeriousGame
                 else if (shortestRoutes.First().CostToStart == hex.CostToStart)
                     shortestRoutes.Add(hex);
             }
-            foreach (HexagonButton hex in shortestRoutes)
-            {
-                Console.WriteLine("Cost:"+ hex.CostToStart);
-                Console.WriteLine("Count:" + shortestRoutes.Count);
-                Console.WriteLine(hex.Coordinates);
-            }
+            //foreach (HexagonButton hex in shortestRoutes)
+            //{
+            //    Console.WriteLine("Cost:"+ hex.CostToStart);
+            //    Console.WriteLine("Count:" + shortestRoutes.Count);
+            //    Console.WriteLine(hex.Coordinates);
+            //}
           
             return shortestRoutes;
         }

@@ -1,13 +1,8 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using P2SeriousGame;
 using System.Windows.Forms;
 using System.Drawing;
-using System.Drawing.Drawing2D;
+
 
 namespace UnitTests
 {
@@ -22,36 +17,65 @@ namespace UnitTests
     [TestFixture]
     public class UnitTest1
     {
-        [TestCase(-1)]
-        [TestCase(0)]
-        [TestCase(1)]
         [TestCase(11,11)]
         [TestCase(13, 13)]
-        [TestCase(50, 50)]
-        public void Map_PositiveOddValue_HexmapRightSize(int x, int y)
+        [TestCase(21, 21)]
+        public void MapTest_PositiveOddValue_HexmapRightSize(int x, int y)
         {
-            GameWindow tester = new GameWindow();
+            GameForm tester = new GameForm();
             IPathfinding a = null;
-            Map map = new Map(tester, x, y, a);
-            Assert.AreEqual(x, Map.hexMap.GetLength(0));
-            Assert.AreEqual(y, Map.hexMap.GetLength(1));
+            MapTest map = new MapTest(tester, x, y, a);
+            Assert.AreEqual(x, MapTest.hexMap.GetLength(0)); 
+            Assert.AreEqual(y, MapTest.hexMap.GetLength(1));
+        }
+
+        [TestCase(-1, -1)]
+        [TestCase(0, 0)]
+        [TestCase(1, 1)]
+        public void MapTest_WrongDimensions_ThrowMapDimensionsMustBeHigher(int x, int y)
+        {
+            try
+            {
+                GameForm tester = new GameForm();
+                IPathfinding a = null;
+                MapTest map = new MapTest(tester, x, y, a);
+            }
+            catch (MapDimensionsMustBeHigher e)
+            {
+                Assert.AreEqual(typeof(MapDimensionsMustBeHigher), e.GetType());
+            }
+        }
+        [TestCase(6,6)]
+        [TestCase(10,10)]
+        public void MapTest_WrongDimensions_ThrowMapDimensionsMustBeOdd(int x, int y)
+        {
+            try
+            {
+                GameForm tester = new GameForm();
+                IPathfinding a = null;
+                MapTest map = new MapTest(tester, x, y, a);
+            }
+            catch (MapDimensionsMustBeOdd e)
+            {
+                Assert.AreEqual(typeof(MapDimensionsMustBeOdd), e.GetType());
+            }
         }
 
         //Burde nok gøre sådan, at man ikke kan lave mappen 0,0.
         //tror ikke knappen med koordinaterne 0,0 er en edgetile.
         [TestCase(9, 9, 8, 8)]
         [TestCase(5, 5, 4, 4)]
-        [TestCase(1, 1, 0, 0)]
-        [TestCase(0, 0, 0, 0)]
+        //[TestCase(1, 1, 0, 0)]
+        //[TestCase(0, 0, 0, 0)]
         public void FindNeighbours_PositiveOddValues_RightAmountOfNeighbours(int x, int y, int buttomX, int buttomY)
         {
             IPathfinding ipathfinding = new Pathfinding();
-            GameWindow tester = new GameWindow();
-            Map map = new Map(tester, x, y, ipathfinding);
+            GameForm tester = new GameForm();
+            MapTest map = new MapTest(tester, x, y, ipathfinding);
 
-            if (!Map.hexMap[buttomX, buttomY].IsEdgeTile)
+            if (!MapTest.hexMap[buttomX, buttomY].IsEdgeTile)
             {
-                Assert.AreEqual(6, Map.hexMap[buttomX, buttomY].neighbourList.Count);
+                Assert.AreEqual(6, MapTest.hexMap[buttomX, buttomY].neighbourList.Count);
             }
         }
 
@@ -70,27 +94,28 @@ namespace UnitTests
         }
         //Gøre sådan, at når der angives en negativ værdi skal der kastes en exception og mappet skal ikke laves.
         //Lige pt. kommer der en exception, da man i Map-constructoren forsøget at tildelee 
-        [TestCase(-1, -1)]
-        [TestCase(0, 0)]
-        [TestCase(1, 1)]
+        //[TestCase(-1, -1)]
+        //[TestCase(0, 0)]
+        //[TestCase(1, 1)]
         [TestCase(5, 5)]
-        [TestCase(20, 20)]
-        public void Map_PositiveOddValues_ConstructedRight(int x, int y)
+        [TestCase(11,11)]
+        [TestCase(21, 21)]
+        public void MapTest_PositiveOddValues_ConstructedRight(int x, int y)
         {
             IPathfinding ipathfinding = new Pathfinding();
-            GameWindow window = new GameWindow();
-            Map map = new Map(window, x, y, ipathfinding);
-            Assert.AreEqual(x, Map.TotalHexagonColumns);
-            Assert.AreEqual(y, Map.TotalHexagonRows);
-            Assert.AreEqual(x, Map.hexMap.GetLength(0));
-            Assert.AreEqual(y, Map.hexMap.GetLength(1));
+            GameForm window = new GameForm();
+            MapTest map = new MapTest(window, x, y, ipathfinding);
+            Assert.AreEqual(x, MapTest.TotalHexagonColumns);
+            Assert.AreEqual(y, MapTest.TotalHexagonRows);
+            Assert.AreEqual(x, MapTest.hexMap.GetLength(0));
+            Assert.AreEqual(y, MapTest.hexMap.GetLength(1));
         }
 
         //Burde ikke kunne lave en buttom med negative koordinater
-        [TestCase(10, 10)]
+        [TestCase(-1, -3)]
         [TestCase(0, 0)]
         [TestCase(3, 1)]
-        [TestCase(-1, -3)]
+        [TestCase(10, 10)]
         public void HexClicked_PositiveValues_ValuesChangedRight(int buttomX, int buttomY)
         {
             HexagonButton hex = new HexagonButton(buttomX, buttomY, false);
@@ -108,6 +133,7 @@ namespace UnitTests
         [TestCase(10, 10)]
         public void GetPoints_NumericValues_RightPointsCreated(int height, int width)
         {
+            
             float expX = width / 2;
             float expSide = height / 2;
             float expY = 0;
@@ -127,16 +153,16 @@ namespace UnitTests
         }
         #region MousePositioner
         //Denne tester også at musen følger den rigtige rute ved at man kan se, at musen bliver flyttet hvergang til næste sted på pathen, da MouseYCoordinate og X er dannet ud fra den første hex i pathen.
-        [TestCase(3, 3)]
+        [TestCase(5, 5)]
         [TestCase(11, 11)]
         [TestCase(21, 21)]
         public void MousePositioner_CalculateRoutesWorks_ColorsAndDisablesRightFollowsRightPath(int x, int y)
         {
             IPathfinding pathfinding = new Pathfinding();
-            GameWindow window = new GameWindow();
+            GameForm window = new GameForm();
             MouseButtons a = new MouseButtons();
             MouseEventArgs b = new MouseEventArgs(a, 0, 10, 10, 0);
-            Map map = new Map(window, x, y, pathfinding);
+            MapTest map = new MapTest(window, x, y, pathfinding);
             HexagonButton onlyForParameter = new HexagonButton(x/2, y/2, false);
             int LastX;
             int LastY;
@@ -144,14 +170,14 @@ namespace UnitTests
             int startY = y / 2;
             int numberOfTilesOnRute = (x / 2) - 1;
             
-            if (Map.newGame)
+            if (MapTest.newGame)
             {
                 map.MousePositioner(onlyForParameter, b);
-                Assert.AreEqual(false, Map.newGame);
-                Assert.AreEqual(Color.LightGray, Map.hexMap[startX, startY].BackColor);
-                Assert.AreEqual(true, Map.hexMap[startX, startY].Enabled);
-                Assert.AreEqual(Color.Aqua, Map.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].BackColor);
-                Assert.AreEqual(false, Map.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].Enabled);
+                Assert.AreEqual(false, MapTest.newGame);
+                Assert.AreEqual(Color.LightGray, MapTest.hexMap[startX, startY].BackColor);
+                Assert.AreEqual(true, MapTest.hexMap[startX, startY].Enabled);
+                Assert.AreEqual(Color.Aqua, MapTest.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].BackColor);
+                Assert.AreEqual(false, MapTest.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].Enabled);
                 //Saves the current mouseposition before they gets overriden in the next call. 
                 //They are going to be used to tjeck if the current mouseposition will be colored grey and enabled after next call.
                 //Because MouseX and MouseY are equal the coordinates of the first hex in the path. 
@@ -161,10 +187,10 @@ namespace UnitTests
                 for (int i = 0; i < numberOfTilesOnRute; i++)
                 {
                     map.MousePositioner(onlyForParameter, b);
-                    Assert.AreEqual(Color.LightGray, Map.hexMap[LastX, LastY].BackColor);
-                    Assert.AreEqual(true, Map.hexMap[LastX, LastY].Enabled);
-                    Assert.AreEqual(Color.Aqua, Map.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].BackColor);
-                    Assert.AreEqual(false, Map.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].Enabled);
+                    Assert.AreEqual(Color.LightGray, MapTest.hexMap[LastX, LastY].BackColor);
+                    Assert.AreEqual(true, MapTest.hexMap[LastX, LastY].Enabled);
+                    Assert.AreEqual(Color.Aqua, MapTest.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].BackColor);
+                    Assert.AreEqual(false, MapTest.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].Enabled);
                     LastX = map.MouseXCoordinate;
                     LastY = map.MouseYCoordinate;
                 }
@@ -175,20 +201,17 @@ namespace UnitTests
 
         //denne burde virke, man kan ikke få Painteventet triggered. Har bare indsat funkionen, så man ikke kalder dem, men bare udfører den.
         #region DrawButtonTest
-        [TestCase(-1, -1)]
-        [TestCase(0, 0)]
-        [TestCase(2, 2)]
         [TestCase(5, 5)]
-        [TestCase(10, 10)]
-        [TestCase(11,11)]
-        public void GameWindow_ButtonPainter_RightPolygon(int x, int y)
+        [TestCase(11, 11)]
+        [TestCase(15,15)]
+        public void GameForm_ButtonPainter_RightPolygon(int x, int y)
         {
             IPathfinding ipathfinding = new Pathfinding();
             HexagonButton hexagonButton = new HexagonButton(x, y, false);
-            GameWindow window = new GameWindow();
+            GameForm window = new GameForm();
             System.Drawing.Drawing2D.GraphicsPath buttonPath;
             PointF[] expectedPoints = P2SeriousGame.Math.GetPoints(x, y);
-            Map map = new Map(window, x, y, ipathfinding);
+            MapTest map = new MapTest(window, x, y, ipathfinding);
 
             buttonPath = new System.Drawing.Drawing2D.GraphicsPath();
             buttonPath.AddPolygon(P2SeriousGame.Math.GetPoints(x, y));
@@ -210,10 +233,10 @@ namespace UnitTests
         //public void PathFinding_CalculateRoutes_CorrectlyFindsNextHexOnEmptyMap(int mapX, int mapY, int buttomX, int buttomY)
         //{
         //    Pathfinding pathfinding = new Pathfinding();
-        //    GameWindow window = new GameWindow();
+        //    GameForm window = new GameForm();
         //    HexagonButton hex = new HexagonButton(buttomX, buttomY, false);
-        //    Map map = new Map(window, mapX, mapY, pathfinding);
-        //    pathfinding.CalculateRoutes(Map.hexMap, hex);
+        //    MapTest map = new MapTest(window, mapX, mapY, pathfinding);
+        //    pathfinding.CalculateRoutes(MapTest.hexMap, hex);
         //    HexagonButton expectedHex1;
         //    HexagonButton expectedHex2;
         //    if (buttomX < mapX/2 && buttomY < mapY/2)
@@ -239,46 +262,46 @@ namespace UnitTests
         //[TestCase(1, 1, 2, 2)]
         //[TestCase(10, 10, 20, 20)]
         //[TestCase(20, 20, 1, 1)]
-        //public void GameWindow_CalculateButtonDimensionBasedOnScreenHeight_RightDimensionRatio(int buttomX, int buttomY, int rows, int columns)
+        //public void GameForm_CalculateButtonDimensionBasedOnScreenHeight_RightDimensionRatio(int buttomX, int buttomY, int rows, int columns)
         //{
-        //    GameWindow window = new GameWindow();
+        //    GameForm window = new GameForm();
         //    HexagonButton hex = new HexagonButton(buttomX, buttomY, false);
-        //    Map map = new Map(window, rows, columns, ipathfinding);
+        //    MapTest map = new MapTest(window, rows, columns, ipathfinding);
         //    window.Button
         //}
 
         //[TestCase(0, 0, 10, 10)]
         //[TestCase(1, 1, 2, 2)]
         //[TestCase(10, 10, 20, 20)]
-        //public void GameWindow_CalculateButtonDimensionBasedOnScreenWidth_RightDimension(int buttomX, int buttomY, int rows, int columns)
+        //public void GameForm_CalculateButtonDimensionBasedOnScreenWidth_RightDimension(int buttomX, int buttomY, int rows, int columns)
         //{
-        //    GameWindow window = new GameWindow();
+        //    GameForm window = new GameForm();
         //    HexagonButton hex = new HexagonButton(buttomX, buttomY, false);
-        //    Map map = new Map(window, rows, columns, ipathfinding);
+        //    MapTest map = new MapTest(window, rows, columns, ipathfinding);
         //}
 
         //[TestCase(0,0, 10, 10)]
         //[TestCase(1,1, 2, 2)]
         //[TestCase(10,10, 20, 20)]
-        //public void GameWindow_PlaceHexagonButton_RightPosition(int buttomX, int buttomY, int rows, int columns)
+        //public void GameForm_PlaceHexagonButton_RightPosition(int buttomX, int buttomY, int rows, int columns)
         //{
-        //    GameWindow window = new GameWindow();
+        //    GameForm window = new GameForm();
         //    HexagonButton hex = new HexagonButton(buttomX, buttomY, false);
-        //    Map map = new Map(window, rows, columns, ipathfinding);
+        //    MapTest map = new MapTest(window, rows, columns, ipathfinding);
         //}
 
         //[TestCase(2, 2)]
         //[TestCase(5, 4)]
         //[TestCase(5, 6)]
-        //public void Map_HexagonButtons_ClickEvent(int x, int y)
+        //public void MapTest_HexagonButtons_ClickEvent(int x, int y)
         //{
-        //    GameWindow tester = new GameWindow();
+        //    GameForm tester = new GameForm();
 
-        //    Map map = new Map(tester, 10, 10, a);
+        //    MapTest map = new MapTest(tester, 10, 10, a);
 
-        //    Map.hexMap[x, y].HexClicked(null, System.Windows.Forms.MouseEventArgs);
+        //    MapTest.hexMap[x, y].HexClicked(null, System.Windows.Forms.MouseEventArgs);
 
-        //    Assert.AreEqual(false, Map.hexMap[x, y].Passable);
+        //    Assert.AreEqual(false, MapTest.hexMap[x, y].Passable);
         //}
         #endregion
     }

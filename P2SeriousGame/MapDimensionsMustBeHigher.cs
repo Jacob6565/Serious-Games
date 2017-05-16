@@ -4,13 +4,12 @@ using System.Runtime.Serialization;
 namespace P2SeriousGame
 {
     [Serializable]
-    internal class MapDimensionsMustBeHigher : Exception
+    public class MapDimensionsMustBeHigher : Exception
     {
-        public MapDimensionsMustBeHigher()
-        {
-        }
+        private string v;
+        private int value;
 
-        public MapDimensionsMustBeHigher(int dimension, string message) : base(message)
+        public MapDimensionsMustBeHigher()
         {
         }
 
@@ -22,10 +21,14 @@ namespace P2SeriousGame
         {
         }
 
+        public MapDimensionsMustBeHigher(int value, string v)
+        {
+            this.value = value;
+            this.v = v;
+        }
+
         protected MapDimensionsMustBeHigher(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
-
-        public int Dimension { get; set; }
     }
 }

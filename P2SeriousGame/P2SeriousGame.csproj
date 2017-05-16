@@ -111,6 +111,7 @@
     <Compile Include="MainMenu.Designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="MapDimensionsMustBeHigher.cs" />
     <Compile Include="MapTest.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapDimensionsMustBeOdd.cs" />

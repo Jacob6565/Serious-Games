@@ -1,11 +1,6 @@
 ﻿using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using P2SeriousGame;
-using System.Windows.Forms;
 
 namespace UnitTests
 {
@@ -27,16 +22,15 @@ namespace UnitTests
         [TestCase(25, 25)]
         public void CalculateRoutes_HexMapWithEdges_FindLongestRoutes(int x, int y)
         {
-
             List<HexagonButton> queue = new List<HexagonButton>();
             List<HexagonButton> pathsToEdge = new List<HexagonButton>();
             List<HexagonButton> reachableHexList = new List<HexagonButton>();
             List<HexagonButton> edgeTiles = new List<HexagonButton>();
-            GameWindow window = new GameWindow();
+            GameForm window = new GameForm();
             IPathfinding pathfindning = new Pathfinding();
-            Map map = new Map(window, x, y, pathfindning);
+            MapTest map = new MapTest(window, x, y, pathfindning);
             BreadthFirst bfs = new BreadthFirst(queue, pathsToEdge, reachableHexList);
-            foreach (var hexagonButton in Map.hexMap)
+            foreach (var hexagonButton in MapTest.hexMap)
             {
                 if (hexagonButton.IsEdgeTile == true)
                 {
@@ -46,16 +40,14 @@ namespace UnitTests
             }
 
             int addValue = (x / 4) - 1;
-
-            int fromMiddleToTileNextToEdge;// = (x / 2) + 1;
-            bfs.CalculateRoutes(Map.hexMap, Map.hexMap[x / 2, y / 2]);
-            fromMiddleToTileNextToEdge = (x / 2) + addValue;
+            int fromMiddleToTileNextToEdge = (x / 2) + addValue;
+            bfs.CalculateRoutes(MapTest.hexMap, MapTest.hexMap[x / 2, y / 2]);
 
             Assert.AreNotEqual(edgeTiles, bfs.FindTheRoutes());
             Assert.AreEqual(fromMiddleToTileNextToEdge, bfs.FindLongestRoutes()[0].CostToStart);
             Assert.IsTrue((bfs.CheckParent(bfs.FindTheRoutes()[0]) < x) || (bfs.CheckParent(bfs.FindTheRoutes()[0]) < y));
-
         }
+
         [TestCase(5, 5)]
         [TestCase(7, 7)]
         [TestCase(9, 9)]
@@ -67,13 +59,13 @@ namespace UnitTests
             List<HexagonButton> queue = new List<HexagonButton>();
             List<HexagonButton> pathsToEdge = new List<HexagonButton>();
             List<HexagonButton> reachableHexList = new List<HexagonButton>();
-            GameWindow window = new GameWindow();
+            GameForm window = new GameForm();
             IPathfinding pathfindning = new Pathfinding();
-            Map map = new Map(window, x, y, pathfindning);
-            HexagonButton[,] notStaticHexMap = Map.hexMap;
+            MapTest map = new MapTest(window, x, y, pathfindning);
+            HexagonButton[,] notStaticHexMap = MapTest.hexMap;
             BreadthFirst bfs = new BreadthFirst(queue, pathsToEdge, reachableHexList);
 
-            bfs.CalculateRoutes(Map.hexMap, Map.hexMap[x / 2, y / 2]);
+            bfs.CalculateRoutes(MapTest.hexMap, MapTest.hexMap[x / 2, y / 2]);
            
             CheckIfEachRouteHasTheLowestAndTheSameCost(x, bfs.FindShortestRoutes());
             CheckIfEachEndEdgeTileIsFoundFromStartPoint(x, bfs);
@@ -124,7 +116,7 @@ namespace UnitTests
 
            
         //    //IPathfinding pathfinding = new Pathfinding();
-        //    //GameWindow window = new GameWindow();
+        //    //GameForm window = new GameForm();
         //    //MouseButtons a = new MouseButtons();
         //    //MouseEventArgs b = new MouseEventArgs(a, 0, 10, 10, 0);
         //    //HexagonButton onlyForParameter = Map.hexMap[x / 2, y / 2];
@@ -188,7 +180,7 @@ namespace UnitTests
         //    List<HexagonButton> pathsToEdge = new List<HexagonButton>();
         //    List<HexagonButton> reachableHexList = new List<HexagonButton>();
         //    IPathfinding pathfinding = new Pathfinding();
-        //    GameWindow window = new GameWindow();
+        //    GameForm window = new GameForm();
         //    MouseButtons a = new MouseButtons();
         //    MouseEventArgs b = new MouseEventArgs(a, 0, 10, 10, 0);
         //    Map map = new Map(window, x, y, pathfinding);
