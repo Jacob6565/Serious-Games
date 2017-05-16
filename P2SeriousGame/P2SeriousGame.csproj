@@ -82,6 +82,7 @@
       <DependentUpon>AdministratorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Database.cs" />
+    <Compile Include="EndOfMapException.cs" />
     <Compile Include="Formatting.cs">
       <Generator>ResXFileCodeGenerator</Generator>
     </Compile>

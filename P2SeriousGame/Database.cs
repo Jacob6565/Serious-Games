@@ -62,11 +62,15 @@ namespace P2SeriousGame
             AddToTotal();
             RoundVariables();
 
-            Persons person = new Persons(testFirstName, testLastName);
-            personList.Add(person);
+            if (GameForm.hexClickedRound != 0)
+            {
+                Persons person = new Persons(testFirstName, testLastName);
+                personList.Add(person);
 
-            Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
-            roundList.Add(round);
+                Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
+                roundList.Add(round);
+            }
+
 
             // Adds the data from the lists to the database
             AddPersonToDatabase();

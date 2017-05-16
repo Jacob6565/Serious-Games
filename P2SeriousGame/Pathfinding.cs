@@ -105,7 +105,6 @@ namespace P2SeriousGame
             {
                 throw new EndOfMapException("Mouse reached end of map");
             }
-            
         }
 
         //Reachable hexes that are not edges of the map. Used for finding the longest route when mouse is trapped
