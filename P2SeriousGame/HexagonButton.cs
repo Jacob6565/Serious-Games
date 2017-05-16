@@ -36,7 +36,19 @@ namespace P2SeriousGame
         public bool Passable
         {
             get { return _passable; }
-            set { _passable = value; }
+            set
+            {
+                if (value == true)
+                {
+                    BackColor = System.Drawing.Color.LightGray;
+                    _passable = value;
+                }
+                else
+                {
+                    BackColor = System.Drawing.Color.Red;
+                    _passable = value;
+                }
+            }
         }
 
         private int _xCoordinate;

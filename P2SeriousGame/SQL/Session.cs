@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace P2SeriousGame.SQL
+namespace P2SeriosuGame.SQL
 {
     using System;
     using System.Collections.Generic;

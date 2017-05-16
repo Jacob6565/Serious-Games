@@ -17,12 +17,12 @@ namespace P2SeriousGame
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            GameForm FirstLevelHandler = new GameForm();
+            //GameWindow FirstLevelHandler = new GameWindow();
             //IPathfinding path = new Pathfinding();           
-            Form mainMenu = new MainMenu();
+            Form mainMenu = new MainMenu(15);
             //Map FirstLevel = new Map(mainMenu, 11, 11, path);
             Application.Run(mainMenu);
-			Console.ReadLine();
+
 
             //Graph FirstLevelHandler = new Graph();
             //Application.Run(FirstLevelHandler);

@@ -13,12 +13,13 @@ namespace P2SeriousGame
 {
     public partial class AdministratorForm : Form, IStatistic
     {
-        Formatting formatting = new Formatting();
+        Formatting formatting;
         Panel administratorPanel = new Panel();
 		GraphPanel[] graphList = new GraphPanel[4];
 
         public AdministratorForm()
         {
+            formatting = new Formatting(this);
 			InitializeComponent();
 			InitializePanels();
 			FormBorderStyle = FormBorderStyle.None;
@@ -57,40 +58,10 @@ namespace P2SeriousGame
 		private void CloseMenuButton()
         {
             Button btnCloseGame = new Button();
-            btnCloseGame.Size = new Size(300, 100);
-            btnCloseGame.TabStop = false;
-            btnCloseGame.FlatStyle = FlatStyle.Flat;
-            btnCloseGame.FlatAppearance.BorderSize = 0;
-            btnCloseGame.BackColor = Color.Azure;
-            btnCloseGame.Text = "Return to menu";
-            btnCloseGame.TextAlign = ContentAlignment.MiddleCenter;
-            btnCloseGame.Location = new Point(administratorPanel.Right / 2 - btnCloseGame.Width / 2, administratorPanel.Top + 60);
+            formatting.BtnLeftFormat(btnCloseGame, "Return to menu", Color.GhostWhite);
             btnCloseGame.MouseClick += ReturnToMainMenu;
-            administratorPanel.Controls.Add(btnCloseGame);
+            panel.Controls.Add(btnCloseGame);
         }
-
-		private void AddSearchSession()
-		{
-			int screenMidPoint = administratorPanel.Width / 2;
-
-			NumericUpDown sessionInput = new NumericUpDown();
-			sessionInput.AutoSize = false;
-			sessionInput.Size = new Size(150, 100);
-			sessionInput.Location = new Point(screenMidPoint - (250 / 2), Bounds.Top + 20);
-			administratorPanel.Controls.Add(sessionInput);
-
-			Button btnCloseGame = new Button();
-			btnCloseGame.Size = new Size(75, 30);
-			btnCloseGame.TabStop = false;
-			btnCloseGame.FlatStyle = FlatStyle.Flat;
-			btnCloseGame.FlatAppearance.BorderSize = 0;
-			btnCloseGame.BackColor = Color.Azure;
-			btnCloseGame.Text = "Search";
-			btnCloseGame.TextAlign = ContentAlignment.MiddleCenter;
-			btnCloseGame.Location = new Point(screenMidPoint + 75 / 2, this.Bounds.Top + 15);
-			btnCloseGame.MouseClick += ReturnToMainMenu;
-			administratorPanel.Controls.Add(btnCloseGame);
-		}
 
 
         private void ReturnToMainMenu(object sender, MouseEventArgs e)

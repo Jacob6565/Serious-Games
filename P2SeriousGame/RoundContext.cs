@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace P2SeriousGame
+namespace P2SeriosuGame
 {
     class RoundContext : DbContext
     {
