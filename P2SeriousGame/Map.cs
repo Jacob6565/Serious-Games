@@ -21,13 +21,17 @@ namespace P2SeriousGame
             }
             set
             {
-                if (value % 2 == 1)
+                if (value % 2 == 1 && value >= 5)
                 {
                     _totalHexagonRows = value;
                 }
-                else
+                else if (value % 2 == 0)
                 {
                     throw new MapDimensionsMustBeOdd(value, "Value must be odd");
+                }
+                else
+                {
+                    throw new MapDimensionsMustBeHigher(value, "Value must be less five");
                 }
             }
         }
@@ -41,13 +45,17 @@ namespace P2SeriousGame
             }
             private set
             {
-                if (value % 2 == 1)
+                if (value % 2 == 1 && value >= 5)
                 {
-                    _totalHexagonColumns = value;
+                    _totalHexagonRows = value;
+                }
+                else if (value % 2 == 0)
+                {
+                    throw new MapDimensionsMustBeOdd(value, "Value must be odd");
                 }
                 else
                 {
-                    throw new MapDimensionsMustBeOdd(value, "Value must be odd");
+                    throw new MapDimensionsMustBeHigher(value, "Value must be less five");
                 }
             }
         }
