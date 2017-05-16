@@ -42,7 +42,7 @@ namespace P2SeriousGame
             this.Controls.Add(menuPanel);
             menuPanel.Width = formatting.ScreenWidth;
             menuPanel.Height = formatting.ScreenHeight;
-            menuPanel.BackColor = Color.BlanchedAlmond;
+            menuPanel.BackColor = Color.LightSteelBlue;
             menuPanel.FlowDirection = FlowDirection.TopDown;
             menuPanel.Padding = new Padding(Size.Width / 2 - 150, 25, Size.Width / 2 + 150, 25);
             StartGameButton(menuPanel);
@@ -53,7 +53,7 @@ namespace P2SeriousGame
         private void StartGameButton(Panel panel)
         {
             Button btnStartGame = new Button();
-            formatting.BtnCenterFormat(btnStartGame, "Start Game", Color.LightGray);
+            formatting.BtnCenterFormat(btnStartGame, "Start Game", Color.GhostWhite);
             btnStartGame.MouseClick += SwitchToGame;
             panel.Controls.Add(btnStartGame);
         }
@@ -61,7 +61,7 @@ namespace P2SeriousGame
         private void StartAdministratorMenuButton(Panel panel)
         {
             Button btnStartAdministrator = new Button();
-            formatting.BtnCenterFormat(btnStartAdministrator, "Administrator", Color.LightGray);
+            formatting.BtnCenterFormat(btnStartAdministrator, "Administrator", Color.GhostWhite);
             btnStartAdministrator.MouseClick += SwitchToAdministration;
             panel.Controls.Add(btnStartAdministrator);
         }
@@ -69,7 +69,7 @@ namespace P2SeriousGame
         private void CloseMenuButton(Panel panel)
         {
             Button btnCloseGame = new Button();
-            formatting.BtnCenterFormat(btnCloseGame, "Exit Game", Color.LightGray);
+            formatting.BtnCenterFormat(btnCloseGame, "Exit Game", Color.GhostWhite);
             btnCloseGame.Location = new Point(this.Bounds.Right / 2 - btnCloseGame.Width / 2, this.Bounds.Top + 60);
             btnCloseGame.MouseClick += ExitButtonClick;
             panel.Controls.Add(btnCloseGame);
@@ -85,8 +85,10 @@ namespace P2SeriousGame
 
         private void SwitchToAdministration(object sender, MouseEventArgs e)
         {
-            Form gameWindow = new AdministratorForm();
-            gameWindow.Show();
+            Hide();
+            Form administatorWindow = new AdministratorForm();
+            administatorWindow.ShowDialog();
+            Show();
         }
 
         public void ExitButtonClick(object sender, MouseEventArgs e)

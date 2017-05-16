@@ -71,5 +71,18 @@ namespace P2SeriousGame
             btn.TextAlign = ContentAlignment.MiddleCenter;
             BtnCount++;
         }
+
+        public void BtnLeftFormat(Button btn, string BtnText, Color color)
+        {
+            btn.Size = new Size(200, 75);
+            btn.TabStop = false;
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.FlatAppearance.BorderSize = 0;
+            btn.BackColor = color;
+            btn.Location = new Point(SmallBtnSpacing, this.Bounds.Top + BtnCount * SmallBtnSpacing);
+            btn.Text = BtnText;
+            btn.TextAlign = ContentAlignment.MiddleCenter;
+            BtnCount++;
+        }
     }
 }

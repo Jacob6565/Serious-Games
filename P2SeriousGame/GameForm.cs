@@ -130,7 +130,7 @@ namespace P2SeriousGame
         public void HexClickedColor(object sender, MouseEventArgs e)
         {
             HexagonButton sender_Button = sender as HexagonButton;
-            sender_Button.BackColor = Color.FromArgb(255, 105, 180);
+            //sender_Button.BackColor = Color.FromArgb(255, 105, 180);
             _hexClickedRound += 1;
         }
 
@@ -232,8 +232,7 @@ namespace P2SeriousGame
             {
                 hex.Visited = false;
                 hex.Passable = true;
-                hex.Enabled = true;
-                hex.BackColor = System.Drawing.Color.LightGray;
+                hex.Enabled = true;                
                 PlaceHexagonButton(hex);
             }
             MapTest.ResetMouse();

@@ -39,14 +39,7 @@ namespace P2SeriousGame
         private void CloseMenuButton(Panel panel)
         {
             Button btnCloseGame = new Button();
-            btnCloseGame.Size = new Size(300, 100);
-            btnCloseGame.TabStop = false;
-            btnCloseGame.FlatStyle = FlatStyle.Flat;
-            btnCloseGame.FlatAppearance.BorderSize = 0;
-            btnCloseGame.BackColor = Color.Azure;
-            btnCloseGame.Text = "Return to menu";
-            btnCloseGame.TextAlign = ContentAlignment.MiddleCenter;
-            btnCloseGame.Location = new Point(this.Bounds.Right / 2 - btnCloseGame.Width / 2, this.Bounds.Top + 60);
+            formatting.BtnLeftFormat(btnCloseGame, "Return to menu", Color.GhostWhite);
             btnCloseGame.MouseClick += ReturnToMainMenu;
             panel.Controls.Add(btnCloseGame);
         }
