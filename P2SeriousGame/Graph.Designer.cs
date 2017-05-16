@@ -68,6 +68,7 @@
 			this.Controls.Add(this.chart1);
 			this.Name = "Graph";
 			this.Text = "Graph";
+			this.Load += new System.EventHandler(this.Graph_Load);
 			((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
 			this.ResumeLayout(false);
 

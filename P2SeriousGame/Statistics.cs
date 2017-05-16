@@ -8,9 +8,9 @@ namespace P2SeriousGame
 {
     public class Statistics
     {
-        IFetchData fetch;        
+        IDatabase fetch;        
         private int SessionID { get; set; }
-        public Statistics(IFetchData fetch, Session session)
+        public Statistics(IDatabase fetch, Session session)
         {
             this.SessionID = session.SessionID;
             this.fetch = fetch;

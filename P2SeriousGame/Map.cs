@@ -15,13 +15,49 @@ namespace P2SeriousGame
         private static int _totalHexagonRows = 0;
         public static int TotalHexagonRows
         {
-            get { return _totalHexagonRows; }
+            get
+            {
+                return _totalHexagonRows;
+            }
+            set
+            {
+                if (value % 2 == 1 && value >= 5)
+                {
+                    _totalHexagonRows = value;
+                }
+                else if (value % 2 == 0)
+                {
+                    throw new MapDimensionsMustBeOdd(value, "Value must be odd");
+                }
+                else
+                {
+                    throw new MapDimensionsMustBeHigher(value, "Value must be less five");
+                }
+            }
         }
 
         private static int _totalHexagonColumns = 0;
         public static int TotalHexagonColumns
         {
-            get { return _totalHexagonColumns; }
+            get
+            {
+                return _totalHexagonColumns;
+            }
+            private set
+            {
+                if (value % 2 == 1 && value >= 5)
+                {
+                    _totalHexagonRows = value;
+                }
+                else if (value % 2 == 0)
+                {
+                    throw new MapDimensionsMustBeOdd(value, "Value must be odd");
+                }
+                else
+                {
+                    throw new MapDimensionsMustBeHigher(value, "Value must be less five");
+                }
+            }
         }
 
         private HexagonButton _firstButtonInPath;
@@ -59,8 +95,15 @@ namespace P2SeriousGame
         /// <param name="ySize"></param>
         public Map(GameWindow game, int xSize, int ySize, IPathfinding path)
         {
-            _totalHexagonRows = ySize;
-            _totalHexagonColumns = xSize;
+            try
+            {
+                TotalHexagonRows = ySize;
+                TotalHexagonColumns = xSize;
+            }
+            catch (MapDimensionsMustBeOdd odd)
+            {
+                //Man kunne eventuelt lave en klasse som står for at printe ting.
+            }
             this.path = path;
             hexMap = new HexagonButton[TotalHexagonColumns, TotalHexagonRows];
             CreateMap(game);     

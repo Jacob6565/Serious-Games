@@ -11,6 +11,7 @@ namespace P2SeriousGame
         public double ClicksPerMinute { get; set; }
         public int NumberOfClicks { get; set; }
         public bool IsWin { get; set; }
+		public int RoundID { get; set; }
 
         private DateTime[] timeBetweenClicks = new DateTime[50];
         public DateTime[] TimeBetweenClicks
