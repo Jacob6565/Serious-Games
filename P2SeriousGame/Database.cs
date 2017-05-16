@@ -8,10 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using P2SeriosuGame.SQL;
+using P2SeriousGame.SQL;
 using P2SeriousGame;
 
-namespace P2SeriosuGame
+namespace P2SeriousGame
 {
     class Database
     {
@@ -33,7 +33,7 @@ namespace P2SeriosuGame
 
         public void SendToDatabase()
         {
-            var elapsedSec = watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
+            //var elapsedSec = watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
             float secondsRound = unchecked(elapsedSec);
 
             _secondsTotal += secondsRound;
@@ -47,21 +47,21 @@ namespace P2SeriosuGame
 
         public void RoundDataCollector(object sender, MouseEventArgs e)
         {
-            watchRound.Stop(); // Stops the time for the round
-            elapsedSec = watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
-            _secondsRound = unchecked(elapsedSec);
+            ////watchRound.Stop(); // Stops the time for the round
+            //elapsedSec = watchRound.ElapsedMilliseconds / 1000; // Converts the time to seconds
+            //_secondsRound = unchecked(elapsedSec);
 
-            _secondsTotal += _secondsRound;
-            _clickedTotal += _hexClickedRound;
+            //_secondsTotal += _secondsRound;
+            //_clickedTotal += _hexClickedRound;
 
-            _totalLoss += 1;
+            //_totalLoss += 1;
 
-            WinMethod();
+            //WinMethod();
 
-            AddPersonToDatabase();
-            AddRoundsToDatabase();
+            //AddPersonToDatabase();
+            //AddRoundsToDatabase();
 
-            ResetCounter();
+            //ResetCounter();
         }
 
         private float AverageClick(float hexClicked, float seconds)
@@ -121,7 +121,7 @@ namespace P2SeriosuGame
                     Time_Used = _secondsRound
                 });
 
-                context.SaveChanges();
+                //context.SaveChanges();
             }
         }
 
@@ -139,7 +139,7 @@ namespace P2SeriosuGame
                     Time_Used = _secondsTotal
                 });
 
-                context.SaveChanges();
+                //context.SaveChanges();
             }
         }
 

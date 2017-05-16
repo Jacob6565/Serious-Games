@@ -8,6 +8,7 @@ namespace P2SeriousGame
 {
 	interface IStatistic
 	{
-
+		void CreateStackChart(string chartName, int chartHeight, int chartWidth);
+		
 	}
 }

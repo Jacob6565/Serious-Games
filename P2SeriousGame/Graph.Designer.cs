@@ -1,4 +1,4 @@
-﻿namespace P2SeriosuGame
+﻿namespace P2SeriousGame
 {
 	partial class Graph
 	{
@@ -56,7 +56,7 @@
 			series2.Name = "Series2";
 			this.chart1.Series.Add(series1);
 			this.chart1.Series.Add(series2);
-			this.chart1.Size = new System.Drawing.Size(300, 300);
+			this.chart1.Size = new System.Drawing.Size(303, 308);
 			this.chart1.TabIndex = 0;
 			this.chart1.Text = "chart1";
 			// 

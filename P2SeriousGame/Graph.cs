@@ -1,5 +1,4 @@
-﻿using P2SeriousGame;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace P2SeriosuGame
+namespace P2SeriousGame
 {
 	public partial class Graph : Form
 	{
@@ -35,6 +34,7 @@ namespace P2SeriosuGame
 
 			chart1.Series["Series1"].ChartType = SeriesChartType.FastLine;
 			chart1.Series["Series1"].Color = Color.Red;
+			chart1.Size = new Size(500, 500);
 		}
 
 		public void AddGraphData(Chart chart, string seriesName, List<Round> dataset)
