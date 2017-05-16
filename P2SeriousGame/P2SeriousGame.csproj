@@ -63,6 +63,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -81,6 +82,7 @@
       <DependentUpon>AdministratorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Database.cs" />
+    <Compile Include="EndOfMapException.cs" />
     <Compile Include="Formatting.cs">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Form</SubType>
@@ -91,19 +93,18 @@
     <Compile Include="GameForm.Designer.cs">
       <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameWindow.cs">
-      <SubType>Form</SubType>
+    <Compile Include="GraphPanel.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GameWindow.Designer.cs">
-      <DependentUpon>GameWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GameWindow.Menu.cs">
-      <SubType>Form</SubType>
+    <Compile Include="GraphPanel.Designer.cs">
+      <DependentUpon>GraphPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="HexagonButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="IDatabase.cs" />
     <Compile Include="IPathFinding.cs" />
+    <Compile Include="IStatistic.cs" />
     <Compile Include="MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,12 +113,14 @@
     </Compile>
     <Compile Include="MapTest.cs" />
     <Compile Include="Map.cs" />
+    <Compile Include="MapDimensionsMustBeOdd.cs" />
     <Compile Include="Pathfinding.cs" />
     <Compile Include="Math.cs" />
+    <Compile Include="Persons.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Round.cs" />
-    <Compile Include="Session.cs" />
+    <Compile Include="Sessions.cs" />
     <Compile Include="SQL\Entities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -133,17 +136,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Entities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="SQL\ForeignKeys.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="SQL\Person.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="SQL\Rounds.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
-    <Compile Include="SQL\TestParameters.cs">
+    <Compile Include="SQL\Session.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="GameWindow.resx">
-      <DependentUpon>GameWindow.cs</DependentUpon>
+    <EmbeddedResource Include="AdministratorForm.resx">
+      <DependentUpon>AdministratorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GraphPanel.resx">
+      <DependentUpon>GraphPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -191,8 +200,8 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Content Include="SQL\ClearAllQuery.sql" />
     <Content Include="SQL\Entities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Entities.edmx</DependentUpon>
