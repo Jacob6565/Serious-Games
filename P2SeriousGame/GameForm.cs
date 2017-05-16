@@ -26,7 +26,7 @@ namespace P2SeriousGame
             InitializeComponent();
             SQL.StartStopwatch();
             InitializePanels();
-            FirstLevel = new MapTest(this, 11, 11, path);
+            FirstLevel = new MapTest(this, 11, path);
         }
 
         private void InitializePanels()
@@ -134,7 +134,7 @@ namespace P2SeriousGame
         {
             HexagonButton sender_Button = sender as HexagonButton;
             //sender_Button.BackColor = Color.FromArgb(255, 105, 180);
-            _hexClickedRound += 1;
+            hexClickedRound += 1;
         }
 
         /// <summary>
@@ -177,8 +177,7 @@ namespace P2SeriousGame
         private void AddResetButton(Panel panel)
         {
             Button ResetButton = new Button();
-            formatting.BtnRightFormat(ResetButton, "Reset Game", Color.Red);
-            ResetButton.MouseClick += SQL.RoundDataCollector;
+            formatting.BtnRightFormat(ResetButton, "Reset Game", Color.Red);           
             ResetButton.MouseClick += ResetButtonClick;            
             panel.Controls.Add(ResetButton);
         }
