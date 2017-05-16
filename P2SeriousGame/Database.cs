@@ -34,7 +34,6 @@ namespace P2SeriousGame
         {
             ConvertSeconds();
             AddToTotal();
-
             RoundVariables();
 
             _totalLoss += 1;
@@ -43,19 +42,24 @@ namespace P2SeriousGame
             personList.Add(person);
 
             Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
+            Console.WriteLine(roundAverage);
             roundList.Add(round);
 
-            GameForm.hexClickedRound = 0; // Resets the amount of hex clicked
-            stopwatchRound.Restart(); // Starts the stopwatch from 0
-            ResetCounter(); // Increments the reset counter
+            // Resets the amount of hex clicked
+            GameForm.hexClickedRound = 0;
+            // Starts the stopwatch from 0
+            stopwatchRound.Restart();
+            // Increments the reset counter
+            ResetCounter();
         }
 
         public void ExitGameToDatabase()
         {
+            // Stops the stopwatch
             stopwatchRound.Stop();
+
             ConvertSeconds();
             AddToTotal();
-
             RoundVariables();
 
             Persons person = new Persons(testFirstName, testLastName);
@@ -64,11 +68,7 @@ namespace P2SeriousGame
             Round round = new Round(GameForm.hexClickedRound, roundAverage, roundResult, _secondsRound);
             roundList.Add(round);
 
-            foreach(var item in roundList)
-            {
-                Console.WriteLine(item);
-            }
-
+            // Adds the data from the lists to the database
             AddPersonToDatabase();
             AddRoundsToDatabase();
             AddSessionToDatabase();
@@ -82,8 +82,17 @@ namespace P2SeriousGame
 
         public void AddToTotal()
         {
-            _secondsTotal += _secondsRound; // float
+            _secondsTotal += _secondsRound;
             _clickedTotal += GameForm.hexClickedRound;
+        }
+
+        public int roundResult;
+        public float roundAverage;
+
+        public void RoundVariables()
+        {
+            roundResult = WinOrLose();
+            roundAverage = float.Parse(AverageClick(GameForm.hexClickedRound, _secondsRound).ToString("0.000"));
         }
 
         // Unique to WinOrLose
@@ -104,15 +113,6 @@ namespace P2SeriousGame
                 _roundWin = 0;
                 return 0;
             }
-        }
-
-        public int roundResult;
-        public float roundAverage;
-
-        public void RoundVariables()
-        {
-            roundResult = WinOrLose();
-            roundAverage = AverageClick(GameForm.hexClickedRound, _secondsRound);
         }
 
         public void AddPersonToDatabase()
