@@ -7,18 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace P2SeriosuGame.SQL
+namespace P2SeriousGame.SQL
 {
     using System;
     using System.Collections.Generic;
     
     public partial class Rounds
     {
-        public int IdRounds { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Rounds()
+        {
+            this.ForeignKeys = new HashSet<ForeignKeys>();
+        }
+    
+        public int Id { get; set; }
         public Nullable<double> Clicks { get; set; }
         public Nullable<double> AVG_Clicks { get; set; }
         public Nullable<int> Win { get; set; }
         public Nullable<int> Loss { get; set; }
         public Nullable<double> Time_Used { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ForeignKeys> ForeignKeys { get; set; }
     }
 }

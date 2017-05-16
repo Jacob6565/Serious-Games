@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace P2SeriosuGame.SQL
+namespace P2SeriousGame.SQL
 {
     using System;
     using System.Data.Entity;
@@ -25,8 +25,9 @@ namespace P2SeriosuGame.SQL
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<ForeignKeys> ForeignKeys { get; set; }
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<Rounds> Rounds { get; set; }
-        public virtual DbSet<TestParameters> TestParameters { get; set; }
+        public virtual DbSet<Session> Session { get; set; }
     }
 }

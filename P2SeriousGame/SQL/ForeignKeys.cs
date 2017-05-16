@@ -7,19 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace P2SeriosuGame.SQL
+namespace P2SeriousGame.SQL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class TestParameters
+    public partial class ForeignKeys
     {
-        public int IdTestParameters { get; set; }
-        public Nullable<double> Clicks { get; set; }
-        public Nullable<double> AVG_Clicks { get; set; }
-        public Nullable<int> Rounds { get; set; }
-        public Nullable<int> Wins { get; set; }
-        public Nullable<int> Losses { get; set; }
-        public Nullable<double> Time_Used { get; set; }
+        public int Id { get; set; }
+        public int PersonId { get; set; }
+        public int SessionId { get; set; }
+        public int RoundsId { get; set; }
+    
+        public virtual Person Person { get; set; }
+        public virtual Rounds Rounds { get; set; }
+        public virtual Session Session { get; set; }
     }
 }

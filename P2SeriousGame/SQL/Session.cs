@@ -12,17 +12,21 @@ namespace P2SeriousGame.SQL
     using System;
     using System.Collections.Generic;
     
-    public partial class Person
+    public partial class Session
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Person()
+        public Session()
         {
             this.ForeignKeys = new HashSet<ForeignKeys>();
         }
     
         public int Id { get; set; }
-        public string First_Name { get; set; }
-        public string Last_Name { get; set; }
+        public Nullable<double> Clicks { get; set; }
+        public Nullable<double> AVG_Clicks { get; set; }
+        public Nullable<int> Rounds { get; set; }
+        public Nullable<int> Wins { get; set; }
+        public Nullable<int> Losses { get; set; }
+        public Nullable<double> Time_Used { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ForeignKeys> ForeignKeys { get; set; }

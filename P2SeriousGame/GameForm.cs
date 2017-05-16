@@ -2,32 +2,30 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using P2SeriosuGame.SQL;
-using P2SeriosuGame;
 
 namespace P2SeriousGame
 {
-    public partial class GameWindow : Form
+    public partial class GameForm : Form
     {
-
+        Panel gamePanel = new Panel();
         Database SQL = new Database();
+        MapTest FirstLevel;
+        IPathfinding path = new Pathfinding();
 
-
-        public GameWindow()
+        public GameForm()
         {
             InitializeComponent();
-
+            InitializePanels();
+            FirstLevel = new MapTest(this, 11, 11, path);
+            SQL.StartStopwatch();
         }
 
-        FlowLayoutPanel menuPanel = new FlowLayoutPanel();
-        Panel gamePanel = new Panel();
-
+        #region formatting
         private int ButtonWidth;
         private int ButtonHeight;
         private int ButtonHeightOffset => (3 * (ButtonHeight / 4));
@@ -46,11 +44,25 @@ namespace P2SeriousGame
         private double _gameScreenHeight = Screen.PrimaryScreen.Bounds.Height * (1 - (_topHeightReserved + _bottomHeightReserved));
 
         //Centers the hexagonmap starting placement, if the hexagonmap doesnt fill out the entire gamescreen width
-        private double WidthCentering => (_gameScreenWidth - (ButtonWidth * Map.TotalHexagonColumns)) / 2;
+        private double WidthCentering => (_gameScreenWidth - (ButtonWidth * MapTest.TotalHexagonColumns)) / 2;
 
         //WidthStart and heightStart sets the starting place for the hexagonmap
-        private int WidthStart => (int) ((_leftWidthReserved * Screen.PrimaryScreen.Bounds.Width) + WidthCentering);
-        private int _heightStart = (int) (_topHeightReserved * Screen.PrimaryScreen.Bounds.Height);
+        private int WidthStart => (int)((_leftWidthReserved * Screen.PrimaryScreen.Bounds.Width) + WidthCentering);
+
+		
+
+		private int _heightStart = (int)(_topHeightReserved * Screen.PrimaryScreen.Bounds.Height);
+        #endregion
+
+        private void InitializePanels()
+        {
+            this.Controls.Add(gamePanel);
+            gamePanel.Width = ScreenWidth;
+            gamePanel.Height = ScreenHeight;
+            gamePanel.Visible = true;
+            AddExitButton(gamePanel);
+            AddResetButton(gamePanel);
+        }
 
         /// <summary>
         /// 
@@ -60,7 +72,7 @@ namespace P2SeriousGame
             CalculateButtonDimensionBasedOnScreenHeight();
 
             //Does the calculated width fit the screen width, if not then calculate height and width based on screen width
-            if ((ButtonWidth * Map.TotalHexagonColumns) > _gameScreenWidth)
+            if ((ButtonWidth * MapTest.TotalHexagonColumns) > _gameScreenWidth)
                 CalculateButtonDimensionBasedOnScreenWidth();
         }
 
@@ -70,11 +82,11 @@ namespace P2SeriousGame
         private void CalculateButtonDimensionBasedOnScreenHeight()
         {
             double rowHeight;
-            double hexagonRows = Map.TotalHexagonRows;
+            double hexagonRows = MapTest.TotalHexagonRows;
             const double evenRowsToHeight = 0.75;
 
             //The height to width ratio for a pointy top regulare hexagon
-            double heightToWidth = System.Math.Sqrt(3)/2;
+            double heightToWidth = System.Math.Sqrt(3) / 2;
 
             //These series of if-else calculates the height of one button, determined by the number of rows and the screen height
             if (hexagonRows == 1)
@@ -105,7 +117,7 @@ namespace P2SeriousGame
             double buttonWidthTemp;
 
             //We calculate the button width by dividing the screen width with number of columns + 0.5 (because we have an offset)
-            buttonWidthTemp = (int)(_gameScreenWidth/ (Map.TotalHexagonColumns + 0.5));
+            buttonWidthTemp = (int)(_gameScreenWidth / (MapTest.TotalHexagonColumns + 0.5));
 
             //We calculate the height by multiplying width to height ratio
             ButtonHeight = (int)(buttonWidthTemp * widthToHeight);
@@ -113,34 +125,40 @@ namespace P2SeriousGame
             //Now we do not need the buttonWidthTemp with precision, so we typecast the double to an int
             ButtonWidth = (int)buttonWidthTemp;
         }
-        
+
+        public void DrawWindow(object sender, EventArgs e)
+        {
+            FormBorderStyle = FormBorderStyle.None;
+            WindowState = FormWindowState.Maximized;
+        }
+
         /// <summary>
         /// Initialises and draws a hexagon button, 
         /// and adds a click event calculates a new route when an HexButton is clicked.
         /// </summary>
         /// <param name="button"></param>
         /// <param name="map"></param>
-        public void DrawButton(HexagonButton button, Map map)
+        public void DrawButton(HexagonButton button, MapTest map)
         {
             button.Size = new Size((int)(ConvertPointToPixel(ButtonHeight)), (int)(ConvertPointToPixel(ButtonWidth)));
             button.TabStop = false;
             button.FlatStyle = FlatStyle.Flat;
             button.FlatAppearance.BorderSize = 0;
-			button.BackColor = Color.LightGray;
+            button.BackColor = Color.LightGray;
             button.Paint += ButtonPainter;
             button.MouseClick += button.HexClicked;
             button.MouseClick += HexClickedColor;
-			button.MouseClick += map.MousePositioner;
+            button.MouseClick += map.MousePositioner;
             gamePanel.Controls.Add(button);
         }
 
-        private float _hexClickedRound;
+		public static float hexClickedRound;
 
         public void HexClickedColor(object sender, MouseEventArgs e)
         {
             HexagonButton sender_Button = sender as HexagonButton;
             sender_Button.BackColor = Color.FromArgb(255, 105, 180);
-            _hexClickedRound += 1;
+            hexClickedRound += 1;
         }
 
         /// <summary>
@@ -148,16 +166,16 @@ namespace P2SeriousGame
         /// </summary>
         /// <param name="button"></param>
         public void PlaceHexagonButton(HexagonButton button)
-        { 
+        {
             //For at farve midten før man har klikket på skærmen.
-            if(button.XCoordinate == Map.TotalHexagonColumns/2 && button.YCoordinate == Map.TotalHexagonRows/2)
+            if (button.XCoordinate == MapTest.TotalHexagonColumns / 2 && button.YCoordinate == MapTest.TotalHexagonRows / 2)
             {
                 button.BackColor = System.Drawing.Color.Aqua;
                 button.Enabled = false;
             }
-                                             
-			    button.Left = CalculateButtonWidthOffset(button.XCoordinate, button.YCoordinate);
-			    button.Top = CalculateButtonHeightOffset(button.YCoordinate);
+
+            button.Left = CalculateButtonWidthOffset(button.XCoordinate, button.YCoordinate);
+            button.Top = CalculateButtonHeightOffset(button.YCoordinate);
         }
 
         /// <summary>
@@ -180,6 +198,21 @@ namespace P2SeriousGame
             hexagonButton.Region = new System.Drawing.Region(buttonPath);
         }
 
+        private void AddResetButton(Panel panel)
+        {
+            Button ResetButton = new Button();
+            ResetButton.Size = new Size(100, 25);
+            ResetButton.TabStop = false;
+            ResetButton.FlatStyle = FlatStyle.Flat;
+            ResetButton.FlatAppearance.BorderSize = 0;
+            ResetButton.BackColor = Color.Red;
+            ResetButton.Location = new Point(this.Bounds.Right - ResetButton.Width - 20, this.Bounds.Top + 60);
+            ResetButton.MouseClick += ResetButtonClick;
+            ResetButton.Text = "Reset Game";
+            ResetButton.TextAlign = ContentAlignment.MiddleCenter;
+            panel.Controls.Add(ResetButton);
+        }
+
         private void AddExitButton(Panel panel)
         {
             Button ExitButton = new Button();
@@ -190,93 +223,10 @@ namespace P2SeriousGame
             ExitButton.BackColor = Color.LightGray;
             ExitButton.Location = new Point(this.Bounds.Right - ExitButton.Width - 20, this.Bounds.Top + 20);
             //ExitButton.MouseClick += ExitButtonClick;
-            ExitButton.MouseClick += SwitchVisiblePanel;
-            ExitButton.Text = "Close application";
+            ExitButton.MouseClick += ReturnToMainMenu;
+            ExitButton.Text = "Return to menu";
             ExitButton.TextAlign = ContentAlignment.MiddleCenter;
             panel.Controls.Add(ExitButton);
-        }
-
-        private void AddResetButton(Panel panel)
-        {
-            Button ResetButton = new Button();
-            ResetButton.Size = new Size(100, 25);
-            ResetButton.TabStop = false;
-            ResetButton.FlatStyle = FlatStyle.Flat;
-            ResetButton.FlatAppearance.BorderSize = 0;
-            ResetButton.BackColor = Color.Red;
-            ResetButton.Location = new Point(this.Bounds.Right - ResetButton.Width - 20, this.Bounds.Top + 60);
-            ResetButton.MouseClick += SQL.RoundDataCollector;
-            ResetButton.MouseClick += ResetButtonClick;
-            ResetButton.Text = "Reset Game";
-            ResetButton.TextAlign = ContentAlignment.MiddleCenter;
-            panel.Controls.Add(ResetButton);
-        }
-
-        public void DrawWindow(object sender, EventArgs e)
-        {
-            FormBorderStyle = FormBorderStyle.None;
-            WindowState = FormWindowState.Maximized;
-            InitializePanels();
-        }
-
-        private void InitializePanels()
-        {
-            this.Controls.Add(menuPanel);
-            this.Controls.Add(gamePanel);
-            gamePanel.Width = ScreenWidth;
-            gamePanel.Height = ScreenHeight;
-            menuPanel.Width = ScreenWidth;
-            menuPanel.Height = ScreenHeight;
-            menuPanel.BackColor = Color.BlanchedAlmond;
-            menuPanel.FlowDirection = FlowDirection.TopDown;
-            menuPanel.Padding = new Padding(Size.Width / 2 - 150, 25, Size.Width / 2 + 150, 25);
-            AddExitButton(gamePanel);
-            AddResetButton(gamePanel);
-            StartGameButton(menuPanel);
-            CloseMenuButton(menuPanel);
-        }
-
-        private void StartGameButton(Panel panel)
-        {
-            Button btnStartGame = new Button();
-            btnStartGame.Size = new Size(300, 100);
-            btnStartGame.TabStop = false;
-            btnStartGame.FlatStyle = FlatStyle.Flat;
-            btnStartGame.FlatAppearance.BorderSize = 0;
-            btnStartGame.BackColor = Color.Azure;
-            btnStartGame.Location = new Point(this.Bounds.Right / 2 - btnStartGame.Width / 2, this.Bounds.Top + 60);
-            btnStartGame.MouseClick += SwitchVisiblePanel;
-            btnStartGame.Text = "Start Game";
-            btnStartGame.TextAlign = ContentAlignment.MiddleCenter;
-            panel.Controls.Add(btnStartGame);
-        }
-
-        private void CloseMenuButton(Panel panel)
-        {
-            Button btnCloseGame = new Button();
-            btnCloseGame.Size = new Size(300, 100);
-            btnCloseGame.TabStop = false;
-            btnCloseGame.FlatStyle = FlatStyle.Flat;
-            btnCloseGame.FlatAppearance.BorderSize = 0;
-            btnCloseGame.BackColor = Color.Azure;
-            btnCloseGame.Text = "Exit Game";
-            btnCloseGame.TextAlign = ContentAlignment.MiddleCenter;
-            btnCloseGame.Location = new Point(this.Bounds.Right / 2 - btnCloseGame.Width / 2, this.Bounds.Top + 60);
-            btnCloseGame.MouseClick += ExitButtonClick;
-            panel.Controls.Add(btnCloseGame);
-        }
-
-        private void SwitchVisiblePanel(object sender, MouseEventArgs e)
-        {
-            if (menuPanel.Visible)
-            {
-                menuPanel.Visible = false;
-            }
-            else
-            {
-                menuPanel.Visible = true;
-
-            }
         }
 
         /// <summary>
@@ -285,41 +235,41 @@ namespace P2SeriousGame
         /// <param name="xCoordinate"></param>
         /// <param name="yCoordinate"></param>
         /// <returns></returns>
-		private int CalculateButtonWidthOffset(int xCoordinate, int yCoordinate)
-		{
-			int width = WidthStart;
-			width += (xCoordinate * ButtonWidth);			
-			//Gives every second button an offset to make the grid
-			if(yCoordinate % 2 == 1)
-			{
-				width += ButtonWidth / 2;
-			}
-			return width;
-		}
+        private int CalculateButtonWidthOffset(int xCoordinate, int yCoordinate)
+        {
+            int width = WidthStart;
+            width += (xCoordinate * ButtonWidth);
+            //Gives every second button an offset to make the grid
+            if (yCoordinate % 2 == 1)
+            {
+                width += ButtonWidth / 2;
+            }
+            return width;
+        }
 
         /// <summary>
         /// Converts a coordinate into a position in a hexgrid.
         /// </summary>
         /// <param name="yCoordinate"></param>
         /// <returns></returns>
-		private int CalculateButtonHeightOffset(int yCoordinate)
-		{
-			int height = _heightStart;
+        private int CalculateButtonHeightOffset(int yCoordinate)
+        {
+            int height = _heightStart;
 
-			height += (yCoordinate * ButtonHeightOffset);
+            height += (yCoordinate * ButtonHeightOffset);
 
-			return height;
-		}
+            return height;
+        }
 
         public void ExitButtonClick(object sender, MouseEventArgs e)
         {
-            SQL.SendToDatabase();
+            //SQL.ExitGameToDatabase();
             Close();
         }
 
         private void ResetButtonClick(object sender, MouseEventArgs e)
         {
-            foreach (HexagonButton hex in Map.hexMap)
+            foreach (HexagonButton hex in MapTest.hexMap)
             {
                 hex.Visited = false;
                 hex.Passable = true;
@@ -327,7 +277,8 @@ namespace P2SeriousGame
                 hex.BackColor = System.Drawing.Color.LightGray;
                 PlaceHexagonButton(hex);
             }
-            Map.ResetMouse();
+            MapTest.ResetMouse();
+            SQL.ResetGameToList();
         }
 
         //We assume that there is 72 points per inch and 96 pixels per inch
@@ -336,5 +287,11 @@ namespace P2SeriousGame
             return point * 96 / 72;
         }
 
+        private void ReturnToMainMenu(object sender, MouseEventArgs e)
+        {
+            SQL.ExitGameToDatabase();
+            Close();
+        }
     }
 }
+

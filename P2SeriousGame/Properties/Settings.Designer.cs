@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace P2SeriosuGame.Properties {
+namespace P2SeriousGame.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using P2SeriousGame;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,12 +15,17 @@ namespace P2SeriousGame
 		[STAThread]
         static void Main()
         {
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-			GameWindow FirstLevelHandler = new GameWindow();
-            IPathfinding path = new Pathfinding();
-			Map FirstLevel = new Map(FirstLevelHandler, 11, 11, path);
-			Application.Run(FirstLevelHandler);
-		}
-	}
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            GameForm FirstLevelHandler = new GameForm();
+            //IPathfinding path = new Pathfinding();           
+            Form mainMenu = new MainMenu();
+            //Map FirstLevel = new Map(mainMenu, 11, 11, path);
+            Application.Run(mainMenu);
+			Console.ReadLine();
+
+            //Graph FirstLevelHandler = new Graph();
+            //Application.Run(FirstLevelHandler);
+        }
+    }
 }

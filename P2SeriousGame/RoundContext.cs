@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace P2SeriousGame
 {
-    public class Session
+    class RoundContext : DbContext
     {
-        public int SessionID {get; set;}
-        public List<Round> Rounds = new List<Round>();       
-	}
+        public DbSet Rounds { get; set; }
+    }
 }

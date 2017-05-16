@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace P2SeriousGame
 {
-	public interface IDatabase
-	{
-		Sessions GetSessionData(int SessionID);
+    public class Sessions
+    {
+        public int SessionID {get; set;}
+        public List<Round> Rounds = new List<Round>();       
 	}
 }
