@@ -14,7 +14,6 @@ namespace P2SeriousGame
 
         SqlConnection connection = new SqlConnection();
 
-
         SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder()
         {
             DataSource = "p2-avengers.database.windows.net",
@@ -58,9 +57,7 @@ namespace P2SeriousGame
             }
         }
 
-
-
-        private void PopulateDataGrid()
+        private void PopulateDataGrid() // note to self - en listbox med selectedvalue sat til id bruges til foreign key ud fra det viser datagrid
         {
             string query = "SELECT * FROM Person";
 
