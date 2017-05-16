@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace P2SeriosuGame.Properties {
+namespace P2SeriousGame.Properties {
     using System;
     
     
