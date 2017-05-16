@@ -15,7 +15,7 @@ namespace P2SeriousGame
     {
         private FlowLayoutPanel menuPanel = new FlowLayoutPanel();
 
-        private Database SQL = new Database();
+        Database SQL = new Database();
 
         Formatting formatting = new Formatting();
 
@@ -100,7 +100,7 @@ namespace P2SeriousGame
         {
             Form gameWindow = new GameForm();
             gameWindow.Show();
-            SQL.StartStopwatch();
+            //SQL.StartStopwatch();
         }
 
         private void SwitchToMenu(object sender, MouseEventArgs e)
