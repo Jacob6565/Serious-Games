@@ -15,7 +15,7 @@ namespace P2SeriousGame
             
 
             
-            //con.ConnectionString = ConfigurationManager.ConnectionStrings["metadata = res://*/SQL.Entities.csdl|res://*/SQL.Entities.ssdl|res://*/SQL.Entities.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=p2-avengers.database.windows.net;initial catalog=p2-database;persist security info=True;user id=tuandrengen;password=Aouiaom17;MultipleActiveResultSets=True;App=EntityFramework&quot; providerName = System.Data.EntityClient"].ToString();
+            
 
             /*
             connectionString = ConfigurationManager.ConnectionStrings["Data Source=p2-avengers.database.windows.net;" +
