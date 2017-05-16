@@ -12,10 +12,11 @@ namespace P2SeriousGame
             InitializeComponent();
 
 
-            
 
             
             
+
+            //connectionString="metadata=res://*/SQL.Entities.csdl|res://*/SQL.Entities.ssdl|res://*/SQL.Entities.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=p2-avengers.database.windows.net;initial catalog=p2-database;persist security info=True;user id=tuandrengen;password=Aouiaom17;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient"
 
             /*
             connectionString = ConfigurationManager.ConnectionStrings["Data Source=p2-avengers.database.windows.net;" +
@@ -40,9 +41,19 @@ namespace P2SeriousGame
                 "Password=Aouiaom17;"].ConnectionString; */
         }
 
+
+        // SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
         SqlConnection con = new SqlConnection();
         SqlConnection connection = new SqlConnection();
         string connectionString;
+
+        SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder()
+        {
+            DataSource = "p2-avengers.database.windows.net",
+            UserID = "tuandrengen",
+            Password = "Aouiaom17",
+            InitialCatalog = "p2-database"
+        }; // https://docs.microsoft.com/en-us/azure/sql-database/sql-database-connect-query-dotnet
 
         private static DatabaseWindow _instance;
         public static DatabaseWindow GetInstance()
@@ -50,6 +61,32 @@ namespace P2SeriousGame
             if (_instance == null) _instance = new DatabaseWindow();
             {
                 return _instance;
+            }
+        }
+
+        private void GetConnectionString()
+        {
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+            builder.DataSource = "p2-avengers.database.windows.net";
+            builder.UserID = "tuandrengen";
+            builder.Password = "Aouiaom17";
+            builder.InitialCatalog = "p2-database";
+        }
+
+        private void PopulatePersons()
+        {
+            string query = "SELECT * FROM Person";
+
+            using (connection = new SqlConnection(builder.ConnectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+            {
+                DataTable personTable = new DataTable();
+                adapter.Fill(personTable);
+
+                listBox1.DisplayMember = "First Name";
+                listBox1.ValueMember = "Id";
+                listBox1.DataSource = personTable;
             }
         }
 
@@ -67,6 +104,11 @@ namespace P2SeriousGame
 
 
             }
+        }
+
+        private void DatabaseWindow_Load(object sender, System.EventArgs e)
+        {
+            PopulatePersons();
         }
     }
 }
