@@ -20,6 +20,9 @@ namespace P2SeriousGame
             IPathfinding path = new Pathfinding();
 			Map FirstLevel = new Map(FirstLevelHandler, 11, 11, path);
 			Application.Run(FirstLevelHandler);
+
+
+
 		}
 	}
 }

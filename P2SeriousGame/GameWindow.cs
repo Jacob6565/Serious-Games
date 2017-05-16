@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using P2SeriousGame.SQL;
 using P2SeriosuGame;
+using System.Threading;
 
 namespace P2SeriousGame
 {
@@ -18,6 +19,7 @@ namespace P2SeriousGame
         Database SQL = new Database();
         FlowLayoutPanel menuPanel = new FlowLayoutPanel();
         Panel gamePanel = new Panel();
+        
 
         public GameWindow()
         {
@@ -231,6 +233,7 @@ namespace P2SeriousGame
             AddExitButton(gamePanel);
             AddResetButton(gamePanel);
             StartGameButton(menuPanel);
+            DatabaseMenuButton(menuPanel);
             CloseMenuButton(menuPanel);
         }
 
@@ -247,6 +250,36 @@ namespace P2SeriousGame
             btnStartGame.Text = "Start Game";
             btnStartGame.TextAlign = ContentAlignment.MiddleCenter;
             panel.Controls.Add(btnStartGame);
+        }
+
+        private void DatabaseMenuButton(Panel panel)
+        {
+            Button btnOpenDatabase = new Button();
+            btnOpenDatabase.Size = new Size(300, 100);
+            btnOpenDatabase.TabStop = false;
+            btnOpenDatabase.FlatStyle = FlatStyle.Flat;
+            btnOpenDatabase.FlatAppearance.BorderSize = 0;
+            btnOpenDatabase.BackColor = Color.Azure;
+            btnOpenDatabase.MouseClick += CreateDatabaseWindow; // if it is clicked, then the panel will hide
+            btnOpenDatabase.Text = "Open Database";
+            btnOpenDatabase.TextAlign = ContentAlignment.MiddleCenter;
+            btnOpenDatabase.Location = new Point(this.Bounds.Right / 2 - btnOpenDatabase.Width / 2, this.Bounds.Top + 60);
+            
+            panel.Controls.Add(btnOpenDatabase);
+        }
+
+        private void CreateDatabaseWindow(object sender, MouseEventArgs e)
+        {
+            DatabaseWindow form = DatabaseWindow.GetInstance();
+            // http://stackoverflow.com/questions/2018272/preventing-multiple-instance-of-one-form-from-displaying
+            if (!form.Visible)
+            {
+                form.Show();
+            }
+            else
+            {
+                form.BringToFront();
+            }
         }
 
         private void CloseMenuButton(Panel panel)
