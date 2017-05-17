@@ -112,13 +112,6 @@ namespace P2SeriousGame
 		public List<HexagonButton> FindShortestRoutes()
         {
             //Input parametren er edgehexes.
-            int i = 0;
-            foreach (HexagonButton hex in _reachableEdgeTiles)
-            {
-                Console.WriteLine("Total Edgetiles:" + _reachableEdgeTiles.Count);
-                if (hex.IsEdgeTile)
-                    Console.WriteLine(i++);
-            }
             var shortestRoutes = new List<HexagonButton>();
             foreach (HexagonButton hex in _reachableEdgeTiles)
             {
@@ -134,13 +127,7 @@ namespace P2SeriousGame
                 else if (shortestRoutes.First().CostToStart == hex.CostToStart)
                     shortestRoutes.Add(hex);
             }
-            //foreach (HexagonButton hex in shortestRoutes)
-            //{
-            //    Console.WriteLine("Cost:"+ hex.CostToStart);
-            //    Console.WriteLine("Count:" + shortestRoutes.Count);
-            //    Console.WriteLine(hex.Coordinates);
-            //}
-          
+                     
             return shortestRoutes;
         }
 

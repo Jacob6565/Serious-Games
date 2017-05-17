@@ -16,7 +16,7 @@ namespace UnitTests
     [TestFixture]
     public class UnitTest1
     {
-        [TestCase(11,11)]
+        [TestCase(11, 11)]
         [TestCase(13, 13)]
         [TestCase(21, 21)]
         public void MapTest_PositiveOddValue_HexmapRightSize(int x, int y)
@@ -24,7 +24,7 @@ namespace UnitTests
             GameForm tester = new GameForm(x,y);
             IPathfinding a = null;
             MapTest map = new MapTest(tester, x, y, a);
-            Assert.AreEqual(x, MapTest.hexMap.GetLength(0)); 
+            Assert.AreEqual(x, MapTest.hexMap.GetLength(0));
             Assert.AreEqual(y, MapTest.hexMap.GetLength(1));
         }
 
@@ -44,8 +44,8 @@ namespace UnitTests
                 Assert.AreEqual(typeof(MapDimensionsMustBeHigher), e.GetType());
             }
         }
-        [TestCase(6,6)]
-        [TestCase(10,10)]
+        [TestCase(6, 6)]
+        [TestCase(10, 10)]
         public void MapTest_WrongDimensions_ThrowMapDimensionsMustBeOdd(int x, int y)
         {
             try
@@ -77,7 +77,7 @@ namespace UnitTests
                 Assert.AreEqual(6, MapTest.hexMap[buttomX, buttomY].neighbourList.Count);
             }
         }
-        [TestCase(11,11)]
+        [TestCase(11, 11)]
         public void FindNeighbours_PositiveOddValues_RightAmountOfNeighboursForEachTileOnRoute(int x, int y)
         {
             IPathfinding ipathfinding = new Pathfinding();
@@ -87,7 +87,7 @@ namespace UnitTests
             MouseEventArgs b = new MouseEventArgs(a, 0, 10, 10, 0);
             HexagonButton onlyForParameter = new HexagonButton(x / 2, y / 2, false);
             int numberOfTilesOnRute = (x / 2);
-            
+
             if (!MapTest.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].IsEdgeTile)
             {
                 Assert.AreEqual(6, MapTest.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].neighbourList.Count);
@@ -95,9 +95,9 @@ namespace UnitTests
                 for (int i = 0; i < numberOfTilesOnRute; i++)
                 {
                     map.MousePositioner(onlyForParameter, b);
-                    
+
                     if (!MapTest.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].IsEdgeTile)
-                    {                        
+                    {
                         Assert.AreEqual(6, MapTest.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].neighbourList.Count);
                     }
                     else if (MapTest.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].IsEdgeTile)
@@ -113,7 +113,7 @@ namespace UnitTests
                                     Assert.AreEqual(true, true);
                                     break;
                                 }
-                           default:
+                            default:
                                 {
                                     Assert.AreEqual(false, true);
                                     break;
@@ -123,7 +123,7 @@ namespace UnitTests
                 }
             }
         }
-      
+
 
         //Burde man gører sådan, at man ikke kan sætte koordinaterne en negativværdi.
         [TestCase(-1, -1, false)]
@@ -144,7 +144,7 @@ namespace UnitTests
         //[TestCase(0, 0)]
         //[TestCase(1, 1)]
         [TestCase(5, 5)]
-        [TestCase(11,11)]
+        [TestCase(11, 11)]
         [TestCase(21, 21)]
         public void MapTest_PositiveOddValues_ConstructedRight(int x, int y)
         {
@@ -172,14 +172,14 @@ namespace UnitTests
             Assert.AreEqual(false, hex.Passable);
         }
 
-        [TestCase(-10,-10)]
+        [TestCase(-10, -10)]
         [TestCase(-1, -1)]
         [TestCase(0, 0)]
         [TestCase(1, 1)]
         [TestCase(10, 10)]
         public void GetPoints_NumericValues_RightPointsCreated(int height, int width)
         {
-            
+
             float expX = width / 2;
             float expSide = height / 2;
             float expY = 0;
@@ -209,14 +209,14 @@ namespace UnitTests
             MouseButtons a = new MouseButtons();
             MouseEventArgs b = new MouseEventArgs(a, 0, 10, 10, 0);
             MapTest map = new MapTest(window, x, y, pathfinding);
-            HexagonButton onlyForParameter = new HexagonButton(x/2, y/2, false);
+            HexagonButton onlyForParameter = new HexagonButton(x / 2, y / 2, false);
             int LastX;
             int LastY;
             int startX = x / 2;
             int startY = y / 2;
             int numberOfTilesOnRute = (x / 2);
             int edgeTile = 1;
-            
+
             if (MapTest.newGame)
             {
                 map.MousePositioner(onlyForParameter, b);
@@ -225,10 +225,10 @@ namespace UnitTests
                 Assert.AreEqual(true, MapTest.hexMap[startX, startY].Enabled);
                 Assert.AreEqual(Color.Aqua, MapTest.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].BackColor);
                 Assert.AreEqual(false, MapTest.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].Enabled);
-                //Saves the current mouseposition before they gets overriden in the next call. 
+                //Saves the current mouseposition before it gets overriden in the next call. 
                 //They are going to be used to tjeck if the current mouseposition will be colored grey and enabled after next call.
                 //Because MouseX and MouseY are equal the coordinates of the first hex in the path. 
-                //in that way we kinda test that the mouse will move along the path. 
+                //In that way we kinda test that the mouse will move along the path. 
                 LastX = map.MouseXCoordinate;
                 LastY = map.MouseYCoordinate;
                 for (int i = 0; i < numberOfTilesOnRute - edgeTile; i++)
@@ -250,7 +250,7 @@ namespace UnitTests
         #region DrawButtonTest
         [TestCase(5, 5)]
         [TestCase(11, 11)]
-        [TestCase(15,15)]
+        [TestCase(15, 15)]
         public void GameForm_ButtonPainter_RightPolygon(int x, int y)
         {
             IPathfinding ipathfinding = new Pathfinding();
@@ -282,7 +282,62 @@ namespace UnitTests
         //        int calculatedX = hex.XCoordinate * Game.ButtonWidth + (hex.XCoordinate-1)*Game.CalculateButtonWidthOffset();
         //        Assert.AreEqual(hex.XCoordinate, hex.Location);
         //    }
+
         //}
+
+
+        //[TestCase(0, 0, 10, 10)]
+        //[TestCase(1, 1, 2, 2)]
+        //[TestCase(10, 10, 20, 20)]
+        //[TestCase(20, 20, 1, 1)]
+        //public void GameForm_CalculateButtonDimensionBasedOnScreenHeight_RightDimensionRatio(int buttomX, int buttomY, int rows, int columns)
+        //{
+        //    GameForm window = new GameForm();
+        //    HexagonButton hex = new HexagonButton(buttomX, buttomY, false);
+        //    MapTest map = new MapTest(window, rows, columns, ipathfinding);
+        //    window.Button
+        //}
+
+        //[TestCase(0, 0, 10, 10)]
+        //[TestCase(1, 1, 2, 2)]
+        //[TestCase(10, 10, 20, 20)]
+        //public void GameForm_CalculateButtonDimensionBasedOnScreenWidth_RightDimension(int buttomX, int buttomY, int rows, int columns)
+        //{
+        //    GameForm window = new GameForm();
+        //    HexagonButton hex = new HexagonButton(buttomX, buttomY, false);
+        //    MapTest map = new MapTest(window, rows, columns, ipathfinding);
+        //}
+
+        //[TestCase(0,0, 10, 10)]
+        //[TestCase(1,1, 2, 2)]
+        //[TestCase(10,10, 20, 20)]
+        //public void GameForm_PlaceHexagonButton_RightPosition(int buttomX, int buttomY, int rows, int columns)
+        //{
+        //    GameForm window = new GameForm();
+        //    HexagonButton hex = new HexagonButton(buttomX, buttomY, false);
+        //    MapTest map = new MapTest(window, rows, columns, ipathfinding);
+        //}
+        [TestCase(11, 11)]
+        public void CreateMap_CalculateButtonDimensionWorks_RightCoordinatesAndMode(int x, int y)
+        {
+            GameForm window = new GameForm();
+            IPathfinding ipathfinding = new Pathfinding();
+            MapTest map = new MapTest(window, x, y, ipathfinding);
+            map.CreateMap(window);
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    if (i == 0 || i == x - 1 || j == 0 || j == y - 1)
+                    {
+                        Assert.AreEqual(true, MapTest.hexMap[i, j].IsEdgeTile);
+                    }
+
+                    Assert.AreEqual(i, MapTest.hexMap[i, j].XCoordinate);
+                    Assert.AreEqual(j, MapTest.hexMap[i, j].YCoordinate);
+                }
+            }
+        }
     }
 
 }
