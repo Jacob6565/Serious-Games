@@ -9,12 +9,12 @@
 
 namespace P2SeriosuGame.SQL
 {
-    using P2SeriousGame.SQL;
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    
-    public partial class Entities : DbContext
+	using P2SeriousGame.SQL;
+	using System;
+	using System.Data.Entity;
+	using System.Data.Entity.Infrastructure;
+
+	public partial class Entities : DbContext
     {
         public Entities()
             : base("name=Entities")
