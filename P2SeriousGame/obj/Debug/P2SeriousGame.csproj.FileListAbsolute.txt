@@ -70,3 +70,4 @@ C:\Users\World\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.
 C:\Users\World\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.exe
 C:\Users\World\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.pdb
 C:\Users\World\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.DatabaseWindow.resources
+C:\Users\tuant\Source\Repos\Serious-Games\P2SeriousGame\obj\Debug\P2SeriousGame.DatabaseWindow.resources
