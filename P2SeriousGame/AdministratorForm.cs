@@ -11,32 +11,31 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace P2SeriousGame
 {
-    public partial class AdministratorForm : Form, IStatistic
-    {
-        Formatting formatting;
-        Panel administratorPanel = new Panel();
+	public partial class AdministratorForm : Form, IStatistic
+	{
+		Formatting formatting = new Formatting(new Control());
+		Panel administratorPanel = new Panel();
 		GraphPanel[] graphList = new GraphPanel[4];
 
-        public AdministratorForm()
-        {
-            formatting = new Formatting(this);
+		public AdministratorForm()
+		{
 			InitializeComponent();
 			InitializePanels();
 			FormBorderStyle = FormBorderStyle.None;
 			WindowState = FormWindowState.Maximized;
 		}
 
-        public void DrawWindow(object sender, EventArgs e)
-        {
+		public void DrawWindow(object sender, EventArgs e)
+		{
 		}
 
-        private void InitializePanels()
-        {
-            this.Controls.Add(administratorPanel);
-            administratorPanel.Width = formatting.ScreenWidth;
-            administratorPanel.Height = formatting.ScreenHeight;
+		private void InitializePanels()
+		{
+			this.Controls.Add(administratorPanel);
+			administratorPanel.Width = formatting.ScreenWidth;
+			administratorPanel.Height = formatting.ScreenHeight;
 
-			AddSearchSession();
+			// AddSearchSession();
 
 			CloseMenuButton(administratorPanel);
         }
@@ -76,10 +75,10 @@ namespace P2SeriousGame
   		}
 
 
-    private void ReturnToMainMenu(object sender, MouseEventArgs e)
-        {
-            Close();
-        }
+		private void ReturnToMainMenu(object sender, MouseEventArgs e)
+		{
+			Close();
+		}
 
 		private void LoadGraphs(object sender, MouseEventArgs e)
 		{

@@ -83,6 +83,7 @@
     </Compile>
     <Compile Include="Database.cs" />
     <Compile Include="EndOfMapException.cs" />
+    <Compile Include="EndOfMapException1.cs" />
     <Compile Include="Formatting.cs">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Form</SubType>

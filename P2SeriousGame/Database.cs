@@ -8,8 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using P2SeriousGame.SQL;
 using P2SeriousGame;
+using P2SeriosuGame.SQL;
 
 namespace P2SeriousGame
 {
@@ -71,17 +71,19 @@ namespace P2SeriousGame
                 roundList.Add(round);
             }
 
-
             // Adds the data from the lists to the database
             AddPersonToDatabase();
             AddRoundsToDatabase();
             AddSessionToDatabase();
+            PrintData();
         }
 
         public void ConvertSeconds()
         {
-            _elapsedSec = ElapsedSeconds(); // Converts the time to seconds
-            _secondsRound = unchecked(_elapsedSec); // Succesfully converts the long to float, ready for the database.
+            // Converts the time to seconds
+            _elapsedSec = ElapsedSeconds();
+            // Succesfully converts the long to float, ready for the database.
+            _secondsRound = unchecked(_elapsedSec);
         }
 
         public void AddToTotal()
@@ -158,7 +160,7 @@ namespace P2SeriousGame
         {
             using (var context = new Entities())
             {
-                context.Session.Add(new Session // adds a row to the Session table in the SQL database
+                context.Session.Add(new Session
                 {
                     Clicks = _clickedTotal,
                     AVG_Clicks = AverageClick(_clickedTotal, _secondsTotal),
@@ -177,7 +179,7 @@ namespace P2SeriousGame
             {
                 foreach (var item in context.Rounds)
                 {
-                    Console.WriteLine(item.Id);
+                    Console.WriteLine(item.Id + " " + item );
                     Console.WriteLine(item.Clicks);
                     Console.WriteLine(item.AVG_Clicks);
                     Console.WriteLine(item.Win);

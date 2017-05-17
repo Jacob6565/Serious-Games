@@ -9,10 +9,11 @@
 
 namespace P2SeriousGame.SQL
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Session
+	using P2SeriousGame.SQL;
+	using System;
+	using System.Collections.Generic;
+
+	public partial class Session
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Session()

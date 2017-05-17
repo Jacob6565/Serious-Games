@@ -23,6 +23,15 @@ namespace P2SeriousGame
             this.TimeUsed = TimeUsed;
         }
 
+        public Round(int RoundID, float clicks, float clicksAVG, int win, float TimeUsed)
+        {
+            this.RoundID = RoundID;
+            this.NumberOfClicks = clicks;
+            this.ClicksPerMinute = clicksAVG;
+            WinOrLoss(win);
+            this.TimeUsed = TimeUsed;
+        }
+
         public void WinOrLoss(int win)
         {
             if (win == 1)
@@ -39,7 +48,7 @@ namespace P2SeriousGame
 
         public override string ToString()
         {
-            return "ID: " + RoundID + " " + NumberOfClicks + " " + ClicksPerMinute + " " + Win + " " + Loss + " " + TimeUsed + ".";
+            return NumberOfClicks + " " + ClicksPerMinute + " " + Win + " " + Loss + " " + TimeUsed + ".";
         }
 
         //private DateTime[] timeBetweenClicks = new DateTime[50];
