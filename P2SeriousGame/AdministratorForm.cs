@@ -11,34 +11,34 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace P2SeriousGame
 {
-    public partial class AdministratorForm : Form, IStatistic
-    {
-        Formatting formatting = new Formatting();
-        Panel administratorPanel = new Panel();
+	public partial class AdministratorForm : Form, IStatistic
+	{
+		Formatting formatting = new Formatting(new Control());
+		Panel administratorPanel = new Panel();
 		GraphPanel[] graphList = new GraphPanel[4];
 
-        public AdministratorForm()
-        {
+		public AdministratorForm()
+		{
 			InitializeComponent();
 			InitializePanels();
 			FormBorderStyle = FormBorderStyle.None;
 			WindowState = FormWindowState.Maximized;
 		}
 
-        public void DrawWindow(object sender, EventArgs e)
-        {
+		public void DrawWindow(object sender, EventArgs e)
+		{
 		}
 
-        private void InitializePanels()
-        {
-            this.Controls.Add(administratorPanel);
-            administratorPanel.Width = formatting.ScreenWidth;
-            administratorPanel.Height = formatting.ScreenHeight;
+		private void InitializePanels()
+		{
+			this.Controls.Add(administratorPanel);
+			administratorPanel.Width = formatting.ScreenWidth;
+			administratorPanel.Height = formatting.ScreenHeight;
 
 			AddSearchSession();
 
 			CloseMenuButton();
-        }
+		}
 
 		private double InitializeGraph(List<float> valueList, int graphNumber)
 		{
@@ -55,19 +55,19 @@ namespace P2SeriousGame
 
 
 		private void CloseMenuButton()
-        {
-            Button btnCloseGame = new Button();
-            btnCloseGame.Size = new Size(300, 100);
-            btnCloseGame.TabStop = false;
-            btnCloseGame.FlatStyle = FlatStyle.Flat;
-            btnCloseGame.FlatAppearance.BorderSize = 0;
-            btnCloseGame.BackColor = Color.Azure;
-            btnCloseGame.Text = "Return to menu";
-            btnCloseGame.TextAlign = ContentAlignment.MiddleCenter;
-            btnCloseGame.Location = new Point(administratorPanel.Right / 2 - btnCloseGame.Width / 2, administratorPanel.Top + 60);
-            btnCloseGame.MouseClick += ReturnToMainMenu;
-            administratorPanel.Controls.Add(btnCloseGame);
-        }
+		{
+			Button btnCloseGame = new Button();
+			btnCloseGame.Size = new Size(300, 100);
+			btnCloseGame.TabStop = false;
+			btnCloseGame.FlatStyle = FlatStyle.Flat;
+			btnCloseGame.FlatAppearance.BorderSize = 0;
+			btnCloseGame.BackColor = Color.Azure;
+			btnCloseGame.Text = "Return to menu";
+			btnCloseGame.TextAlign = ContentAlignment.MiddleCenter;
+			btnCloseGame.Location = new Point(administratorPanel.Right / 2 - btnCloseGame.Width / 2, administratorPanel.Top + 60);
+			btnCloseGame.MouseClick += ReturnToMainMenu;
+			administratorPanel.Controls.Add(btnCloseGame);
+		}
 
 		private void AddSearchSession()
 		{
@@ -93,10 +93,10 @@ namespace P2SeriousGame
 		}
 
 
-        private void ReturnToMainMenu(object sender, MouseEventArgs e)
-        {
-            Close();
-        }
+		private void ReturnToMainMenu(object sender, MouseEventArgs e)
+		{
+			Close();
+		}
 
 		private void LoadGraphs(object sender, MouseEventArgs e)
 		{
