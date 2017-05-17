@@ -39,7 +39,7 @@ namespace UnitTests
             int fromMiddleToTileNextToEdge = (x / 2) + addValue;
             bfs.CalculateRoutes(MapTest.hexMap, MapTest.hexMap[x / 2, y / 2]);
 
-            #region Jacob
+            
             Assert.AreNotEqual(edgeTiles, bfs.FindTheRoutes());
             foreach (HexagonButton hex in bfs.FindLongestRoutes())
             {
@@ -47,14 +47,17 @@ namespace UnitTests
             }
             foreach(HexagonButton hex in bfs.FindLongestRoutes())
             {
-                Assert.IsTrue((bfs.CheckParent(hex) < x) || (bfs.CheckParent(hex) < y));
+                Assert.IsTrue(hex.CostToStart < x || hex.CostToStart < y);
             }
-            #endregion
-            #region Kris
-            //Assert.AreNotEqual(edgeTiles, bfs.FindTheRoutes());
-            //Assert.AreEqual(fromMiddleToTileNextToEdge, bfs.FindLongestRoutes()[0].CostToStart);
-            //Assert.IsTrue((bfs.CheckParent(bfs.FindTheRoutes()[0]) < x) || (bfs.CheckParent(bfs.FindTheRoutes()[0]) < y));
-            #endregion
+
+            int tempCost = 0;
+
+            foreach(HexagonButton hex in bfs.FindLongestRoutes())
+            {
+                if (tempCost == 0)
+                    tempCost = hex.CostToStart;
+                Assert.AreEqual(tempCost, hex.CostToStart);
+            }
         }
 
         [TestCase(9, 9)]
