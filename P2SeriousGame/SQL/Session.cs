@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace P2SeriosuGame.SQL
+namespace P2SeriousGame.SQL
 {
 	using P2SeriousGame.SQL;
 	using System;

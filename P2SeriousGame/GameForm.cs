@@ -25,8 +25,6 @@ namespace P2SeriousGame
             FirstLevel = new MapTest(this, mapSize, path);
             InitializeComponent();
             SQL.StartStopwatch();
-            InitializePanels();
-            FirstLevel = new MapTest(this, 11, path);
         }
 
         private void InitializePanels()
@@ -249,7 +247,7 @@ namespace P2SeriousGame
 
         private void ReturnToMainMenu(object sender, MouseEventArgs e)
         {
-            SQL.ExitGameToDatabase();
+ //           SQL.ExitGameToDatabase();
             Close();
         }
     }
