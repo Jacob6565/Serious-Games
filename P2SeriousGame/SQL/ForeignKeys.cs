@@ -11,6 +11,7 @@ namespace P2SeriousGame.SQL
 {
     using System;
     using System.Collections.Generic;
+    using P2SeriousGame.SQL;
     
     public partial class ForeignKeys
     {

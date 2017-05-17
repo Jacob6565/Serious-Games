@@ -38,7 +38,7 @@ namespace P2SeriousGame
 
 			AddSearchSession();
 
-			CloseMenuButton();
+			CloseMenuButton(administratorPanel);
         }
 
 		private double InitializeGraph(List<float> valueList, int graphNumber)
@@ -55,7 +55,7 @@ namespace P2SeriousGame
 		}
 
 
-		private void CloseMenuButton()
+		private void CloseMenuButton(Panel panel)
         {
             Button btnCloseGame = new Button();
             formatting.BtnLeftFormat(btnCloseGame, "Return to menu", Color.GhostWhite);
@@ -63,8 +63,20 @@ namespace P2SeriousGame
             panel.Controls.Add(btnCloseGame);
         }
 
+        private void AddSearchSession()
+        {
+            int screenMidPoint = administratorPanel.Width / 2;
 
-        private void ReturnToMainMenu(object sender, MouseEventArgs e)
+            NumericUpDown sessionInput = new NumericUpDown();
+            sessionInput.AutoSize = false;
+            sessionInput.Size = new Size(150, 100);
+            sessionInput.Location = new Point(screenMidPoint - (250 / 2), Bounds.Top + 20);           
+            administratorPanel.Controls.Add(sessionInput);
+
+  		}
+
+
+    private void ReturnToMainMenu(object sender, MouseEventArgs e)
         {
             Close();
         }
