@@ -36,7 +36,7 @@ namespace P2SeriousGame
             administratorPanel.Width = formatting.ScreenWidth;
             administratorPanel.Height = formatting.ScreenHeight;
 
-			AddSearchSession();
+			// AddSearchSession();
 
 			CloseMenuButton();
         }
@@ -60,7 +60,7 @@ namespace P2SeriousGame
             Button btnCloseGame = new Button();
             formatting.BtnLeftFormat(btnCloseGame, "Return to menu", Color.GhostWhite);
             btnCloseGame.MouseClick += ReturnToMainMenu;
-            panel.Controls.Add(btnCloseGame);
+            administratorPanel.Controls.Add(btnCloseGame);
         }
 
 
