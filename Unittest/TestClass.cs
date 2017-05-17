@@ -63,11 +63,11 @@ namespace UnitTests
 
         //Burde nok gøre sådan, at man ikke kan lave mappen 0,0.
         //tror ikke knappen med koordinaterne 0,0 er en edgetile.
+        [TestCase(13, 13, 11, 11)]
         [TestCase(9, 9, 8, 8)]
+        [TestCase(7, 7, 2, 2)]
         [TestCase(5, 5, 4, 4)]
-        //[TestCase(1, 1, 0, 0)]
-        //[TestCase(0, 0, 0, 0)]
-        public void FindNeighbours_PositiveOddValues_RightAmountOfNeighbours(int x, int y, int buttomX, int buttomY)
+        public void FindNeighbours_PositiveOddValues_RightAmountOfNeighboursForAGivenTile(int x, int y, int buttomX, int buttomY)
         {
             IPathfinding ipathfinding = new Pathfinding();
             GameForm tester = new GameForm();
@@ -78,6 +78,53 @@ namespace UnitTests
                 Assert.AreEqual(6, MapTest.hexMap[buttomX, buttomY].neighbourList.Count);
             }
         }
+        [TestCase(11,11)]
+        public void FindNeighbours_PositiveOddValues_RightAmountOfNeighboursForEachTileOnRoute(int x, int y)
+        {
+            IPathfinding ipathfinding = new Pathfinding();
+            GameForm tester = new GameForm();
+            MapTest map = new MapTest(tester, x, y, ipathfinding);
+            MouseButtons a = new MouseButtons();
+            MouseEventArgs b = new MouseEventArgs(a, 0, 10, 10, 0);
+            HexagonButton onlyForParameter = new HexagonButton(x / 2, y / 2, false);
+            int numberOfTilesOnRute = (x / 2);
+            
+            if (!MapTest.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].IsEdgeTile)
+            {
+                Assert.AreEqual(6, MapTest.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].neighbourList.Count);
+
+                for (int i = 0; i < numberOfTilesOnRute; i++)
+                {
+                    map.MousePositioner(onlyForParameter, b);
+                    
+                    if (!MapTest.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].IsEdgeTile)
+                    {                        
+                        Assert.AreEqual(6, MapTest.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].neighbourList.Count);
+                    }
+                    else if (MapTest.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].IsEdgeTile)
+                    {
+                        int n = MapTest.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].neighbourList.Count;
+                        switch (n)
+                        {
+                            case 2:
+                            case 3:
+                            case 4:
+                            case 5:
+                                {
+                                    Assert.AreEqual(true, true);
+                                    break;
+                                }
+                           default:
+                                {
+                                    Assert.AreEqual(false, true);
+                                    break;
+                                }
+                        }
+                    }
+                }
+            }
+        }
+      
 
         //Burde man gører sådan, at man ikke kan sætte koordinaterne en negativværdi.
         [TestCase(-1, -1, false)]
@@ -168,7 +215,8 @@ namespace UnitTests
             int LastY;
             int startX = x / 2;
             int startY = y / 2;
-            int numberOfTilesOnRute = (x / 2) - 1;
+            int numberOfTilesOnRute = (x / 2);
+            int edgeTile = 1;
             
             if (MapTest.newGame)
             {
@@ -184,7 +232,7 @@ namespace UnitTests
                 //in that way we kinda test that the mouse will move along the path. 
                 LastX = map.MouseXCoordinate;
                 LastY = map.MouseYCoordinate;
-                for (int i = 0; i < numberOfTilesOnRute; i++)
+                for (int i = 0; i < numberOfTilesOnRute - edgeTile; i++)
                 {
                     map.MousePositioner(onlyForParameter, b);
                     Assert.AreEqual(Color.LightGray, MapTest.hexMap[LastX, LastY].BackColor);

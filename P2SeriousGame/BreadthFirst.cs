@@ -85,14 +85,7 @@ namespace P2SeriousGame
         public List<HexagonButton> FindLongestRoutes()
         {
             var longestRoutes = new List<HexagonButton>();
-
-            int i = 0;
-            foreach (HexagonButton hex in _reachableHexList)
-            {
-                Console.WriteLine("Total Edgetiles:" + _reachableHexList.Count);
-                //if (hex.IsEdgeTile)
-                //    Console.WriteLine(i++);
-            }
+            
             foreach (HexagonButton hex in _reachableHexList)
             {
                 hex.CostToStart = CheckParent(hex);
@@ -107,13 +100,6 @@ namespace P2SeriousGame
                 else if (longestRoutes.First().CostToStart == hex.CostToStart)
                     longestRoutes.Add(hex);
             }
-
-            //foreach (HexagonButton hex in longestRoutes)
-            //{
-            //    Console.WriteLine("Cost:" + hex.CostToStart);
-            //    Console.WriteLine("Count:" + longestRoutes.Count);
-            //    Console.WriteLine(hex.Coordinates);
-            //}
             return longestRoutes;
         }
 
