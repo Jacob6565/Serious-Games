@@ -13,7 +13,6 @@ namespace UnitTests
      * 
      *    
          */
-    #region Jacob
     [TestFixture]
     public class UnitTest1
     {
