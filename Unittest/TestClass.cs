@@ -13,7 +13,6 @@ namespace UnitTests
      * 
      *    
          */
-    #region Jacob
     [TestFixture]
     public class UnitTest1
     {
@@ -351,7 +350,6 @@ namespace UnitTests
 
         //    Assert.AreEqual(false, MapTest.hexMap[x, y].Passable);
         //}
-        #endregion
     }
 
 }
