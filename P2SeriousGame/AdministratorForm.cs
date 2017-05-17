@@ -35,7 +35,7 @@ namespace P2SeriousGame
 			administratorPanel.Width = formatting.ScreenWidth;
 			administratorPanel.Height = formatting.ScreenHeight;
 
-			// AddSearchSession();
+			AddSearchSession();
 
 			CloseMenuButton();
 		}
