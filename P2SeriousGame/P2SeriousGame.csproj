@@ -83,6 +83,7 @@
     </Compile>
     <Compile Include="Database.cs" />
     <Compile Include="EndOfMapException.cs" />
+    <Compile Include="EndOfMapException1.cs" />
     <Compile Include="Formatting.cs">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Form</SubType>
@@ -93,7 +94,6 @@
     <Compile Include="GameForm.Designer.cs">
       <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GetRoundsFromDatabase.cs" />
     <Compile Include="GraphPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
