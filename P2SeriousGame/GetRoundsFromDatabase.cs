@@ -1,4 +1,4 @@
-﻿using P2SeriousGame.SQL;
+﻿using P2SeriosuGame.SQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;

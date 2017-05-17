@@ -9,6 +9,7 @@
 
 namespace P2SeriosuGame.SQL
 {
+    using P2SeriousGame.SQL;
     using System;
     using System.Collections.Generic;
     

@@ -8,8 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using P2SeriousGame.SQL;
 using P2SeriousGame;
+using P2SeriosuGame.SQL;
 
 namespace P2SeriousGame
 {
