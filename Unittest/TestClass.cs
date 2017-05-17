@@ -269,7 +269,7 @@ namespace UnitTests
             Assert.AreEqual(hexagonButton.Region, region);
             Assert.AreEqual(expectedPoints, buttonPath.PathPoints);
         }
-       
+
         #endregion
         //Hvis man tester CalculateRoutes, så tester man også de andre funktioner som bidrager til at finde ruten.
         //Ideen var, at man lavede 3 forskellige hex koordinatsæt, som kunne blive returneret af funktionen og så tjekke om den hex som bliver returneret af funktionen er lig en af dem. 
@@ -337,20 +337,27 @@ namespace UnitTests
         //    HexagonButton hex = new HexagonButton(buttomX, buttomY, false);
         //    MapTest map = new MapTest(window, rows, columns, ipathfinding);
         //}
+        [TestCase(11, 11)]
+        public void CreateMap_CalculateButtonDimensionWorks_RightCoordinatesAndMode(int x, int y)
+        {
+            GameForm window = new GameForm();
+            IPathfinding ipathfinding = new Pathfinding();
+            MapTest map = new MapTest(window, x, y, ipathfinding);
+            map.CreateMap(window);
+            for(int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    if (i == 0 || i == x-1 || j == 0 || j == y-1)
+                    {
+                        Assert.AreEqual(true, MapTest.hexMap[i, j].IsEdgeTile);
+                    }
 
-        //[TestCase(2, 2)]
-        //[TestCase(5, 4)]
-        //[TestCase(5, 6)]
-        //public void MapTest_HexagonButtons_ClickEvent(int x, int y)
-        //{
-        //    GameForm tester = new GameForm();
-
-        //    MapTest map = new MapTest(tester, 10, 10, a);
-
-        //    MapTest.hexMap[x, y].HexClicked(null, System.Windows.Forms.MouseEventArgs);
-
-        //    Assert.AreEqual(false, MapTest.hexMap[x, y].Passable);
-        //}
+                    Assert.AreEqual(i, MapTest.hexMap[i, j].XCoordinate);
+                    Assert.AreEqual(j, MapTest.hexMap[i, j].YCoordinate);
+                }
+            }
+        }
         #endregion
     }
 
