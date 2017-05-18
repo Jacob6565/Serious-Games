@@ -19,7 +19,7 @@ namespace UnitTests
         [TestCase(21, 21)]
         [TestCase(23, 23)]
         [TestCase(25, 25)]
-        public void CalculateRoutes_HexMapWithEdges_FindLongestRoutes(int x, int y)
+        public void CalculateRoutes_HexMapWithEdges_FindsLongestRoutes(int x, int y)
         {
             List<HexagonButton> queue = new List<HexagonButton>();
             List<HexagonButton> pathsToEdge = new List<HexagonButton>();

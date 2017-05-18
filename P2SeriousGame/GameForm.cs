@@ -138,7 +138,7 @@ namespace P2SeriousGame
             ButtonWidth = (int)buttonWidthTemp;
         }
 
-        public void DrawWindow(object sender, EventArgs e)
+        private void DrawWindow(object sender, EventArgs e)
         {
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
@@ -166,7 +166,7 @@ namespace P2SeriousGame
 
 		public static float hexClickedRound;
 
-        public void HexClickedColor(object sender, MouseEventArgs e)
+        private void HexClickedColor(object sender, MouseEventArgs e)
         {
             HexagonButton sender_Button = sender as HexagonButton;
             sender_Button.BackColor = Color.FromArgb(255, 105, 180);
