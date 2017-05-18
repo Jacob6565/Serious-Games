@@ -14,20 +14,32 @@ namespace P2SeriousGame
     {
         Panel gamePanel = new Panel();
         Database SQL = new Database();
-        MapTest FirstLevel;
+        public MapTest FirstLevel;
         IPathfinding path = new Pathfinding();
 
-        public GameForm()
+        public GameForm(int x, int y)
         {
             InitializeComponent();
             InitializePanels();
-            FirstLevel = new MapTest(this, 11, 11, path);
+            FirstLevel = new MapTest(this, x, y, path);
             SQL.StartStopwatch();
         }
 
         #region formatting
-        private int ButtonWidth;
-        private int ButtonHeight;
+        private int _buttonWidth;
+        public int ButtonWidth
+        {
+            get { return _buttonWidth; }
+            private set { _buttonWidth = value; }
+        }
+
+        private int _buttonHeight;
+        public int ButtonHeight
+        {
+            get { return _buttonHeight; }
+            set { _buttonHeight = value; }
+        }
+
         private int ButtonHeightOffset => (3 * (ButtonHeight / 4));
 
         int ScreenWidth = Screen.PrimaryScreen.Bounds.Width;
@@ -126,7 +138,7 @@ namespace P2SeriousGame
             ButtonWidth = (int)buttonWidthTemp;
         }
 
-        public void DrawWindow(object sender, EventArgs e)
+        private void DrawWindow(object sender, EventArgs e)
         {
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
@@ -154,7 +166,7 @@ namespace P2SeriousGame
 
 		public static float hexClickedRound;
 
-        public void HexClickedColor(object sender, MouseEventArgs e)
+        private void HexClickedColor(object sender, MouseEventArgs e)
         {
             HexagonButton sender_Button = sender as HexagonButton;
             sender_Button.BackColor = Color.FromArgb(255, 105, 180);
@@ -235,7 +247,7 @@ namespace P2SeriousGame
         /// <param name="xCoordinate"></param>
         /// <param name="yCoordinate"></param>
         /// <returns></returns>
-        private int CalculateButtonWidthOffset(int xCoordinate, int yCoordinate)
+        public int CalculateButtonWidthOffset(int xCoordinate, int yCoordinate)
         {
             int width = WidthStart;
             width += (xCoordinate * ButtonWidth);
@@ -252,7 +264,7 @@ namespace P2SeriousGame
         /// </summary>
         /// <param name="yCoordinate"></param>
         /// <returns></returns>
-        private int CalculateButtonHeightOffset(int yCoordinate)
+        public int CalculateButtonHeightOffset(int yCoordinate)
         {
             int height = _heightStart;
 

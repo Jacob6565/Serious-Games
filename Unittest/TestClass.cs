@@ -320,18 +320,8 @@ namespace UnitTests
         //    HexagonButton expectedHex2;
         //    if (buttomX < mapX/2 && buttomY < mapY/2)
         //    {
-        //       if(buttomY < buttomX)
-        //       {
-        //           expectedHex1 = new HexagonButton()
-        //       }
-        //       else if (buttomX < buttomY)
-        //       {
-        //            expectedLengthOfRoute = buttomX;              
-        //       }
-        //       else
-        //       {
-
-        //       }
+        //        int calculatedX = hex.XCoordinate * Game.ButtonWidth + (hex.XCoordinate-1)*Game.CalculateButtonWidthOffset();
+        //        Assert.AreEqual(hex.XCoordinate, hex.Location);
         //    }
 
         //}

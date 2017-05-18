@@ -19,13 +19,13 @@ namespace UnitTests
         [TestCase(21, 21)]
         [TestCase(23, 23)]
         [TestCase(25, 25)]
-        public void CalculateRoutes_HexMapWithEdges_FindLongestRoutes(int x, int y)
+        public void CalculateRoutes_HexMapWithEdges_FindsLongestRoutes(int x, int y)
         {
             List<HexagonButton> queue = new List<HexagonButton>();
             List<HexagonButton> pathsToEdge = new List<HexagonButton>();
             List<HexagonButton> reachableHexList = new List<HexagonButton>();
             List<HexagonButton> edgeTiles = new List<HexagonButton>();
-            GameForm window = new GameForm();
+            GameForm window = new GameForm(x,y);
             IPathfinding pathfindning = new Pathfinding();
             MapTest map = new MapTest(window, x, y, pathfindning);
             BreadthFirst bfs = new BreadthFirst(queue, pathsToEdge, reachableHexList);
@@ -75,7 +75,7 @@ namespace UnitTests
             List<HexagonButton> queue = new List<HexagonButton>();
             List<HexagonButton> pathsToEdge = new List<HexagonButton>();
             List<HexagonButton> reachableHexList = new List<HexagonButton>();
-            GameForm window = new GameForm();
+            GameForm window = new GameForm(x,y);
             IPathfinding pathfindning = new Pathfinding();
             MapTest map = new MapTest(window, x, y, pathfindning);
             HexagonButton[,] notStaticHexMap = MapTest.hexMap;
@@ -146,6 +146,20 @@ namespace UnitTests
                 }
 
             }
+        }
+
+        [TestCase(7, 7)]
+        [TestCase(35, 35)]
+        public void FindPath_FindsMouseButtonsNextHexTile_FindTileNextToMouse(int x, int y)
+        {
+            GameForm window = new GameForm(x,y);
+            IPathfinding pathfindning = new Pathfinding();
+            MapTest map = new MapTest(window, x, y, pathfindning);
+
+            HexagonButton nextTile = pathfindning.FindPath(MapTest.hexMap, MapTest.hexMap[x / 2, y / 2]);
+
+            Assert.IsTrue(x/2 - 1 <= nextTile.XCoordinate && nextTile.XCoordinate <= x/2 + 1);
+            Assert.IsTrue(y/2 - 1 <= nextTile.YCoordinate && nextTile.YCoordinate <= y/2 + 1);
         }
     }
 }

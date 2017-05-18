@@ -13,16 +13,16 @@ namespace P2SeriousGame
 {
     public partial class MainMenu : Form
     {
-        private FlowLayoutPanel menuPanel = new FlowLayoutPanel();
-
-        Database SQL = new Database();
-
-        Formatting formatting = new Formatting();
-
         public MainMenu()
         {
             InitializeComponent();
         }
+
+        private FlowLayoutPanel menuPanel = new FlowLayoutPanel();
+        Database SQL = new Database();
+        Formatting formatting = new Formatting();
+        const int xGameSize = 13;
+        const int yGameSize = 13;
 
         private void InitializeMenues()
         {
@@ -98,7 +98,7 @@ namespace P2SeriousGame
 
         private void SwitchToGame(object sender, MouseEventArgs e)
         {
-            Form gameWindow = new GameForm();
+            Form gameWindow = new GameForm(xGameSize,yGameSize);
             gameWindow.Show();
             //SQL.StartStopwatch();
         }

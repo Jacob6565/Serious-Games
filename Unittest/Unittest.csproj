@@ -41,6 +41,10 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameFormTester.cs" />
+    <Compile Include="HexagonButtonTester.cs" />
+    <Compile Include="MapTester.cs" />
+    <Compile Include="MathTester.cs" />
     <Compile Include="PathfindingTests.cs" />
     <Compile Include="TestClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
