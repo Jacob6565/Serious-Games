@@ -29,6 +29,10 @@ namespace UnitTests
             IPathfinding pathfindning = new Pathfinding();
             MapTest map = new MapTest(window, x, y, pathfindning);
             BreadthFirst bfs = new BreadthFirst(queue, pathsToEdge, reachableHexList);
+            int addValue = (x / 4) - 1;
+            int fromMiddleToTileNextToEdge = (x / 2) + addValue;
+            int tempCost = 0;
+
             foreach (var hexagonButton in MapTest.hexMap)
             {
                 if (hexagonButton.IsEdgeTile == true)
@@ -37,25 +41,19 @@ namespace UnitTests
                     edgeTiles.Add(hexagonButton);
                 }
             }
-
-            int addValue = (x / 4) - 1;
-            int fromMiddleToTileNextToEdge = (x / 2) + addValue;
             bfs.CalculateRoutes(MapTest.hexMap, MapTest.hexMap[x / 2, y / 2]);
 
-            
             Assert.AreNotEqual(edgeTiles, bfs.FindTheRoutes());
             foreach (HexagonButton hex in bfs.FindLongestRoutes())
             {
                 Assert.AreEqual(fromMiddleToTileNextToEdge, hex.CostToStart);
             }
-            foreach(HexagonButton hex in bfs.FindLongestRoutes())
+            foreach (HexagonButton hex in bfs.FindLongestRoutes())
             {
                 Assert.IsTrue(hex.CostToStart < x || hex.CostToStart < y);
             }
 
-            int tempCost = 0;
-
-            foreach(HexagonButton hex in bfs.FindLongestRoutes())
+            foreach (HexagonButton hex in bfs.FindLongestRoutes())
             {
                 if (tempCost == 0)
                     tempCost = hex.CostToStart;
@@ -94,7 +92,7 @@ namespace UnitTests
             Assert.AreEqual(x + 5, bfs.FindShortestRoutes().Count);
             //x + 5 different edgetiles the mouse can go to from startpoint.
         }
-                   
+
         [TestCase(1, 1, false, 0)]
         [TestCase(2, 2, false, 1)]
         [TestCase(3, 3, false, 5)]
@@ -124,19 +122,19 @@ namespace UnitTests
 
             for (int i = 0; i < length; i++)
             {
-                if (i == length-1)
+                if (i == length - 1)
                 {
                     hexes[i].parent = null;
                 }
                 else
                 {
-                    hexes[i].parent = hexes[i+1];
+                    hexes[i].parent = hexes[i + 1];
                 }
             }
 
             for (int i = 0; i < length; i++)
             {
-                if (i == length-1)
+                if (i == length - 1)
                 {
                     Assert.AreEqual(0, bfs.CheckParent(hexes[i]));
                 }
@@ -144,8 +142,9 @@ namespace UnitTests
                 {
                     //length-i-1, -i because the length should be 1 less each time.
                     //Minus 1 because the variable "length" is not 0-indexet but the list is.
-                    Assert.AreEqual(length-i-1, bfs.CheckParent(hexes[i]));
+                    Assert.AreEqual(length - i - 1, bfs.CheckParent(hexes[i]));
                 }
+
             }
         }
     }

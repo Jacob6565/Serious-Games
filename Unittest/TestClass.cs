@@ -6,8 +6,7 @@ using System.Drawing;
 
 namespace UnitTests
 {
-
-    /*Navngivning af testmetoder på følgende form:
+     /*Navngivning af testmetoder på følgende form:
      * 
      * Metodenavn_Betingelse_ForventetHandling
      * 
@@ -16,6 +15,8 @@ namespace UnitTests
     [TestFixture]
     public class UnitTest1
     {
+
+
         [TestCase(11, 11)]
         [TestCase(13, 13)]
         [TestCase(21, 21)]
@@ -83,9 +84,10 @@ namespace UnitTests
             IPathfinding ipathfinding = new Pathfinding();
             GameForm tester = new GameForm();
             MapTest map = new MapTest(tester, x, y, ipathfinding);
-            MouseButtons a = new MouseButtons();
-            MouseEventArgs b = new MouseEventArgs(a, 0, 10, 10, 0);
+
+            MouseEventArgs b = CreateMouseEventArgs();
             HexagonButton onlyForParameter = new HexagonButton(x / 2, y / 2, false);
+            
             int numberOfTilesOnRute = (x / 2);
 
             if (!MapTest.hexMap[map.MouseXCoordinate, map.MouseYCoordinate].IsEdgeTile)
@@ -165,8 +167,7 @@ namespace UnitTests
         public void HexClicked_PositiveValues_ValuesChangedRight(int buttomX, int buttomY)
         {
             HexagonButton hex = new HexagonButton(buttomX, buttomY, false);
-            MouseButtons a = new MouseButtons();
-            MouseEventArgs b = new MouseEventArgs(a, 0, 10, 10, 0);
+            MouseEventArgs b = CreateMouseEventArgs();
             hex.HexClicked(hex, b);
             Assert.AreEqual(false, hex.Enabled);
             Assert.AreEqual(false, hex.Passable);
@@ -206,8 +207,7 @@ namespace UnitTests
         {
             IPathfinding pathfinding = new Pathfinding();
             GameForm window = new GameForm();
-            MouseButtons a = new MouseButtons();
-            MouseEventArgs b = new MouseEventArgs(a, 0, 10, 10, 0);
+            MouseEventArgs b = CreateMouseEventArgs();
             MapTest map = new MapTest(window, x, y, pathfinding);
             HexagonButton onlyForParameter = new HexagonButton(x / 2, y / 2, false);
             int LastX;
@@ -244,8 +244,7 @@ namespace UnitTests
             }
         }
         #endregion
-
-
+        
         //denne burde virke, man kan ikke få Painteventet triggered. Har bare indsat funkionen, så man ikke kalder dem, men bare udfører den.
         #region DrawButtonTest
         [TestCase(5, 5)]
@@ -267,6 +266,39 @@ namespace UnitTests
 
             Assert.AreEqual(hexagonButton.Region, region);
             Assert.AreEqual(expectedPoints, buttonPath.PathPoints);
+        }
+
+        [TestCase(11, 11)]
+        [TestCase(13, 13)]
+        [TestCase(15, 15)]
+        [TestCase(17, 17)]
+        public void CreateMap_CalculateButtonDimensionWorks_RightCoordinatesAndMode(int x, int y)
+        {
+            GameForm window = new GameForm();
+            IPathfinding ipathfinding = new Pathfinding();
+            MapTest map = new MapTest(window, x, y, ipathfinding);
+            map.CreateMap(window);
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    if (i == 0 || i == x - 1 || j == 0 || j == y - 1)
+                    {
+                        Assert.AreEqual(true, MapTest.hexMap[i, j].IsEdgeTile);
+                    }
+
+                    Assert.AreEqual(i, MapTest.hexMap[i, j].XCoordinate);
+                    Assert.AreEqual(j, MapTest.hexMap[i, j].YCoordinate);
+                }
+            }
+        }
+
+        private MouseEventArgs CreateMouseEventArgs()
+        {
+            int x = 0;
+            MouseButtons mBtn = new MouseButtons();
+            MouseEventArgs mArgs = new MouseEventArgs(mBtn, x, x, x, x);
+            return mArgs;
         }
 
         #endregion
@@ -336,27 +368,6 @@ namespace UnitTests
         //    HexagonButton hex = new HexagonButton(buttomX, buttomY, false);
         //    MapTest map = new MapTest(window, rows, columns, ipathfinding);
         //}
-        [TestCase(11, 11)]
-        public void CreateMap_CalculateButtonDimensionWorks_RightCoordinatesAndMode(int x, int y)
-        {
-            GameForm window = new GameForm();
-            IPathfinding ipathfinding = new Pathfinding();
-            MapTest map = new MapTest(window, x, y, ipathfinding);
-            map.CreateMap(window);
-            for (int i = 0; i < x; i++)
-            {
-                for (int j = 0; j < y; j++)
-                {
-                    if (i == 0 || i == x - 1 || j == 0 || j == y - 1)
-                    {
-                        Assert.AreEqual(true, MapTest.hexMap[i, j].IsEdgeTile);
-                    }
-
-                    Assert.AreEqual(i, MapTest.hexMap[i, j].XCoordinate);
-                    Assert.AreEqual(j, MapTest.hexMap[i, j].YCoordinate);
-                }
-            }
-        }
     }
 
 }
